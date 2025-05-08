@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Karibu Rapid Response (KRR)</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-container">
+      <span><a href="index.html">Home</a> &gt; <span class="active">Karibu Rapid Response (KRR)</span></span>
+      <a href="#" class="breadcrumb-return">&lt; Return to previous page</a>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero hero-committee">
+    <img src="HERO.png" alt="Karibu Rapid Response" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>KARIBU RAPID RESPONSE (KRR)</h1>
+    </div>
+  </section>
+  <!-- Main Content -->
+  <main class="committee-main">
+    <div class="committee-intro">
+      Established in 2012, the vision of KRR is to have a large team of disciplined volunteer members who are inspired to willingly attend and assist members of our community and society at large during national or natural calamity and distress calls.
+    </div>
+    <section class="committee-row">
+      <div class="committee-col" style="width:100%;">
+        <ul>
+          <li>The inception of KRR came with the increase in requirement for handling distress related assistance needed by our community members. In preparation for the 2013 elections, KRR started being formalised under our welfare subcommittee of our Samaj.</li>
+          <li>We train members to develop self-esteem and confidence; through regular orientations they acquire skills and experience to handle distress situations with calmness and precision. They also learn to liaise with relevant groups, agencies & authorities to provide timely assistance to our community and the society at large during any calamity or distress call.</li>
+          <li>These trainings are regular and members are guided though First Aid also. We are extremely happy that many of our ladies partake in this initiative.</li>
+        </ul>
+        <ul>
+          <li>KRR works with the Kenya Police assisting in community policing. We have provided transport logistics to the police to enable smooth patrolling operations to keep the area safe and prevent any forms of crime. This noble cause has assisted many residents of the area and generally leads to safe environment. KRR, has worked closely together with all other such institutions to work as a team, for example to prevent crime during the election periods and assist in national crisis such as the Westgate attack and also on more happier occasions such as assisting in the welcoming event of the Indian Prime Minister Shree Narendra Modi during his visit.</li>
+          <li>KRR handles all the security, parking, crowd control and mobility related matters during any of our community functions by mobilising the required resources. We also handle the burial procedures of any of our community members. This allows the family members of the deceased to give more attention to the deceased and not to worry about the procedures and preparations. With the purchase of our own community hearse, this has become a smoother process.</li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h2 class="committee-heading gold" style="text-align:center;">GALLERY</h2>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin: 24px 0;">
+        <img src=".png" alt="KRR Gallery" style="width:140px; border-radius:8px; box-shadow:0 2px 8px #0001;">
+        <!-- Add more images as needed -->
+      </div>
+    </section>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script>
+    function loadHTML(id, url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(id).innerHTML = data; });
+    }
+    loadHTML('header-placeholder', 'header.html');
+    loadHTML('footer-placeholder', 'footer.html');
+  </script>
+</body>
+</html>

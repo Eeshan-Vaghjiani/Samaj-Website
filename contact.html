@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact - Shree Cutchi Leva Patel Samaj, Nairobi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-container">
+      <span><a href="index.html">Home</a> &gt; <span class="active">Contact</span></span>
+      <a href="#" class="breadcrumb-return">&lt; Return to previous page</a>
+    </div>
+  </div>
+  <!-- Main Content -->
+  <main class="contact-main">
+    <div class="contact-map">
+      <iframe src="https://www.google.com/maps?q=Shree+Cutchi+Leva+Patel+Samaj,+Nairobi&output=embed" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <form class="contact-form">
+      <div class="contact-row">
+        <input type="text" placeholder="Your Name (required)" required>
+        <input type="text" placeholder="Your gaam">
+      </div>
+      <div class="contact-row">
+        <input type="email" placeholder="Your email address (required)" required>
+        <input type="text" placeholder="Your Contact">
+      </div>
+      <div class="contact-row">
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="contact-btn">SEND MESSAGE</button>
+    </form>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script>
+    function loadHTML(id, url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(id).innerHTML = data; });
+    }
+    loadHTML('header-placeholder', 'header.html');
+    loadHTML('footer-placeholder', 'footer.html');
+  </script>
+</body>
+</html> 

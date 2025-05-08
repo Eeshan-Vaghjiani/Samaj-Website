@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mahila Mandal (Ladies Wing)</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-container">
+      <span><a href="index.html">Home</a> &gt; <span class="active">Mahila Mandal (Ladies Wing)</span></span>
+      <a href="#" class="breadcrumb-return">&lt; Return to previous page</a>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero hero-committee">
+    <img src="HERO.png" alt="Mahila Mandal (Ladies Wing)" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>MAHILA MANDAL (LADIES WING)</h1>
+    </div>
+  </section>
+  <!-- Main Content -->
+  <main class="committee-main">
+    <div class="committee-intro">
+      The SCLP Samaj Ladies Wing operates under the banner of Shree Cutchi Leva Patel Samaj-Nairobi. It was revamped in April 2016.
+    </div>
+    <section class="committee-row">
+      <div class="committee-col" style="width:100%;">
+        <p style="text-align:center; margin: 32px 0 16px 0;">
+          The Ladies Wing organizes activities related to and involving women in our community with the following objectives:
+        </p>
+        <ul>
+          <li>To promote activities for enhancement of all types of skills for women of our community</li>
+          <li>To enhance educational, social, moral, physical and cultural advancement of women</li>
+          <li>To undertake programs for the relief of illiteracy, poverty and assistance to the needy</li>
+        </ul>
+        <p style="text-align:center; margin: 32px 0 16px 0;">
+          SCLP Samaj Ladies Wing carries out regular activities and events that mainly revolve around health, sports, Hindu festivals, team building, mental health, cooking, cultural dance, music, education, outdoor activities and charity.
+        </p>
+      </div>
+    </section>
+    <section>
+      <h2 class="committee-heading gold" style="text-align:center;">GALLERY</h2>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin: 24px 0;">
+        <img src=".png" alt="Ladies Wing Gallery" style="width:140px; border-radius:8px; box-shadow:0 2px 8px #0001;">
+        <!-- Add more images as needed -->
+      </div>
+    </section>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script>
+    function loadHTML(id, url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(id).innerHTML = data; });
+    }
+    loadHTML('header-placeholder', 'header.html');
+    loadHTML('footer-placeholder', 'footer.html');
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shree Cutchi Leva Patel Samaj, Nairobi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="./images/underconst_bg.jpg" alt="Building Construction" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>UNITE. BELIEVE. SUCCEED</h1>
+    </div>
+  </section>
+  <!-- About Section -->
+  <section class="about">
+    <h2>ABOUT OUR SAMAJ</h2>
+    <p>Famously known as Kanbi, we Leva Patels of Kutch District have a history that can be traced back to several millenia.</p>
+    <div class="about-links">
+      <a href="#" class="about-link">
+        <img src="./images/underconst_bg.jpg" alt="Our History">
+        <span>OUR HISTORY</span>
+      </a>
+      <a href="#" class="about-link">
+        <img src="./images/medicalClinic.jpg" alt="Gallery">
+        <span>GALLERY</span>
+      </a>
+      <a href="#" class="about-link">
+        <img src="./images/medicalClinic.jpg" alt="Community News">
+        <span>COMMUNITY NEWS</span>
+      </a>
+    </div>
+  </section>
+  <!-- Vision Quote -->
+  <section class="vision">
+    <div class="vision-content">
+      <i class="fa fa-quote-left"></i>
+      <p>HAVE A VISION. ITS THE ABILITY TO SEE THE INVISIBLE. IF YOU CAN SEE THE INVISIBLE, YOU CAN ACHIEVE THE IMPOSSIBLE.</p>
+    </div>
+  </section>
+  <!-- Charitable Trust Section -->
+  <section class="charity">
+    <h2>SCLP CHARITABLE TRUST</h2>
+    <p>
+      Welfare towards humanity has always been in the forefront of our community. The SCLP Charitable Trust was founded on June 23, 1996 to care for the local community by providing relief with charitable and calamity aid in different parts of Kenya.<br>
+      Under the Trust, the BOG governs the Shree Cutchi Leva Patel Samaj School Nairobi and also disburses funding for education to local students.<br>
+      The Youth League collaborates on environmental awareness initiatives including tree planting, while the open-to-all Medical Clinic provides care to more than 50 patients daily at concessional rates.<br>
+      The Samaj Medical Clinic is facilitated with a laboratory, dental clinic, pharmacy and more recently, optical and orthopaedic services.
+    </p>
+    <a href="#" class="read-more">READ MORE</a>
+    <div class="charity-links">
+      <a href="#" class="charity-link">
+        <img src="./images/sclpschool.jpeg" alt="SCLP School">
+        <span>SCLP SCHOOL</span>
+      </a>
+      <a href="#" class="charity-link">
+        <img src="./images/medicalClinic.jpg" alt="Medical Clinic">
+        <span>MEDICAL CLINIC</span>
+      </a>
+      <a href="#" class="charity-link">
+        <img src="./images/underconst_bg.jpg" alt="Other Initiatives">
+        <span>OTHER INITIATIVES</span>
+      </a>
+    </div>
+  </section>
+  <div id="footer-placeholder"></div>
+  <script>
+    function loadHTML(id, url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(id).innerHTML = data; });
+    }
+    loadHTML('header-placeholder', 'header.html');
+    loadHTML('footer-placeholder', 'footer.html');
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Higher Education Loans (HELC)</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-container">
+      <span><a href="index.html">Home</a> &gt; <span class="active">Higher Education Loans (HELC)</span></span>
+      <a href="#" class="breadcrumb-return">&lt; Return to previous page</a>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero hero-committee">
+    <img src="hero.png" alt="Higher Education Loans" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>HIGHER EDUCATION LOANS (HELC)</h1>
+    </div>
+  </section>
+  <!-- Main Content -->
+  <main class="committee-main">
+    <section class="committee-row">
+      <div class="committee-col">
+        <p>The Higher Education Loan Committee is community donor funded initiative that provides interest-free loans to selected applicants for their higher education within Kenya.</p>
+        <p>This program is open to all community members, the committee's goal is to ensure that every individual has access to higher education, regardless of their financial constraints. The loan program offers a valuable opportunity for those who might otherwise be unable to pursue their educational dreams, allowing them to focus on their studies without the burden of high-interest rates.</p>
+        <p>Through this initiative, the committee aims to empower and uplift the community, fostering a more educated and prosperous society.</p>
+      </div>
+      <div class="committee-col">
+        <img src="HERO.png" alt="HELC Committee" style="width:100%;border-radius:8px;box-shadow:0 2px 8px #0002;">
+      </div>
+    </section>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script>
+    function loadHTML(id, url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(id).innerHTML = data; });
+    }
+    loadHTML('header-placeholder', 'header.html');
+    loadHTML('footer-placeholder', 'footer.html');
+  </script>
+</body>
+</html> 

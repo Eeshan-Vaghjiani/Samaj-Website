@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our History - Shree Cutchi Leva Patel Samaj, Nairobi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-container">
+      <span><a href="index.html">Home</a> &gt; <a href="#">Our Samaj</a> &gt; <span class="active">Our History</span></span>
+      <a href="#" class="breadcrumb-return">&lt; Return to previous page</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero hero-history">
+    <img src="./images/history-hero.jpg" alt="Our History" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>OUR HISTORY</h1>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="history-main">
+    <section class="history-section">
+      <h2 class="history-title">Famously known as Kanbi, we Leva Patels of Kutch District have a history that can be traced back to several millenia.</h2>
+      <div class="history-row">
+        <div class="history-text">
+          <p>While the primary industry of our ancestors was agriculture, it is found that we did not remain in one place for more than two to three generations.</p>
+          <p>The constant migration and living in unbearable, harsh environments made our people more resilient, determined and adventurous. The sheer will and determination to survive, coupled with courage and strength led our elders to eventually migrate from India to a new part of the world in Africa in the 1890s.</p>
+          <p>Having travelled via dhows, our people worked as merchants in Zanzibar and Mombasa, using carts and donkeys to transport water and materials in service to building the Mombasa-Nairobi Railway.</p>
+          <p>After the Second World War, as trade developed and communication became easier, a lot more people were encouraged to settle down in parts of Kenya and the wider East Africa. The sense of togetherness, patience and willingness to support each other financially and socially became a uniting factor for the community – qualities that continue to be embodied as a strength in the community to this day.</p>
+          <p>Over time, some people moved to Europe and spread across the globe in search of a better life and opportunities.</p>
+        </div>
+        <div class="history-image">
+          <img src="./images/history-docs.jpg" alt="Historical Documents">
+        </div>
+      </div>
+    </section>
+
+    <section class="history-quote-section">
+      <div class="history-quote">
+        <span>“IF YOU WANT TO GO FAST, GO ALONE. IF YOU WANT TO GO FAR, GO TOGETHER”</span>
+      </div>
+      <div class="history-image-center">
+        <img src="./images/history-ship.jpg" alt="Migration Ship">
+      </div>
+    </section>
+
+    <section class="history-section">
+      <h2 class="history-title gold">SHREE CUTCHI LEVA PATEL SAMAJ, NAIROBI</h2>
+      <div class="history-row">
+        <div class="history-text">
+          <p>With the growing need for a common place to hold meetings and community gatherings, the Shree Cutchi Leva Patel Samaj was established in 1946 with the foundation stone being laid on March 23, 1953 by Mr. Nanji Harji Varsani of Mankuva. Under the chairmanship of Mr Devshi Dhanji Vekaria of Baladia, donations poured in and Shree Cutchi Leva Patel Samaj on Duke Street (now Ronald Ngala Street) was opened on December 26, 1954. A library was later opened on June 4, 1958 and a visitors block opened by April 17, 1960. Gujarati classes, led by our community's women were held on Saturdays since 1972/73 in order to uphold our rich culture, our values and mother tongue.</p>
+          <p>As the community grew, there was a need to engage the community in a dedicated manner. With the initiation of Mr Kanji Jadva Karman Varsani of Madhapur and the personal sacrifices of Mr Ramji Ratna Varsani of Vekro and Mr Dhanji Dhanji Vekaria of Nanpar, a 6.5 acre parcel of land was acquired in Nairobi West, where a four day opening ceremony was held on April 9, 1993. Today, the complex includes a community hall with annexes, a sports ground, swimming pool and internationally recognized learning institute. Learn more about SCLP Samaj School.</p>
+        </div>
+        <div class="history-image">
+          <img src="./images/underconst_bg.jpg" alt="Samaj Construction">
+        </div>
+      </div>
+    </section>
+
+    <section class="history-quote-section gold-bg">
+      <div class="history-quote">
+        <span>OUR AMBITIONS MUST BE BROAD ENOUGH TO INCLUDE THE ASPIRATIONS AND NEEDS OF OTHERS, FOR THEIR SAKES AND FOR OUR OWN's</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+  <script>
+    function loadHTML(id, url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => { document.getElementById(id).innerHTML = data; });
+    }
+    loadHTML('header-placeholder', 'header.html');
+    loadHTML('footer-placeholder', 'footer.html');
+  </script>
+  <button class="scroll-up" id="scrollUpBtn"><i class="fa fa-arrow-up"></i></button>
+  <script>
+    const scrollUpBtn = document.getElementById('scrollUpBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 200) {
+        scrollUpBtn.style.display = 'block';
+      } else {
+        scrollUpBtn.style.display = 'none';
+      }
+    });
+    scrollUpBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    // Hide on load
+    scrollUpBtn.style.display = 'none';
+  </script>
+</body>
+</html> 
