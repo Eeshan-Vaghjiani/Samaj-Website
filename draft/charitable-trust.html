@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCLP Samaj Charitable Trust, Nairobi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-container">
+      <span><a href="home-draft.html">Home</a> > <span class="active">Charitable Trust</span></span>
+      <a href="#" class="breadcrumb-return">< Return to previous page</a>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Youth League Old Members Reunion Night 2012.JPG" alt="Charitable Trust" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>SHREE CUTCHI LEVA PATEL CHARITABLE TRUST – NAIROBI</h1>
+    </div>
+  </section>
+  <!-- Main Content -->
+  <main class="committee-main">
+    <div class="container">
+      <div class="committee-row">
+        <div class="committee-col">
+          <h2 class="committee-heading gold">ABOUT THE TRUST</h2>
+          <p>
+            The SCLP Charitable Trust was founded in June 1996 and continues to care for the local community since its establishment. Over the years, the Trust has provided relief with charitable donations and calamity aid across Kenya, disbursed bursaries to local students and held free healthcare medical camps twice a year in conjunction with the Samaj Medical Clinic. In partnership with the Youth League, several tree planting initiatives have also been successfully conducted.
+          </p>
+        </div>
+        <div class="committee-col gold-bg">
+          <h2 class="committee-heading">OUR PURPOSE</h2>
+          <ul>
+            <li>To provide relief to those in poverty and distress</li>
+            <li>Provide financial assistance for the advancement of education of persons who are residents of Kenya</li>
+            <li>Promote health, education, religion and welfare of persons who are residents of Kenya</li>
+            <li>Establish, acquire, manage and administer schools, hospitals, hostels or residential properties, outpatient clinics, welfare and charitable institutions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="committee-row">
+        <div class="committee-col">
+          <h2 class="committee-heading gold">OUR VISION AND MISSION</h2>
+          <ul>
+            <li>To foster opportunities to uplift the social, physical, educational, and cultural activities of the Institution members</li>
+            <li>To promote fraternal relationships and unity among the members</li>
+            <li>To acquire, eject, and maintain moveable and immoveable properties within Kenya</li>
+            <li>To raise and receive donations in cash or kind for charitable purposes</li>
+            <li>To establish institutions of learning and other welfare facilities</li>
+            <li>To assist materially, financially, and medically to those in need</li>
+            <li>To preach and promote the Hindu Religion and allied activities</li>
+            <li>To facilitate housing to deserving members at subsidized rates</li>
+          </ul>
+        </div>
+        <div class="committee-col gold-bg">
+          <h2 class="committee-heading">OUR INITIATIVES</h2>
+          <ul>
+            <li>SCLP School Nairobi - Providing quality education</li>
+            <li>Medical Clinic - Serving 50+ patients daily at concessional rates</li>
+            <li>Free Healthcare Camps - Conducted twice annually</li>
+            <li>Environmental Awareness - Tree planting initiatives</li>
+            <li>Educational Support - Bursaries for local students</li>
+            <li>Charitable Aid - Relief during calamities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+  <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
+  <script>
+    // Load header and footer
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+      });
+
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      });
+
+    // Mobile Navigation Toggle
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const nav = document.querySelector('nav');
+    
+    mobileNavToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+
+    // Scroll Up Button
+    const scrollUpBtn = document.getElementById('scrollUpBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 200) {
+        scrollUpBtn.style.display = 'flex';
+      } else {
+        scrollUpBtn.style.display = 'none';
+      }
+    });
+    
+    scrollUpBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Hide on load
+    scrollUpBtn.style.display = 'none';
+  </script>
+</body>
+</html>

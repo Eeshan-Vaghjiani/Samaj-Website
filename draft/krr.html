@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCLP Samaj Karibu Rapid Response, Nairobi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-container">
+            <span><a href="home-draft.html">Home</a> > <a href="#">Committees</a> > <span class="active">Karibu Rapid Response</span></span>
+            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="Timeline Related Photos/6. Next 10 Years (2008 - 2018)/KRR First Aid Training 2014.JPG" alt="Karibu Rapid Response" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>SCLP SAMAJ KARIBU RAPID RESPONSE, NAIROBI</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="committee-main">
+        <div class="container">
+            <div class="committee-row">
+                <div class="committee-col">
+                    <h2 class="committee-heading gold">ABOUT KRR</h2>
+                    <p>
+                        The Karibu Rapid Response (KRR) committee was established to provide immediate assistance and support to community members during emergencies and crisis situations. Our dedicated team works round the clock to ensure that help reaches those in need as quickly as possible.
+                    </p>
+                </div>
+                <div class="committee-col gold-bg">
+                    <h2 class="committee-heading">SERVICES</h2>
+                    <ul>
+                        <li>Emergency response and assistance</li>
+                        <li>Disaster relief coordination</li>
+                        <li>Community support during crises</li>
+                        <li>24/7 helpline for emergencies</li>
+                        <li>Coordination with emergency services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const nav = document.querySelector('nav');
+            
+            if (mobileNavToggle) {
+                mobileNavToggle.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                });
+            }
+        });
+
+        // Scroll up button
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollUpBtn.style.display = 'flex';
+            } else {
+                scrollUpBtn.style.display = 'none';
+            }
+        });
+
+        scrollUpBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

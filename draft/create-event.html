@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event - Shree Cutchi Leva Patel Samaj, Nairobi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-container">
+            <span><a href="index.html">Home</a> &gt; <a href="upcoming-events.html">Events</a> &gt; <span class="active">Create Event</span></span>
+            <a href="#" class="breadcrumb-return">&lt; Return to previous page</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="create-event-main">
+        <div class="container">
+            <h2 class="section-title">Create New Event</h2>
+            <p class="section-subtitle">Fill in the details below to create a new event</p>
+
+            <form id="createEventForm" class="create-event-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title*</label>
+                        <input type="text" id="eventTitle" name="eventTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventCategory">Event Category*</label>
+                        <select id="eventCategory" name="eventCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="youth-league">Youth League</option>
+                            <option value="cec">CEC</option>
+                            <option value="krr">KRR</option>
+                            <option value="mrs">MRS</option>
+                            <option value="mahila-mandal">Mahila Mandal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventDate">Event Date*</label>
+                        <input type="date" id="eventDate" name="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Event Time*</label>
+                        <input type="time" id="eventTime" name="eventTime" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventLocation">Event Location*</label>
+                        <input type="text" id="eventLocation" name="eventLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDuration">Duration (hours)*</label>
+                        <input type="number" id="eventDuration" name="eventDuration" min="1" max="24" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventDescription">Event Description*</label>
+                    <textarea id="eventDescription" name="eventDescription" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventImage">Event Image</label>
+                    <input type="file" id="eventImage" name="eventImage" accept="image/*">
+                    <small>Upload an image for the event (optional)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactPerson">Contact Person*</label>
+                    <input type="text" id="contactPerson" name="contactPerson" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactEmail">Contact Email*</label>
+                        <input type="email" id="contactEmail" name="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Contact Phone*</label>
+                        <input type="tel" id="contactPhone" name="contactPhone" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Create Event</button>
+                    <button type="reset" class="btn btn-secondary">Reset Form</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header
+            fetch('header.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const headerPlaceholder = document.getElementById('header-placeholder');
+                    if (headerPlaceholder) {
+                        headerPlaceholder.innerHTML = data;
+                        
+                        // Initialize mobile menu after header is loaded
+                        const mobileMenuToggle = document.querySelector('.mobile-nav-toggle');
+                        const nav = document.querySelector('nav');
+                        
+                        if (mobileMenuToggle && nav) {
+                            mobileMenuToggle.addEventListener('click', function() {
+                                nav.classList.toggle('active');
+                            });
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                    document.getElementById('header-placeholder').innerHTML = 'Error loading header';
+                });
+
+            // Load footer
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const footerPlaceholder = document.getElementById('footer-placeholder');
+                    if (footerPlaceholder) {
+                        footerPlaceholder.innerHTML = data;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                    document.getElementById('footer-placeholder').innerHTML = 'Error loading footer';
+                });
+
+            // Form submission handling
+            const form = document.getElementById('createEventForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would typically send the form data to your server
+                // For now, we'll just show a success message
+                alert('Event created successfully!');
+                form.reset();
+            });
+        });
+    </script>
+
+    <button class="scroll-up" id="scrollUpBtn"><i class="fa fa-arrow-up"></i></button>
+    <script>
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                scrollUpBtn.style.display = 'block';
+            } else {
+                scrollUpBtn.style.display = 'none';
+            }
+        });
+        scrollUpBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        // Hide on load
+        scrollUpBtn.style.display = 'none';
+    </script>
+</body>
+</html> 

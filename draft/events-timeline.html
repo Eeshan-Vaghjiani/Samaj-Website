@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey of Development - Shree Cutchi Leva Patel Samaj, Nairobi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-container">
+            <span><a href="home-draft.html">Home</a> > <a href="#">Our Samaj</a> > <span class="active">Journey of Development</span></span>
+            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="Timeline Related Photos/2.Ronald Ngala/Ronald Ngala Road Samaj opened on 26th December 1954.jpg" alt="Journey of Development" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>SCLP SAMAJ JOURNEY OF DEVELOPMENT, NAIROBI</h1>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <div class="timeline" id="timeline"></div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const nav = document.querySelector('nav');
+            
+            if (mobileNavToggle) {
+                mobileNavToggle.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                });
+            }
+        });
+
+        // Scroll up button
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollUpBtn.style.display = 'flex';
+            } else {
+                scrollUpBtn.style.display = 'none';
+            }
+        });
+
+        scrollUpBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Events data will be fetched from events.json
+        let eventsData = [];
+
+        // Fetch events data from JSON file
+        function fetchEventsData() {
+            return fetch('events.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    eventsData = data;
+                    return data;
+                })
+                .catch(error => {
+                    console.error('Error fetching events data:', error);
+                    const timeline = document.getElementById('timeline');
+                    timeline.innerHTML = '<div class="error-message">Error loading timeline data. Please try again later.</div>';
+                });
+        }
+
+        // Function to load timeline data
+        function loadTimelineData(data) {
+            try {
+                const timeline = document.getElementById('timeline');
+                timeline.innerHTML = ''; // Clear loading message
+                
+                if (!data || data.length === 0) {
+                    timeline.innerHTML = '<div class="error-message">No timeline data available.</div>';
+                    return;
+                }
+                
+                // Sort events by date
+                const events = [...data].sort((a, b) => {
+                    const dateA = new Date(a.eventDate);
+                    const dateB = new Date(b.eventDate);
+                    return dateA - dateB;
+                });
+        
+                let currentYear = '';
+                events.forEach((event, index) => {
+                    const year = event.eventDate.split(' ').pop();
+                    
+                    if (year !== currentYear) {
+                        const yearMarker = document.createElement('div');
+                        yearMarker.className = 'timeline-year';
+                        yearMarker.textContent = year;
+                        timeline.appendChild(yearMarker);
+                        currentYear = year;
+                    }
+                    
+                    const timelineItem = createTimelineItem(event);
+                    timeline.appendChild(timelineItem);
+                });
+
+                // Intersection Observer for animations
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                document.querySelectorAll('.timeline-item, .timeline-year').forEach(item => {
+                    observer.observe(item);
+                });
+            } catch (error) {
+                console.error('Error loading timeline:', error);
+                const timeline = document.getElementById('timeline');
+                timeline.innerHTML = '<div class="error-message">Error loading timeline. Please try again later.</div>';
+            }
+        }
+
+        // Timeline Animation
+        function createTimelineItem(event) {
+            const timelineItem = document.createElement('div');
+            timelineItem.className = 'timeline-item';
+            
+            const content = `
+                <div class="timeline-content">
+                    <span class="timeline-date">${event.eventDate}</span>
+                    <p>${event.eventDescription}</p>
+                    ${event.eventItems && event.eventItems.length > 0 ? `
+                        <ul>
+                            ${event.eventItems.map(item => `<li>${item.item}</li>`).join('')}
+                        </ul>
+                    ` : ''}
+                </div>
+                <div class="timeline-dot"></div>
+            `;
+            
+            timelineItem.innerHTML = content;
+            return timelineItem;
+        }
+
+        // Load and display timeline
+        function loadTimeline() {
+            try {
+                const timeline = document.getElementById('timeline');
+                timeline.innerHTML = '<div class="loading-message">Loading timeline...</div>';
+                
+                fetchEventsData()
+                    .then(data => {
+                        timeline.innerHTML = ''; // Clear loading message
+                        
+                        if (!data || data.length === 0) {
+                            timeline.innerHTML = '<div class="error-message">No timeline data available.</div>';
+                            return;
+                        }
+                        
+                        // Sort events by date
+                        const events = [...data].sort((a, b) => {
+                            const dateA = new Date(a.eventDate);
+                            const dateB = new Date(b.eventDate);
+                            return dateA - dateB;
+                        });
+                
+                        let currentYear = '';
+                        events.forEach((event, index) => {
+                            const year = event.eventDate.split(' ').pop();
+                            
+                            if (year !== currentYear) {
+                                const yearMarker = document.createElement('div');
+                                yearMarker.className = 'timeline-year';
+                                yearMarker.textContent = year;
+                                timeline.appendChild(yearMarker);
+                                currentYear = year;
+                            }
+                            
+                            const timelineItem = createTimelineItem(event);
+                            timeline.appendChild(timelineItem);
+                        });
+
+                        // Intersection Observer for animations
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('visible');
+                                }
+                            });
+                        }, {
+                            threshold: 0.1,
+                            rootMargin: '0px 0px -50px 0px'
+                        });
+
+                        document.querySelectorAll('.timeline-item, .timeline-year').forEach(item => {
+                            observer.observe(item);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading timeline:', error);
+                        const timeline = document.getElementById('timeline');
+                        timeline.innerHTML = '<div class="error-message">Error loading timeline. Please try again later.</div>';
+                    });
+            } catch (error) {
+                console.error('Error loading timeline:', error);
+                const timeline = document.getElementById('timeline');
+                timeline.innerHTML = '<div class="error-message">Error loading timeline. Please try again later.</div>';
+            }
+        }
+
+        // Load timeline when page loads
+        document.addEventListener('DOMContentLoaded', loadTimeline);
+    </script>
+</body>
+</html>

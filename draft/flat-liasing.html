@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCLP Samaj Building & Flat Liasing, Nairobi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Include header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-container">
+            <span><a href="home-draft.html">Home</a> > <a href="#">Committees</a> > <span class="active">Building & Flat Liasing</span></span>
+            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="Timeline Related Photos/Langata Flats Building/186.jpg" alt="Building & Flat Liasing" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>SCLP SAMAJ BUILDING & FLAT LIASING, NAIROBI</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="committee-main">
+        <div class="container">
+            <div class="committee-row">
+                <div class="committee-col">
+                    <h2 class="committee-heading gold">ABOUT BUILDING & FLAT LIASING</h2>
+                    <p>
+                        The Building & Flat Liasing committee is responsible for managing and maintaining the Samaj's properties, including residential and commercial spaces. Our goal is to ensure efficient property management and provide quality housing solutions for our community members.
+                    </p>
+                </div>
+                <div class="committee-col gold-bg">
+                    <h2 class="committee-heading">SERVICES</h2>
+                    <ul>
+                        <li>Property management and maintenance</li>
+                        <li>Tenant relations and support</li>
+                        <li>Facility maintenance and repairs</li>
+                        <li>Property development and renovation</li>
+                        <li>Community housing assistance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include footer -->
+    <div id="footer-placeholder"></div>
+
+    <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Scroll Up Button
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                scrollUpBtn.style.display = 'flex';
+            } else {
+                scrollUpBtn.style.display = 'none';
+            }
+        });
+        
+        scrollUpBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Hide on load
+        scrollUpBtn.style.display = 'none';
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<header>
+    <div class="container">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="Timeline Related Photos/samaj logo.png" alt="Logo" class="logo">
+                <div class="logo-text">
+                    <h1>Shree Cutchi Leva Patel Samaj</h1>
+                </div>
+            </div>
+            <nav>
+                <button class="mobile-nav-toggle">☰</button>
+                <ul class="nav-menu">
+                    <li><a href="home-draft.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Our Samaj<i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="events-timeline.html">Journey Of Development</a>
+                            <a href="history-in-pictures.html">History In Pictures</a>
+                            <a href="board-and-management.html">Board And Management</a>
+                        </div>
+                    </li>
+                    <li><a href="charitable-trust.html">Charitable Trust</a></li>
+                    <li class="dropdown">
+                        <a href="#">Committees <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="flat-liasing.html">Building & Flat Liaison</a>
+                            <a href="cec.html">Economic Council</a>
+                            <a href="ladies-wing.html">MAHILA MANDAL</a>
+                            <a href="krr.html">KARIBU RAPID RESPONCE</a>
+                            <a href="helc.html">Education Committee</a>
+                            <a href="mrs.html">Medical Committee</a>
+                            <a href="youth-league.html">Youth Committee</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Events <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="upcoming-events.html">Upcoming Events</a>
+                            <a href="past-events.html">Past Events</a>
+                        </div>
+                    </li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    // Function to set active navigation item based on current page
+    function setActiveNavItem() {
+        const currentPage = window.location.pathname.split('/').pop();
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        
+        // Remove all active classes first
+        navLinks.forEach(link => link.classList.remove('active'));
+        
+        // Set active class based on current page
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                link.classList.add('active');
+                // If it's in a dropdown, also highlight the parent
+                const parentDropdown = link.closest('.dropdown');
+                if (parentDropdown) {
+                    parentDropdown.querySelector('a').classList.add('active');
+                }
+            }
+        });
+    }
+
+    // Call the function when the header is loaded
+    document.addEventListener('DOMContentLoaded', setActiveNavItem);
+</script>
