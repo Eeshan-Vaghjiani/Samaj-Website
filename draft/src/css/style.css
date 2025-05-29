@@ -55,7 +55,7 @@ body {
 .header-layout {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
@@ -65,12 +65,14 @@ body {
 .logo-left {
     position: relative;
     z-index: 1001;
-    margin-right: 16px;
     width: 80px;
     height: 80px;
     flex-shrink: 0;
     overflow: visible;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo-left .logo {
@@ -80,6 +82,7 @@ body {
     max-height: 80px !important;
     object-fit: contain;
     filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 1));
+    display: block;
 }
 
 .nav-container {
@@ -600,6 +603,96 @@ footer .social-icon:hover {
 }
 
 @media (max-width: 768px) {
+    .header-wrapper {
+        padding: 12px 16px;
+        background-color: transparent;
+        max-width: 100%;
+        overflow-x: hidden; /* Prevent horizontal overflow */
+    }
+    
+    .header-layout {
+        justify-content: flex-start; /* Change from space-between to flex-start */
+        align-items: center;
+        padding: 0;
+        position: relative;
+        width: 100%;
+        min-height: 45px;
+    }
+
+    /* Keep the header layout clean in mobile */
+    .header-wrapper.scrolled .header-layout {
+        min-height: 45px;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Right side actions container - keep fixed on the right */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 45px;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1002; /* Higher z-index to stay above other elements */
+    }
+    
+    .header-actions .search-icon {
+        color: #4b5563;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 45px;
+        width: 45px;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .mobile-nav-toggle {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        transform: none;
+        background: rgba(255,255,255,0.2);
+        padding: 8px;
+        border-radius: 4px;
+        margin: 0;
+        height: 45px;
+        width: 45px;
+    }
+    
+    /* Logo positioning */
+    .logo-left {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        width: 45px;
+        height: 45px;
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: none !important;
+    }
+    
+    .logo-left .logo {
+        width: 45px !important;
+        height: 45px !important;
+        max-width: 45px !important;
+        max-height: 45px !important;
+        object-fit: contain;
+        margin: 0;
+        padding: 0;
+        display: block;
+        transform: none !important;
+    }
+    
     .hero-content {
         padding-top: 150px;
     }
@@ -640,177 +733,289 @@ footer .social-icon:hover {
         font-size: 1.6rem;
     }
     
-    /* Mobile header styles */
-    .header-layout {
-        justify-content: space-between;
-    }
-    
-    .logo-left {
-        position: relative;
-        left: auto;
-        top: auto;
-        transform: none;
-        width: 60px;
-        height: 60px;
-    }
-    
-    .logo-left .logo {
-        width: 60px;
-        max-width: 60px !important;
-    }
-    
-    .nav-container {
-        padding: 8px 16px;
-        width: 80%;
-        max-width: 80% !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
+    /* Header actions */
+    .header-actions {
         display: flex;
         align-items: center;
+        gap: 12px;
+        height: 45px;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 1001;
+    }
+    
+    .header-actions .search-icon {
+        color: #4b5563;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        height: 45px;
+        margin: 0;
+        padding: 0;
     }
     
     .mobile-nav-toggle {
-        display: block;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
         position: relative;
-        background: transparent;
-        border: 0;
-        font-size: 1.8rem;
-        color: white;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        cursor: pointer;
-        z-index: 1002;
-        margin-right: 5px;
+        transform: none;
+        background: rgba(255,255,255,0.2);
         padding: 8px;
+        border-radius: 4px;
+        margin: 0;
+        height: 45px;
+        width: 45px;
     }
     
-    .nav-menu, .header-right {
+    .mobile-nav-toggle i {
+        font-size: 1.3rem;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    /* Override any conflicting styles */
+    .header-wrapper.scrolled .logo-left,
+    .header-wrapper.scrolled .logo-left .logo {
+        width: 45px !important;
+        height: 45px !important;
+        max-width: 45px !important;
+        max-height: 45px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+    }
+    
+    /* Make sure header actions stay in position even in scrolled state */
+    .header-wrapper.scrolled .header-actions {
+        position: absolute !important;
+        right: 16px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        height: 45px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Hero section adjustments */
+    .hero-section + .header-wrapper .header-actions .search-icon,
+    .hero-section + .header-wrapper .mobile-nav-toggle i {
+        color: white;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    /* Ensure nav container doesn't affect logo */
+    .nav-container {
         display: none;
     }
     
     .nav-container.mobile-active {
+        display: flex;
+    }
+    
+    /* Mobile menu container */
+    .nav-container {
         position: fixed;
         top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        right: -100%;
+        width: 80%;
         height: 100vh;
-        border-radius: 0 !important;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 80px;
-        padding-bottom: 40px;
-        background-color: white !important;
-        z-index: 1001;
-        width: 100%;
-        max-width: 100% !important;
-    }
-    
-    .nav-container.mobile-active #main-nav {
-        width: 100%;
-    }
-    
-    .nav-container.mobile-active .nav-menu {
+        max-width: 350px;
+        background-color: #fff;
         display: flex;
         flex-direction: column;
-        gap: 24px;
-        width: 100%;
-        align-items: center;
-        padding-top: 32px;
+        justify-content: flex-start; /* Changed to flex-start for better content flow */
+        padding: 20px;
+        border-radius: 0;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        z-index: 1000;
     }
     
-    .nav-container.mobile-active .nav-menu li a {
-        font-size: 1.125rem;
-        padding: 8px;
-    }
-    
-    .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        box-shadow: none;
-        background: transparent;
-        padding: 0;
-        margin-top: 12px;
-        width: 100%;
-        display: none;
-    }
-    
-    .nav-menu li.has-dropdown.show-dropdown .dropdown-menu {
-        display: block;
-    }
-    
-    .nav-menu li.has-dropdown > a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .nav-menu li.has-dropdown > a:after {
-        margin-left: 8px;
-    }
-    
-    .nav-container.mobile-active .header-right {
-        display: flex;
-        margin-top: 32px;
-        justify-content: center;
-        align-items: center;
-        height: auto;
-    }
-    
-    .nav-container.mobile-active .header-right .social-icons {
-        height: auto;
-        justify-content: center;
-        margin-top: 0;
-    }
-    
-    .nav-container.mobile-active .header-right .social-icons a {
-        height: 40px;
-        width: 40px;
-        margin-top: 0;
-    }
-    
-    .nav-container.mobile-active .header-right .social-icons a i {
-        font-size: 20px;
-    }
-    
-    /* Override scrolled state for mobile */
-    .header-wrapper.scrolled .nav-container {
-        max-width: 100% !important;
+    /* Show the mobile logo at the top - fixed with !important */
+    .mobile-menu-logo {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 20px 0 30px !important;
+        border-bottom: 1px solid #eee !important;
+        margin-bottom: 20px !important;
+        text-align: center !important;
         width: 100% !important;
-        border-radius: 0 !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-        margin-left: 55px !important;
+        position: relative !important;
+        z-index: 10 !important;
     }
     
-    /* Only apply these styles when the mobile menu is active */
-    .header-wrapper.scrolled .nav-container.mobile-active {
-        max-width: 100% !important;
-        width: 100% !important;
-        border-radius: 0 !important;
-        background-color: white !important;
-        margin-left: 0 !important; /* Reset margin when menu is open */
+    .mobile-menu-logo .logo {
+        width: 80px !important;
+        height: auto !important;
+        max-width: 80px !important;
+        display: block !important; /* Ensure logo display */
+        margin-bottom: 15px !important;
+        object-fit: contain !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
-
-    /* Completely revised mobile scrolled logo positioning */
-    .header-wrapper.scrolled .logo-left {
-        position: absolute;
-        top: 0;
-        left: 3px;
-        width: 45px;
-        height: 45px;
+    
+    .mobile-title {
+        font-size: 1.1rem;
+        color: var(--navy);
+        font-weight: 600;
         margin: 0;
         padding: 0;
-        transform: translateY(-50%) scale(0.85);
-        margin-top: 25px;
     }
     
-    .header-wrapper.scrolled .logo-left .logo {
-        width: 45px;
+    /* Navigation takes the middle section */
+    .nav-container #main-nav {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
         height: auto;
-        max-width: 45px !important;
-        max-height: 45px !important;
+        width: 100%; /* Ensure full width */
+        margin-top: 10px; /* Add space after logo */
+    }
+    
+    /* Modified dropdown menu behavior for mobile */
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        gap: 10px;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        height: auto;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0 !important;
+    }
+    
+    .nav-menu li a {
+        width: 100%;
+        height: auto;
+        padding: 12px 0;
+        display: block;
+        line-height: normal !important;
+    }
+    
+    /* Crucial fix: Override all default dropdown styles for mobile */
+    .nav-menu li.has-dropdown > a:after {
+        content: "\f078" !important;
+        font-family: "Font Awesome 6 Free" !important;
+        font-weight: 900 !important;
+        margin-left: 8px !important;
+        font-size: 0.8rem !important;
+        transition: transform 0.3s ease !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
+    }
+    
+    .nav-menu li.has-dropdown.show-dropdown > a:after {
+        transform: rotate(180deg) !important;
+    }
+    
+    /* Override any hover behaviors from desktop for mobile */
+    .nav-menu li.has-dropdown:hover .dropdown-menu {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        /* Don't set max-height here to avoid conflict with the click behavior */
+    }
+    
+    /* Complete override of dropdown styles for mobile */
+    .nav-menu .dropdown-menu {
+        position: static !important;
+        width: 100% !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        box-shadow: none !important;
+        background-color: #f5f5f5 !important;
+        border-radius: 8px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease !important;
+        display: block !important;
+    }
+    
+    /* When dropdown is shown, it pushes content down */
+    .nav-menu li.has-dropdown.show-dropdown .dropdown-menu {
+        max-height: 500px !important;
+        padding: 10px 0 !important;
+        margin-top: 5px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    /* Dropdown items styling */
+    .dropdown-menu li {
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+    
+    .dropdown-menu li a {
+        padding: 10px 15px !important;
+        font-size: 0.9rem !important;
+        color: #555 !important;
+        display: block !important;
+    }
+    
+    /* Social icons go to the bottom */
+    .nav-container .header-right {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .nav-container .header-right .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    /* Make sure the menu appears when active */
+    .nav-container.mobile-active {
+        right: 0 !important;
+        display: flex !important;
+        padding: 20px !important;
+        overflow-y: auto !important;
+    }
+
+    /* Fix body scrolling when menu is open with proper scroll position management */
+    body.menu-open {
+        position: fixed;
+        overflow: hidden;
+        width: 100%;
+        /* Don't specify height to avoid stretching issues */
+        top: 0;
+        left: 0; 
+        right: 0;
+        bottom: 0;
+        /* Maintain position */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Ensure the mobile menu itself is scrollable */
+    .nav-container.mobile-active {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 50px;
     }
 }
 
@@ -933,17 +1138,52 @@ footer .social-icon:hover {
     color: #0077b5;
 }
 
-/* Mobile toggle button */
+/* Mobile toggle button - updated for better visibility and animation */
 .mobile-nav-toggle {
     display: none;
-    position: relative;
     background: transparent;
-    border: 0;
-    font-size: 1.8rem;
-    color: white;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    border: none;
     cursor: pointer;
+    font-size: 1.8rem;
+    color: #333;
     z-index: 1002;
-    margin-right: 5px;
     padding: 8px;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.mobile-nav-toggle i {
+    color: #333;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+/* Remove any transform animation from the toggle button itself */
+.mobile-nav-toggle:hover {
+    transform: none;
+}
+
+/* Fix for header on hero section where icon might be invisible */
+.hero-section + .header-wrapper .mobile-nav-toggle i {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Header right actions (search + mobile toggle) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Hide mobile-only logo by default */
+.mobile-menu-logo {
+    display: none !important;
 } 

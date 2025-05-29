@@ -300,63 +300,74 @@ html {
 /* Mobile menu animations */
 @media (max-width: 768px) {
   .header-wrapper .nav-container {
-    transition: all 0.3s ease;
-    transform-origin: top center;
-    transform: translateY(0);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease;
   }
 
   .nav-container.mobile-active {
-    animation: mobileNavExpand 0.3s ease forwards;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  /* Explicitly override any animation properties for the mobile logo */
+  .nav-container.mobile-active .mobile-menu-logo,
+  .nav-container.mobile-active .mobile-menu-logo .logo {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Ensure the mobile menu logo is immediately visible when menu is active */
+  .nav-container.mobile-active .mobile-menu-logo {
+    display: flex !important;
   }
 
-  @keyframes mobileNavExpand {
-    0% {
-      opacity: 0;
-      height: 0;
-      transform: translateY(-20px);
-    }
-    100% {
-      opacity: 1;
-      height: 100vh;
-      transform: translateY(0);
-    }
+  /* Fixed header actions position - must stay on right side */
+  .header-actions {
+    position: absolute !important;
+    right: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1002 !important;
   }
-
-  .nav-container.mobile-active .nav-menu {
-    animation: fadeIn 0.4s ease forwards 0.2s;
-  }
-
-  .nav-container.mobile-active .nav-menu li {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 0.5s ease forwards;
-  }
-
-  .nav-container.mobile-active .nav-menu li:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-
-  .nav-container.mobile-active .nav-menu li:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-
-  .nav-container.mobile-active .nav-menu li:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-
-  .nav-container.mobile-active .nav-menu li:nth-child(4) {
-    animation-delay: 0.4s;
-  }
-
-  .nav-container.mobile-active .nav-menu li:nth-child(5) {
-    animation-delay: 0.5s;
-  }
-
-  .mobile-nav-toggle {
-    transition: all 0.3s ease;
-  }
-
+  
+  /* Disable any animation that might affect the hamburger icon */
   .mobile-nav-toggle:hover {
-    transform: rotate(90deg);
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Remove rotation animation */
+  .mobile-nav-toggle.mobile-active,
+  .mobile-nav-toggle:hover {
+    transform: none !important;
+  }
+  
+  /* Ensure logo stays fixed */
+  .logo-left,
+  .logo-left .logo {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  /* Ensure header actions stay fixed */
+  .header-actions,
+  .header-actions .search-icon,
+  .mobile-nav-toggle {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  /* Ensure mobile icon stays centered */
+  .mobile-nav-toggle i {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 } 

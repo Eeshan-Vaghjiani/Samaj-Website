@@ -10,6 +10,12 @@
         
         <!-- Oval navigation container - now transparent on mobile -->
         <div class="nav-container">
+            <!-- Logo for mobile menu only - Moved to top of nav container, simplified structure -->
+            <div class="mobile-menu-logo">
+                <img src="../assets/images/Timeline Related Photos/samaj logo.png" alt="Samaj Logo" class="logo">
+                <h3 class="mobile-title">Shree Cutchi Leva Patel Samaj</h3>
+            </div>
+            
             <nav id="main-nav">
                 <ul class="nav-menu">
                     <li><a href="../pages/index.html" class="active">Home</a></li>
@@ -45,11 +51,8 @@
                 </ul>
             </nav>
             
-            <!-- Search and social icons -->
+            <!-- Social icons - will appear at bottom on mobile -->
             <div class="header-right">
-                <a href="#" class="search-icon" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                </a>
                 <div class="social-icons">
                     <a href="#" aria-label="Facebook" class="facebook-icon">
                         <i class="fab fa-facebook-f"></i>
@@ -64,46 +67,17 @@
             </div>
         </div>
         
-        <!-- Mobile navigation toggle - moved within header-layout for proper positioning -->
-        <button class="mobile-nav-toggle" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
+        <!-- Header right section with search and mobile toggle -->
+        <div class="header-actions">
+            <a href="javascript:void(0);" class="search-icon" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </a>
+            <!-- Mobile navigation toggle - simple button with no inline handlers -->
+            <button type="button" class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
     </div>
 </div>
-
-<!-- Mobile navigation script -->
-<script>
-    // Mobile navigation toggle
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const navContainer = document.querySelector('.nav-container');
-    
-    if (mobileNavToggle && navContainer) {
-        mobileNavToggle.addEventListener('click', function() {
-            navContainer.classList.toggle('mobile-active');
-            const icon = this.querySelector('i');
-            if (icon) {
-                if (navContainer.classList.contains('mobile-active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            }
-        });
-        
-        // Mobile dropdown menus
-        const dropdownLinks = document.querySelectorAll('.nav-menu li.has-dropdown > a');
-        dropdownLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    const parent = this.parentNode;
-                    parent.classList.toggle('show-dropdown');
-                }
-            });
-        });
-    }
-</script>
 
 
