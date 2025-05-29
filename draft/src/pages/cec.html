@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCLP Samaj Cutchi Economic Council (CEC), Nairobi</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css">
+  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <!-- Include header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-container">
+            <span><a href="index.html">Home</a> > <a href="#">Committees</a> > <span class="active">Cutchi Economic Council (CEC)</span></span>
+            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/At Business Expo 2016.jpg" alt="Cutchi Economic Council" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>SCLP SAMAJ CUTCHI ECONOMIC COUNCIL (CEC), NAIROBI</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="committee-main">
+        <div class="container">
+            <!-- Introduction Row -->
+            <div class="committee-row">
+                <div class="committee-col white-bg">
+                    <h2 class="committee-heading gold">ABOUT CEC</h2>
+                    <p>
+                        CEC was initiated by the managing committee members of SCLP Samaj in early 2015. It is therefore the youngest sub-committee.
+                    </p>
+                </div>
+                <div class="committee-col gold-bg">
+                    <h2 class="committee-heading">VISION</h2>
+                    <p>
+                        The vision of CEC is to improve the economic status of members of SCLP Samaj.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mission Row -->
+            <div class="committee-row">
+                <div class="committee-col gold-bg">
+                    <h2 class="committee-heading">MISSION</h2>
+                    <p>
+                        To create awareness of opportunities, carry out training forums, business networking forums, circulate job opportunities and facilitate venture capital system within our community members.
+                    </p>
+                </div>
+                <div class="committee-col white-bg">
+                    <h2 class="committee-heading gold">AIMS AND OBJECTIVES</h2>
+                    <ul>
+                        <li>To promote the vision of Shree Cutchhi Leva Patel Samaj, Nairobi.</li>
+                        <li>To continuously train and develop skills and knowledge on self development and business acumen.</li>
+                        <li>To gather and share any leads on employment opportunities among our community members.</li>
+                        <li>To facilitate and arrange for business forums and exhibitions.</li>
+                        <li>To facilitate venture capital activity among our community members.</li>
+                        <li>To create and maintain an index that can be used as guidance and benchmark for economic status of the members and community.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Achievements Row -->
+            <div class="committee-row">
+                <div class="committee-col white-bg">
+                    <h2 class="committee-heading gold">CURRENT ACHIEVEMENTS</h2>
+                    <div class="achievements-grid">
+                        <div class="achievement-item">
+                            <h3>Job Opportunities</h3>
+                            <p>We have started using facebook social media to allow all our members to advertise any job opportunities available to our community members. We believe this will link up prospective employers to available candidates from our community.</p>
+                        </div>
+                        
+                        <div class="achievement-item">
+                            <h3>Seminars/Trainings</h3>
+                            <p>We have organised seminars on the Itax, CV Writing and as we move on, more such seminars to enlighten our community members on various business and self-development related topics.</p>
+                        </div>
+                        
+                        <div class="achievement-item">
+                            <h3>Venture Capitalism/Projects</h3>
+                            <p>We have created a platform where a prospective candidate with ideas, ability and capability are be able to present his/her project to prospective financiers.</p>
+                        </div>
+                        
+                        <div class="achievement-item">
+                            <h3>Cottage Industries</h3>
+                            <p>We arrange exhibitions for our community ladies where they can show case various activities that they can offer to prospective customers. This include: making of various snacks, services of food grain sourcing and preparation for storage, tailoring, baby sitting etc.</p>
+                        </div>
+                        
+                        <div class="achievement-item">
+                            <h3>Directory</h3>
+                            <p>We have worked towards forming a business directory of our community members.</p>
+                        </div>
+                        
+                        <div class="achievement-item">
+                            <h3>External Exhibitions</h3>
+                            <p>We look out and get best deals possible to various external exhibitions like Cebit, Gitex, Canton, Fespa etc whereby in addition to discounts, we can also be able to organise food and residences as per our requirements.</p>
+                        </div>
+                        
+                        <div class="achievement-item">
+                            <h3>Exhibition</h3>
+                            <p>We arrange for exhibitions which expose our community business persons to exhibit their products and services to others.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include footer -->
+    <div id="footer-placeholder"></div>
+
+    <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Load header and footer
+        fetch('../components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Scroll Up Button
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                scrollUpBtn.style.display = 'flex';
+            } else {
+                scrollUpBtn.style.display = 'none';
+            }
+        });
+        
+        scrollUpBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Hide on load
+        scrollUpBtn.style.display = 'none';
+    </script>
+</body>
+</html>

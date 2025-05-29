@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Shree Cutchi Leva Patel Samaj, Nairobi</title>
+  <link rel="stylesheet" href="../../dist/tailwind.css">
+  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-container">
+      <span><a href="index.html">Home</a> &gt; <span class="active">Contact</span></span>
+      <a href="#" class="breadcrumb-return">&lt; Return to previous page</a>
+    </div>
+  </div>
+  <!-- Main Content -->
+  <main class="contact-main">
+    <div class="contact-map">
+      <iframe src="https://www.google.com/maps?q=Shree+Cutchi+Leva+Patel+Samaj,+Nairobi&output=embed" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <form class="contact-form">
+      <div class="contact-row">
+        <input type="text" placeholder="Your Name (required)" required>
+        <input type="text" placeholder="Your gaam">
+      </div>
+      <div class="contact-row">
+        <input type="email" placeholder="Your email address (required)" required>
+        <input type="text" placeholder="Your Contact">
+      </div>
+      <div class="contact-row">
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="contact-btn">SEND MESSAGE</button>
+    </form>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script>
+    // Load header and footer
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load header
+        fetch('../components/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                const headerPlaceholder = document.getElementById('header-placeholder');
+                if (headerPlaceholder) {
+                    headerPlaceholder.innerHTML = data;
+                    
+                    // Initialize mobile menu after header is loaded
+                    const mobileMenuToggle = document.querySelector('.mobile-nav-toggle');
+                    const nav = document.querySelector('nav');
+                    
+                    if (mobileMenuToggle && nav) {
+                        mobileMenuToggle.addEventListener('click', function() {
+                            nav.classList.toggle('active');
+                        });
+    }
+                }
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                document.getElementById('header-placeholder').innerHTML = 'Error loading header';
+            });
+
+        // Load footer
+        fetch('../components/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                const footerPlaceholder = document.getElementById('footer-placeholder');
+                if (footerPlaceholder) {
+                    footerPlaceholder.innerHTML = data;
+                }
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+                document.getElementById('footer-placeholder').innerHTML = 'Error loading footer';
+            });
+    });
+  </script>
+  <button class="scroll-up" id="scrollUpBtn"><i class="fa fa-arrow-up"></i></button>
+  <script>
+    const scrollUpBtn = document.getElementById('scrollUpBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 200) {
+        scrollUpBtn.style.display = 'block';
+      } else {
+        scrollUpBtn.style.display = 'none';
+      }
+    });
+    scrollUpBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    // Hide on load
+    scrollUpBtn.style.display = 'none';
+  </script>
+</body>
+</html> 

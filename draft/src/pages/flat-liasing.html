@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCLP Samaj Building & Flat Liasing, Nairobi</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css">
+  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <!-- Include header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-container">
+            <span><a href="index.html">Home</a> > <a href="#">Committees</a> > <span class="active">Building & Flat Liasing</span></span>
+            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="../assets/images/Timeline Related Photos/Langata Flats Building/186.jpg" alt="Building & Flat Liasing" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>SCLP SAMAJ BUILDING & FLAT LIASING, NAIROBI</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="committee-main">
+        <div class="container">
+            <div class="committee-row">
+                <div class="committee-col white-bg">
+                    <p>
+                        When the pioneers of Shree Cutchi Leva Patel Samaj, Nairobi, established Samaj as a Society, one of the objects in the Constitution was to acquire, erect, and maintain movable and immovable properties within Kenya to deserving members at subsidized rates.
+                    </p>
+                    <p>
+                        For this reason, on 24 November 1996, the pioneers' vision of constructing a residential estate was accomplished when the foundation stone was laid on a 5-acre piece of land located at Nairobi West.
+                    </p>
+                    <p>
+                        During a period of 17 years, i.e., from 1996 – 2013, the Samaj Management made it possible for home ownership to be no longer a dream for the Community members as over 500 residential flats have been constructed at Nairobi West and Langata within Nairobi County and handed to the new owners as follows: –
+                    </p>
+                </div>
+                <div class="committee-col gold-bg">
+                    <h2 class="committee-heading">FLAT CONSTRUCTION TIMELINE</h2>
+                    <h3>In Nairobi West</h3>
+                    <p>1996 – 1999 – Phase 1:<br>
+                    48 flats were completed and handed over</p>
+                    <p>1999 – 2002 – Phase 2:<br>
+                    80 flats were completed and handed over</p>
+                    <p>2004 – 2007 – Phase 3:<br>
+                    44 flats were completed and handed over.</p>
+                    <h3>In Langata</h3>
+                    <p>2011 – 2013<br>
+                    Langata Flats: 356 flats were completed & handed over</p>
+                </div>
+            </div>
+
+            <div class="committee-row">
+                <div class="committee-col gold-bg">
+                    <h2 class="committee-heading">COMMITTEE FORMATION</h2>
+                    <p>
+                        To ease flat management, a Flat Liaison Sub-Committee was formed, comprising a Convenor and 5 members whose responsibility is to take charge of all Rental Properties.
+                    </p>
+                </div>
+                <div class="committee-col white-bg">
+                    <h2 class="committee-heading gold">MAIN DUTIES AND RESPONSIBILITIES</h2>
+                    <ul>
+                        <li>Receive, scrutinize, and shortlist rental application forms and conduct interviews for all the shortlisted rental applicants.</li>
+                        <li>Ensure that during vacancy, the rental flats are painted and repair work done to an acceptable standard in readiness for occupancy by the new tenant.</li>
+                        <li>Ensure rent payments are made on time by following up with rental defaulters.</li>
+                        <li>During the transfer of home ownership, review the sale/purchase application and recommend approval of the sale to the Samaj Management Committee.</li>
+                        <li>In collaboration with the Samaj Caretaker to inspect, repair, and execute any works that fall under the Landlord's obligation</li>
+                        <li>Ensure all the Samaj rental and guest premises are maintained in good condition.</li>
+                        <li>Approve the Rental Deposit Refund upon vacating the rental premises.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include footer -->
+    <div id="footer-placeholder"></div>
+
+    <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Load header and footer
+        fetch('../components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Scroll Up Button
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                scrollUpBtn.style.display = 'flex';
+            } else {
+                scrollUpBtn.style.display = 'none';
+            }
+        });
+        
+        scrollUpBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Hide on load
+        scrollUpBtn.style.display = 'none';
+    </script>
+</body>
+</html>

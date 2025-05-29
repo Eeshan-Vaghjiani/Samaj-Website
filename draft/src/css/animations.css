@@ -1,0 +1,362 @@
+/* Animations for Samaj Website */
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide in from left animation */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide in from right animation */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale up animation */
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Subtle pulse animation for buttons */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+}
+
+/* Subtle background shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Float animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Background gradient shift */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Gentle wave effect */
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Header animation - transition for shrinking header */
+@keyframes headerShrink {
+  from {
+    padding: 16px 24px;
+    background-color: transparent;
+  }
+  to {
+    padding: 5px 0;
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Animated classes */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, 
+    transparent, rgba(255, 255, 255, 0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+.animate-wave {
+  animation: wave 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+/* Animation delays */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Animation for journey and committee cards */
+.journey-card, .committee-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0.05;
+}
+
+.journey-card.visible, .committee-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section title animation */
+.section-title {
+  position: relative;
+  transition: transform 0.4s ease;
+  opacity: 0.1;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.section-subtitle {
+  opacity: 0.1;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+}
+
+/* Image zoom animation on hover */
+.committee-card:hover .committee-img img {
+  transform: scale(1.05);
+  transition: transform 0.5s ease;
+}
+
+/* Button hover animation */
+.read-more:hover {
+  background-color: var(--navy);
+  color: var(--white);
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
+
+/* Header animation classes */
+.header-wrapper {
+  transition: all 0.3s ease;
+}
+
+.header-wrapper.scrolled {
+  transition: all 0.3s ease;
+}
+
+.header-layout {
+  transition: min-height 0.3s ease;
+}
+
+.logo-left {
+  transition: all 0.3s ease;
+}
+
+.header-wrapper.scrolled .logo-left {
+  transition: all 0.3s ease;
+}
+
+.nav-container {
+  transition: all 0.3s ease, margin-left 0.3s ease;
+}
+
+.dropdown-menu {
+  transition: all 0.3s ease;
+}
+
+.nav-menu li.has-dropdown:hover .dropdown-menu {
+  transition: all 0.3s ease;
+}
+
+.nav-menu li a {
+  transition: all 0.3s;
+}
+
+.footer-column ul li a {
+  transition: var(--transition);
+}
+
+.footer-column ul li a:hover {
+  transition: var(--transition);
+}
+
+.social-icon {
+  transition: var(--transition);
+}
+
+.social-icon:hover {
+  transition: var(--transition);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mobile menu animations */
+@media (max-width: 768px) {
+  .header-wrapper .nav-container {
+    transition: all 0.3s ease;
+    transform-origin: top center;
+    transform: translateY(0);
+  }
+
+  .nav-container.mobile-active {
+    animation: mobileNavExpand 0.3s ease forwards;
+  }
+
+  @keyframes mobileNavExpand {
+    0% {
+      opacity: 0;
+      height: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      height: 100vh;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-container.mobile-active .nav-menu {
+    animation: fadeIn 0.4s ease forwards 0.2s;
+  }
+
+  .nav-container.mobile-active .nav-menu li {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .nav-container.mobile-active .nav-menu li:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .nav-container.mobile-active .nav-menu li:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .nav-container.mobile-active .nav-menu li:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .nav-container.mobile-active .nav-menu li:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .nav-container.mobile-active .nav-menu li:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  .mobile-nav-toggle {
+    transition: all 0.3s ease;
+  }
+
+  .mobile-nav-toggle:hover {
+    transform: rotate(90deg);
+  }
+} 

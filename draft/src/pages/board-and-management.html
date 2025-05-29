@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Cutchi Leva Patel Samaj - Board & Management</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css">
+  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="breadcrumb-container">
+            <span><a href="index.html">Home</a> > <a href="#">Our Samaj</a> > <span class="active">Board & Management</span></span>
+            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="../assets/images/Timeline Related Photos/board-and-management.png" alt="Board & Management" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>SHREE CUTCHI LEVA PATEL SAMAJ, NAIROBI</h1>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="board-main">
+        <div class="container">
+            <div class="board-row">
+                <div class="board-col">
+                    <h2 class="board-heading gold">BOARD OF DIRECTORS</h2>
+                    <p>
+                        The Board of Directors is the governing body of the Samaj, responsible for making strategic decisions and ensuring the organization's mission is fulfilled.
+                    </p>
+                </div>
+                <div class="board-col gold-bg">
+                    <h2 class="board-heading">MANAGEMENT COMMITTEE</h2>
+                    <ul>
+                        <li>Executive leadership and governance</li>
+                        <li>Strategic planning and implementation</li>
+                        <li>Financial oversight and resource management</li>
+                        <li>Community engagement and outreach</li>
+                        <li>Event coordination and execution</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SHREE CUTCHI LEVA PATEL SAMAJ</h3>
+                    <ul>
+                        <li>BARINGO SQUARE, NAIROBI WEST</li>
+                        <li>Phone: +254 735 602 925</li>
+                        <li>Email: sclps.nairobi@gmail.com</li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>OUR SAMAJ</h3>
+                    <ul>
+                        <li><a href="board-and-management.html">Board & Management</a></li>
+                        <li><a href="history.html">History</a></li>
+                        <li><a href="vision-mission.html">Vision & Mission</a></li>
+                        <li><a href="constitution.html">Constitution</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 Shree Cutchi Leva Patel Samaj. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Scroll Up Button
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                scrollUpBtn.style.display = 'flex';
+            } else {
+                scrollUpBtn.style.display = 'none';
+            }
+        });
+        
+        scrollUpBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Hide on load
+        scrollUpBtn.style.display = 'none';
+    </script>
+</body>
+</html>
