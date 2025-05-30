@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event filters
     initEventFilters();
+    
+    // Load timeline data if on the events-timeline page
+    if (document.getElementById('timeline')) {
+        loadTimeline();
+    }
 });
 
 /**
@@ -506,10 +511,10 @@ function initScrollAnimations() {
  * Initialize timeline animations
  */
 function initTimelineAnimations() {
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    const timelineYears = document.querySelectorAll('.timeline-year');
+    const timelineItems = document.querySelectorAll('.timeline-item, .timeline-year');
     
-    if (timelineItems.length > 0 || timelineYears.length > 0) {
+    if (timelineItems.length) {
+        // Use Intersection Observer for timeline animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -520,13 +525,9 @@ function initTimelineAnimations() {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         });
-        
+
         timelineItems.forEach(item => {
             observer.observe(item);
-        });
-        
-        timelineYears.forEach(year => {
-            observer.observe(year);
         });
     }
 }
@@ -587,4 +588,108 @@ function initEventFilters() {
             });
         });
     }
+}
+
+/**
+ * Load and display timeline from events.json
+ */
+function loadTimeline() {
+    try {
+        const timeline = document.getElementById('timeline');
+        if (!timeline) return;
+        
+        timeline.innerHTML = '<div class="loading-message">Loading timeline...</div>';
+        
+        // Fetch events data from JSON file
+        fetch('../data/events.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                timeline.innerHTML = ''; // Clear loading message
+                
+                if (!data || data.length === 0) {
+                    timeline.innerHTML = '<div class="error-message">No timeline data available.</div>';
+                    return;
+                }
+                
+                // Sort events by date
+                const events = [...data].sort((a, b) => {
+                    const dateA = new Date(a.eventDate);
+                    const dateB = new Date(b.eventDate);
+                    return dateA - dateB;
+                });
+        
+                let currentYear = '';
+                events.forEach((event) => {
+                    const eventDateParts = event.eventDate.split(' ');
+                    const year = eventDateParts[eventDateParts.length - 1];
+                    
+                    if (year !== currentYear) {
+                        const yearMarker = document.createElement('div');
+                        yearMarker.className = 'timeline-year';
+                        yearMarker.textContent = year;
+                        timeline.appendChild(yearMarker);
+                        currentYear = year;
+                    }
+                    
+                    const timelineItem = createTimelineItem(event);
+                    timeline.appendChild(timelineItem);
+                });
+
+                // Intersection Observer for animations
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                document.querySelectorAll('.timeline-item, .timeline-year').forEach(item => {
+                    observer.observe(item);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading timeline:', error);
+                timeline.innerHTML = '<div class="error-message">Error loading timeline data. Please try again later.</div>';
+            });
+    } catch (error) {
+        console.error('Error in loadTimeline function:', error);
+        const timeline = document.getElementById('timeline');
+        if (timeline) {
+            timeline.innerHTML = '<div class="error-message">Error loading timeline. Please try again later.</div>';
+        }
+    }
+}
+
+/**
+ * Create timeline item element from event data
+ */
+function createTimelineItem(event) {
+    const timelineItem = document.createElement('div');
+    timelineItem.className = 'timeline-item';
+    
+    const content = `
+        <div class="timeline-content">
+            <span class="timeline-date">${event.eventDate}</span>
+            <p>${event.eventDescription}</p>
+            ${event.eventItems && event.eventItems.length > 0 ? `
+                <ul>
+                    ${event.eventItems.map(item => `<li>${item.item}</li>`).join('')}
+                </ul>
+            ` : ''}
+            ${event.eventImage ? `<img src="${event.eventImage}" alt="${event.eventDescription}" class="timeline-image">` : ''}
+        </div>
+        <div class="timeline-dot"></div>
+    `;
+    
+    timelineItem.innerHTML = content;
+    return timelineItem;
 } 
