@@ -6,59 +6,71 @@
   <title>SCLP Samaj Charitable Trust, Nairobi</title>
   <link rel="stylesheet" href="../../dist/tailwind.css">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
   <script src="../js/main.js" defer></script>
+  <script src="../js/animations.js" defer></script>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <!-- Breadcrumb -->
-  <div class="breadcrumb-bar">
-    <div class="breadcrumb-container">
-      <span><a href="index.html">Home</a> > <span class="active">Charitable Trust</span></span>
-      <a href="#" class="breadcrumb-return">< Return to previous page</a>
+  
+  <!-- Hero section styled like index page -->
+  <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Youth League Old Members Reunion Night 2012.JPG') center center / cover no-repeat;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content animate__animated animate__fadeIn">
+      <h2 class="animate__animated animate__zoomIn animate__delay-1s">CHARITABLE TRUST</h2>
+      <p class="animate__animated animate__fadeIn animate__delay-1s">Serving humanity with compassion since 1996</p>
+      <a href="#about" class="btn animate__animated animate__fadeIn animate__delay-1s">Learn More</a>
     </div>
   </div>
-  <!-- Hero Section -->
-  <section class="hero">
-    <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Youth League Old Members Reunion Night 2012.JPG" alt="Charitable Trust" class="hero-bg">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>SHREE CUTCHI LEVA PATEL CHARITABLE TRUST – NAIROBI</h1>
-    </div>
-  </section>
-  <!-- Main Content -->
-  <main class="committee-main">
+  
+  <!-- About Section -->
+  <section id="about">
     <div class="container">
+      <h2 class="section-title">About Our Trust</h2>
+      <p class="section-subtitle">Committed to welfare and humanitarian causes</p>
+      
       <!-- First Row -->
       <div class="committee-row">
-        <div class="committee-col white-bg">
+        <div class="committee-col white-bg animate__animated animate__fadeInLeft">
+          <h3 class="committee-heading gold">OUR IMPACT</h3>
           <p>
             Welfare towards humanity has always been in the forefront of our community. The SCLP Charitable Trust was founded on June 23, 1996 to care for the local community by providing relief with charitable and calamity aid in diﬀerent parts of Kenya. Under the Trust, the BOG governs the Shree Cutchi Leva Patel Samaj School Nairobi and also disburses funding for education to local students. The Youth League collaborates on environmental awareness initiatives including tree planting, while the open-to-all Medical Clinic provides care to more than 50 patients daily at concessional rates. The Samaj Medical Clinic is facilitated with a laboratory, dental clinic, pharmacy and more recently, optical and orthopaedic services.
           </p>
         </div>
-        <div class="committee-col gold-bg">
-          <h2 class="committee-heading">ABOUT THE TRUST</h2>
+        <div class="committee-col gold-bg animate__animated animate__fadeInRight">
+          <h3 class="committee-heading">ABOUT THE TRUST</h3>
           <p>
             The SCLP Charitable Trust was founded in June 1996 and continues to care for the local community since its establishment. Over the years, the Trust has provided relief with charitable donations and calamity aid across Kenya, disbursed bursaries to local students and held free healthcare medical camps twice a year in conjunction with the Samaj Medical Clinic. In partnership with the Youth League, several tree planting initiatives have also been successfully conducted.
           </p>
         </div>
       </div>
-
+    </div>
+  </section>
+  
+  <!-- Purpose Section -->
+  <section class="committees">
+    <div class="container">
+      <h2 class="section-title">Our Purpose</h2>
+      <p class="section-subtitle">Guided by values of service and compassion</p>
+      
       <!-- Second Row -->
       <div class="committee-row">
-        <div class="committee-col gold-bg">
-          <h2 class="committee-heading">OUR PURPOSE</h2>
+        <div class="committee-col gold-bg animate__animated animate__fadeInLeft">
+          <h3 class="committee-heading">OUR PURPOSE</h3>
           <p>The Charitable Trust, The Managing Committee and its Members all serve with the following common objectives:</p>
-          <ul>
+          <ul class="duties-list">
             <li>To provide relief to those in poverty and distress</li>
             <li>Provide financial assistance for the advancement of education of persons who are residents of Kenya</li>
             <li>Promote health, education, religion and welfare of persons who are residents of Kenya</li>
             <li>Establish, acquire, manage and administer schools, hospitals, hostels or residential properties, outpatient clinics, welfare and charitable institutions</li>
           </ul>
         </div>
-        <div class="committee-col white-bg">
-          <h2 class="committee-heading gold">OUR VISION AND MISSION</h2>
-          <ul>
+        <div class="committee-col white-bg animate__animated animate__fadeInRight">
+          <h3 class="committee-heading gold">OUR VISION AND MISSION</h3>
+          <ul class="duties-list">
             <li>To foster opportunities to uplift the social, physical, educational, and cultural activities of the Institution members</li>
             <li>To promote fraternal relationships and unity among the members, be brethren with other Institutions having similar objectives as stated herein</li>
             <li>To acquire, eject, and maintain moveable and immovable properties within Kenya to promote the objects of the Institution</li>
@@ -72,7 +84,8 @@
         </div>
       </div>
     </div>
-  </main>
+  </section>
+  
   <div id="footer-placeholder"></div>
   <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
   <script>

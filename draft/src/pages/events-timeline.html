@@ -6,61 +6,48 @@
     <title>Journey of Development - Shree Cutchi Leva Patel Samaj, Nairobi</title>
     <link rel="stylesheet" href="../../dist/tailwind.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
     <script src="../js/main.js" defer></script>
+    <script src="../js/animations.js" defer></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar">
-        <div class="breadcrumb-container">
-            <span><a href="index.html">Home</a> > <a href="#">Our Samaj</a> > <span class="active">Journey of Development</span></span>
-            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+    <!-- Hero Section with Breadcrumb -->
+    <div class="hero-section">
+        <!-- Load breadcrumb component -->
+        <div id="breadcrumb-placeholder"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content animate-fade-in">
+            <h2>JOURNEY OF DEVELOPMENT</h2>
+            <p>Tracing our heritage and progress since 1946</p>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="../assets/images/Timeline Related Photos/2.Ronald Ngala/Ronald Ngala Road Samaj opened on 26th December 1954.jpg" alt="Journey of Development" class="hero-bg">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>SCLP SAMAJ JOURNEY OF DEVELOPMENT, NAIROBI</h1>
+    <!-- Language Switcher -->
+    <div class="language-switcher-container">
+        <div class="language-switcher">
+            <div class="language-option active" data-lang="en">English</div>
+            <div class="language-option" data-lang="gu">ગુજરાતી</div>
+            <div class="language-slider"></div>
         </div>
-    </section>
+    </div>
 
     <!-- Timeline Section -->
-    <div class="timeline" id="timeline"></div>
+    <div class="timeline animate-fade-in" id="timeline"></div>
 
     <!-- Disclaimer Section -->
-    <div class="disclaimer">
-        <p>Disclaimer: The information provided on this website is true and complete to the best of our knowledge. Every effort has been made to ensure its accuracy, authenticity, and objectivity. There is no intention to include or exclude any content based on any individual or group. Shree Cutchi Leva Patel Samaj, Nairobi, and its members disclaim any liability for errors, omissions, or interpretations arising from the use of the information contained on this website.</p>
+    <div class="container">
+        <div class="disclaimer animate-fade-in">
+            <p>Disclaimer: The information provided on this website is true and complete to the best of our knowledge. Every effort has been made to ensure its accuracy, authenticity, and objectivity. There is no intention to include or exclude any content based on any individual or group. Shree Cutchi Leva Patel Samaj, Nairobi, and its members disclaim any liability for errors, omissions, or interpretations arising from the use of the information contained on this website.</p>
+        </div>
     </div>
 
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
     <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
-
-    <script>
-        // Scroll up button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const scrollUpBtn = document.getElementById('scrollUpBtn');
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollUpBtn.style.display = 'flex';
-                } else {
-                    scrollUpBtn.style.display = 'none';
-                }
-            });
-
-            scrollUpBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
 </html>

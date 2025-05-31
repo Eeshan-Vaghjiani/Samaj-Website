@@ -5,62 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCLP Samaj Cutchi Economic Council (CEC), Nairobi</title>
     <link rel="stylesheet" href="../../dist/tailwind.css">
-  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
     <script src="../js/main.js" defer></script>
+    <script src="../js/animations.js" defer></script>
 </head>
 <body>
     <!-- Include header -->
     <div id="header-placeholder"></div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar">
-        <div class="breadcrumb-container">
-            <span><a href="index.html">Home</a> > <a href="#">Committees</a> > <span class="active">Cutchi Economic Council (CEC)</span></span>
-            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+    <!-- Hero section styled like index page -->
+    <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/At Business Expo 2016.jpg') center center / cover no-repeat;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content animate__animated animate__fadeIn">
+            <h2 class="animate__animated animate__zoomIn animate__delay-1s">CUTCHI ECONOMIC COUNCIL (CEC)</h2>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Empowering our community's economic growth since 2015</p>
+            <a href="#about" class="btn animate__animated animate__fadeIn animate__delay-1s">Learn More</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/At Business Expo 2016.jpg" alt="Cutchi Economic Council" class="hero-bg">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>SCLP SAMAJ CUTCHI ECONOMIC COUNCIL (CEC), NAIROBI</h1>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="committee-main">
+    <!-- About Section -->
+    <section id="about">
         <div class="container">
+            <h2 class="section-title">About Cutchi Economic Council</h2>
+            <p class="section-subtitle">Supporting and developing our community's economic status</p>
+            
             <!-- Introduction Row -->
             <div class="committee-row">
-                <div class="committee-col white-bg">
-                    <h2 class="committee-heading gold">ABOUT CEC</h2>
+                <div class="committee-col white-bg animate__animated animate__fadeInLeft">
+                    <h3 class="committee-heading gold">ABOUT CEC</h3>
                     <p>
                         CEC was initiated by the managing committee members of SCLP Samaj in early 2015. It is therefore the youngest sub-committee.
                     </p>
                 </div>
-                <div class="committee-col gold-bg">
-                    <h2 class="committee-heading">VISION</h2>
+                <div class="committee-col gold-bg animate__animated animate__fadeInRight">
+                    <h3 class="committee-heading">VISION</h3>
                     <p>
                         The vision of CEC is to improve the economic status of members of SCLP Samaj.
                     </p>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <!-- Mission Section -->
+    <section class="committees">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="section-subtitle">Creating opportunities and facilitating economic growth</p>
+            
             <!-- Mission Row -->
             <div class="committee-row">
-                <div class="committee-col gold-bg">
-                    <h2 class="committee-heading">MISSION</h2>
+                <div class="committee-col gold-bg animate__animated animate__fadeInLeft">
+                    <h3 class="committee-heading">MISSION</h3>
                     <p>
                         To create awareness of opportunities, carry out training forums, business networking forums, circulate job opportunities and facilitate venture capital system within our community members.
                     </p>
                 </div>
-                <div class="committee-col white-bg">
-                    <h2 class="committee-heading gold">AIMS AND OBJECTIVES</h2>
-                    <ul>
+                <div class="committee-col white-bg animate__animated animate__fadeInRight">
+                    <h3 class="committee-heading gold">AIMS AND OBJECTIVES</h3>
+                    <ul class="duties-list">
                         <li>To promote the vision of Shree Cutchhi Leva Patel Samaj, Nairobi.</li>
                         <li>To continuously train and develop skills and knowledge on self development and business acumen.</li>
                         <li>To gather and share any leads on employment opportunities among our community members.</li>
@@ -70,11 +77,19 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <!-- Achievements Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Our Achievements</h2>
+            <p class="section-subtitle">Making a difference in our community's economic landscape</p>
+            
             <!-- Achievements Row -->
             <div class="committee-row">
-                <div class="committee-col white-bg">
-                    <h2 class="committee-heading gold">CURRENT ACHIEVEMENTS</h2>
+                <div class="committee-col white-bg animate__animated animate__fadeInUp">
+                    <h3 class="committee-heading gold">CURRENT ACHIEVEMENTS</h3>
                     <div class="achievements-grid">
                         <div class="achievement-item">
                             <h3>Job Opportunities</h3>
@@ -114,7 +129,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <!-- Include footer -->
     <div id="footer-placeholder"></div>

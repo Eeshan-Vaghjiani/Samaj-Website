@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load footer component
     loadFooter();
     
+    // Load breadcrumb component if placeholder exists
+    loadBreadcrumb();
+    
     // Slideshow functionality
     initSlideshow();
     
@@ -28,9 +31,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event filters
     initEventFilters();
     
+    // Committee page animations
+    initCommitteeAnimations();
+    
+    // Check if we're on the history-in-pictures page
+    if (document.querySelector('.gallery-grid')) {
+        // Load gallery images
+        loadGalleryImages();
+        
+        // Initialize gallery lightbox after images are loaded
+        // The lightbox initialization is moved inside loadGalleryImages()
+    }
+    
     // Load timeline data if on the events-timeline page
     if (document.getElementById('timeline')) {
+        // Initialize language switcher if we're on timeline page
+        initLanguageSwitcher();
+        
+        // Load timeline data
         loadTimeline();
+        
+        // Mark timeline as loaded after a short delay for animation
+        setTimeout(() => {
+            const timeline = document.getElementById('timeline');
+            if (timeline) {
+                timeline.classList.add('loaded');
+            }
+        }, 500);
+        
+        // Add image preview functionality for timeline images
+        addTimelineImagePreview();
     }
 });
 
@@ -218,15 +248,17 @@ function initMobileNav() {
         });
         
         // Add search functionality
-        const searchIcon = document.querySelector('.header-actions .search-icon');
-        if (searchIcon) {
-            searchIcon.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Implement search functionality or toggle search box
-                console.log('Search icon clicked');
-                
-                // Prevent any hash or default navigation
-                return false;
+        const searchIcons = document.querySelectorAll('.search-icon');
+        if (searchIcons.length) {
+            searchIcons.forEach(searchIcon => {
+                searchIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Implement search functionality or toggle search box
+                    console.log('Search icon clicked');
+                    
+                    // Prevent any hash or default navigation
+                    return false;
+                });
             });
         }
     } else {
@@ -600,8 +632,14 @@ function loadTimeline() {
         
         timeline.innerHTML = '<div class="loading-message">Loading timeline...</div>';
         
+        // Get language preference from localStorage or default to English
+        const lang = localStorage.getItem('preferredLanguage') || 'en';
+        
+        // Determine which JSON file to load
+        const jsonFile = lang === 'gu' ? '../data/events-gu.json' : '../data/events.json';
+        
         // Fetch events data from JSON file
-        fetch('../data/events.json')
+        fetch(jsonFile)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -640,6 +678,9 @@ function loadTimeline() {
                     timeline.appendChild(timelineItem);
                 });
 
+                // Enhance timeline after loading
+                enhanceTimelineAnimations();
+
                 // Intersection Observer for animations
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -671,10 +712,22 @@ function loadTimeline() {
 
 /**
  * Create timeline item element from event data
+ * Made accessible globally for the language switcher functionality
  */
 function createTimelineItem(event) {
     const timelineItem = document.createElement('div');
     timelineItem.className = 'timeline-item';
+    
+    // Get current count of timeline items to determine position
+    const existingItems = document.querySelectorAll('.timeline-item').length;
+    timelineItem.dataset.index = existingItems; // Add index data attribute
+    
+    // Add classes for alternating pattern
+    if (existingItems % 2 === 0) {
+        timelineItem.classList.add('timeline-left');
+    } else {
+        timelineItem.classList.add('timeline-right');
+    }
     
     const content = `
         <div class="timeline-content">
@@ -692,4 +745,767 @@ function createTimelineItem(event) {
     
     timelineItem.innerHTML = content;
     return timelineItem;
+}
+
+/**
+ * Enhanced timeline animations to enforce alternating pattern
+ */
+function enhanceTimelineAnimations() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const isMobile = window.innerWidth <= 768;
+    
+    // First, remove any existing classes that might interfere
+    timelineItems.forEach(item => {
+        item.classList.remove('timeline-left', 'timeline-right');
+    });
+    
+    // Apply different layouts based on viewport size
+    if (isMobile) {
+        // For mobile: all items on one side
+        timelineItems.forEach(item => {
+            // Reset any desktop specific styles
+            item.style.left = '0';
+            item.style.textAlign = 'left';
+            
+            // Add mobile specific class if needed
+            item.classList.add('timeline-mobile');
+        });
+    } else {
+        // For desktop: alternating pattern (even = left, odd = right)
+        timelineItems.forEach((item, index) => {
+            if (index % 2 === 0) { // Even indexes (0, 2, 4...)
+                item.classList.add('timeline-left');
+                item.style.left = '0';
+                item.style.textAlign = 'right';
+            } else { // Odd indexes (1, 3, 5...)
+                item.classList.add('timeline-right');
+                item.style.left = '50%';
+                item.style.textAlign = 'left';
+            }
+        });
+    }
+    
+    // Create IntersectionObserver for animation
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                
+                // Add custom animation class based on item position
+                if (entry.target.classList.contains('timeline-item')) {
+                    if (isMobile) {
+                        // Simple fade-in for mobile
+                        entry.target.style.animation = 'fadeInRight 0.8s ease forwards';
+                    } else {
+                        // Direction-specific animations for desktop
+                        if (entry.target.classList.contains('timeline-left')) {
+                            entry.target.style.animation = 'fadeInLeft 0.8s ease forwards';
+                        } else {
+                            entry.target.style.animation = 'fadeInRight 0.8s ease forwards';
+                        }
+                    }
+                }
+                
+                timelineObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    // Observe all timeline items and year markers
+    document.querySelectorAll('.timeline-item, .timeline-year').forEach(item => {
+        timelineObserver.observe(item);
+    });
+    
+    // Add window resize listener to reapply layouts on window resize
+    window.addEventListener('resize', debounce(() => {
+        // Only re-run if viewport width crosses the mobile threshold
+        if ((window.innerWidth <= 768 && !isMobile) || 
+            (window.innerWidth > 768 && isMobile)) {
+            enhanceTimelineAnimations();
+        }
+    }, 250));
+}
+
+/**
+ * Simple debounce function to limit function calls
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
+/**
+ * Add image preview functionality to timeline images
+ */
+function addTimelineImagePreview() {
+    // Add image preview functionality using event delegation
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('timeline-image')) {
+            // Toggle expanded class
+            e.target.classList.toggle('expanded');
+            
+            // Create or remove overlay
+            if (e.target.classList.contains('expanded')) {
+                const overlay = document.createElement('div');
+                overlay.className = 'timeline-image-overlay';
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                overlay.style.zIndex = '999';
+                overlay.style.cursor = 'zoom-out';
+                document.body.appendChild(overlay);
+                
+                // Add click event to close when clicking anywhere
+                overlay.addEventListener('click', () => {
+                    e.target.classList.remove('expanded');
+                    document.body.removeChild(overlay);
+                });
+                
+                // Prevent scrolling when image is expanded
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Remove overlay if it exists
+                const overlay = document.querySelector('.timeline-image-overlay');
+                if (overlay) {
+                    document.body.removeChild(overlay);
+                }
+                
+                // Re-enable scrolling
+                document.body.style.overflow = '';
+            }
+        }
+    });
+}
+
+/**
+ * Initialize language switcher for timeline page
+ */
+function initLanguageSwitcher() {
+    const languageOptions = document.querySelectorAll('.language-option');
+    const languageSlider = document.querySelector('.language-slider');
+    
+    if (!languageOptions.length || !languageSlider) return;
+    
+    // Get saved language preference from localStorage or default to English
+    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+    
+    // Initial slider setup with proper width and position
+    if (languageSlider && languageOptions.length > 0) {
+        // Set initial position based on saved language
+        const activeOption = document.querySelector(`.language-option[data-lang="${savedLang}"]`) || languageOptions[0];
+        const width = activeOption.offsetWidth;
+        const left = activeOption.offsetLeft;
+        
+        // Set slider width and position
+        languageSlider.style.width = `${width}px`;
+        languageSlider.style.transform = `translateX(${left}px)`;
+    }
+    
+    // Set initial slider position and active state
+    updateLanguageSwitcher(savedLang);
+    
+    // Load timeline data with the saved language
+    loadTimelineData(savedLang);
+    
+    // Add event listeners to language options
+    languageOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            
+            // Update the UI
+            updateLanguageSwitcher(lang);
+            
+            // Save preference
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Reload timeline data
+            loadTimelineData(lang);
+        });
+    });
+}
+
+/**
+ * Update language switcher UI
+ */
+function updateLanguageSwitcher(lang) {
+    const languageOptions = document.querySelectorAll('.language-option');
+    const languageSlider = document.querySelector('.language-slider');
+    
+    if (!languageOptions.length || !languageSlider) return;
+    
+    // Update active state
+    languageOptions.forEach(opt => {
+        if (opt.getAttribute('data-lang') === lang) {
+            opt.classList.add('active');
+            // Move slider to selected option
+            const width = opt.offsetWidth;
+            const left = opt.offsetLeft;
+            languageSlider.style.width = `${width}px`;
+            languageSlider.style.transform = `translateX(${left}px)`;
+        } else {
+            opt.classList.remove('active');
+        }
+    });
+}
+
+/**
+ * Load timeline data based on language
+ */
+function loadTimelineData(lang) {
+    const timeline = document.getElementById('timeline');
+    if (!timeline) return;
+    
+    timeline.innerHTML = '<div class="loading-message">Loading timeline...</div>';
+    
+    // Determine which JSON file to load
+    const jsonFile = lang === 'gu' ? '../data/events-gu.json' : '../data/events.json';
+    
+    // Fetch events data from JSON file
+    fetch(jsonFile)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            timeline.innerHTML = ''; // Clear loading message
+            
+            if (!data || data.length === 0) {
+                timeline.innerHTML = '<div class="error-message">No timeline data available.</div>';
+                return;
+            }
+            
+            // Sort events by date
+            const events = [...data].sort((a, b) => {
+                const dateA = new Date(a.eventDate);
+                const dateB = new Date(b.eventDate);
+                return dateA - dateB;
+            });
+    
+            let currentYear = '';
+            events.forEach((event) => {
+                const eventDateParts = event.eventDate.split(' ');
+                const year = eventDateParts[eventDateParts.length - 1];
+                
+                if (year !== currentYear) {
+                    const yearMarker = document.createElement('div');
+                    yearMarker.className = 'timeline-year';
+                    yearMarker.textContent = year;
+                    timeline.appendChild(yearMarker);
+                    currentYear = year;
+                }
+                
+                const timelineItem = createTimelineItem(event);
+                timeline.appendChild(timelineItem);
+            });
+            
+            // Call enhanced animations after loading new data
+            enhanceTimelineAnimations();
+        })
+        .catch(error => {
+            console.error('Error loading timeline:', error);
+            timeline.innerHTML = `<div class="error-message">Error loading timeline data. Please try again later.</div>`;
+        });
+}
+
+/**
+ * Load breadcrumb component
+ */
+function loadBreadcrumb() {
+    const breadcrumbPlaceholder = document.getElementById('breadcrumb-placeholder');
+    if (breadcrumbPlaceholder) {
+        fetch('../components/breadcrumb.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                breadcrumbPlaceholder.innerHTML = data;
+                
+                // Set page-specific breadcrumb data
+                configureBreadcrumb();
+            })
+            .catch(error => {
+                console.error('Error loading breadcrumb:', error);
+            });
+    }
+}
+
+/**
+ * Configure breadcrumb based on current page
+ */
+function configureBreadcrumb() {
+    const parentLink = document.getElementById('breadcrumb-parent');
+    const currentPage = document.getElementById('breadcrumb-current');
+    
+    if (!parentLink || !currentPage) return;
+    
+    // Get current page path
+    const path = window.location.pathname;
+    const pageName = path.split('/').pop();
+    
+    // Configure breadcrumb based on current page
+    switch(pageName) {
+        case 'events-timeline.html':
+            parentLink.textContent = 'Our Samaj';
+            parentLink.href = '#our-samaj';
+            currentPage.textContent = 'Journey of Development';
+            break;
+        case 'charitable-trust.html':
+            parentLink.textContent = 'Initiatives';
+            parentLink.href = '#initiatives';
+            currentPage.textContent = 'Charitable Trust';
+            break;
+        case 'youth-league.html':
+            parentLink.textContent = 'Committees';
+            parentLink.href = '#committees';
+            currentPage.textContent = 'Youth League';
+            break;
+        // Add more pages as needed
+        default:
+            // For any other page, try to make a best guess
+            const title = document.title;
+            currentPage.textContent = title.split(' - ')[0];
+            parentLink.textContent = 'Samaj';
+            parentLink.href = 'index.html';
+    }
+}
+
+/**
+ * Initialize lightbox functionality for gallery images
+ */
+function initGalleryLightbox() {
+    // Create lightbox elements
+    const lightbox = document.createElement('div');
+    lightbox.className = 'gallery-lightbox';
+    
+    const lightboxContent = document.createElement('div');
+    lightboxContent.className = 'lightbox-content';
+    
+    const lightboxImage = document.createElement('img');
+    lightboxImage.className = 'lightbox-image';
+    
+    const lightboxCaption = document.createElement('div');
+    lightboxCaption.className = 'lightbox-caption';
+    
+    const lightboxClose = document.createElement('div');
+    lightboxClose.className = 'lightbox-close';
+    lightboxClose.innerHTML = '&times;';
+    
+    const lightboxNavigation = document.createElement('div');
+    lightboxNavigation.className = 'lightbox-navigation';
+    
+    const prevButton = document.createElement('div');
+    prevButton.className = 'lightbox-nav prev';
+    prevButton.innerHTML = '&#10094;';
+    
+    const nextButton = document.createElement('div');
+    nextButton.className = 'lightbox-nav next';
+    nextButton.innerHTML = '&#10095;';
+    
+    // Append elements
+    lightboxNavigation.appendChild(prevButton);
+    lightboxNavigation.appendChild(nextButton);
+    lightboxContent.appendChild(lightboxImage);
+    lightboxContent.appendChild(lightboxCaption);
+    lightbox.appendChild(lightboxContent);
+    lightbox.appendChild(lightboxClose);
+    lightbox.appendChild(lightboxNavigation);
+    
+    // Add to document
+    document.body.appendChild(lightbox);
+    
+    // Get all gallery items
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentIndex = 0;
+    
+    // Add click event to gallery items
+    galleryItems.forEach((item, index) => {
+        const img = item.querySelector('img');
+        const caption = item.querySelector('.gallery-caption');
+        
+        item.addEventListener('click', function() {
+            currentIndex = index;
+            updateLightbox(img.src, caption.textContent);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+    });
+    
+    // Close lightbox
+    lightboxClose.addEventListener('click', function() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = ''; // Enable scrolling
+    });
+    
+    // Close on lightbox background click
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Enable scrolling
+        }
+    });
+    
+    // Navigate to previous image
+    prevButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+        const img = galleryItems[currentIndex].querySelector('img');
+        const caption = galleryItems[currentIndex].querySelector('.gallery-caption');
+        updateLightbox(img.src, caption.textContent);
+    });
+    
+    // Navigate to next image
+    nextButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % galleryItems.length;
+        const img = galleryItems[currentIndex].querySelector('img');
+        const caption = galleryItems[currentIndex].querySelector('.gallery-caption');
+        updateLightbox(img.src, caption.textContent);
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Enable scrolling
+        } else if (e.key === 'ArrowLeft') {
+            currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+            const img = galleryItems[currentIndex].querySelector('img');
+            const caption = galleryItems[currentIndex].querySelector('.gallery-caption');
+            updateLightbox(img.src, caption.textContent);
+        } else if (e.key === 'ArrowRight') {
+            currentIndex = (currentIndex + 1) % galleryItems.length;
+            const img = galleryItems[currentIndex].querySelector('img');
+            const caption = galleryItems[currentIndex].querySelector('.gallery-caption');
+            updateLightbox(img.src, caption.textContent);
+        }
+    });
+    
+    // Update lightbox content
+    function updateLightbox(src, caption) {
+        // Animate transition
+        lightboxImage.style.opacity = 0;
+        lightboxCaption.style.opacity = 0;
+        
+        setTimeout(() => {
+            lightboxImage.src = src;
+            lightboxCaption.textContent = caption;
+            
+            // Wait for image to load
+            lightboxImage.onload = function() {
+                lightboxImage.style.opacity = 1;
+                lightboxCaption.style.opacity = 1;
+            };
+        }, 300);
+    }
+    
+    // Add CSS transition for smooth image changes
+    lightboxImage.style.transition = 'opacity 0.3s ease';
+    lightboxCaption.style.transition = 'opacity 0.3s ease';
+}
+
+/**
+ * Load gallery images for the history-in-pictures page
+ */
+function loadGalleryImages() {
+    const galleryGrid = document.getElementById('gallery-grid');
+    const loadingIndicator = document.getElementById('gallery-loading');
+    const gallerySection = document.querySelector('.gallery-section');
+    
+    if (!galleryGrid || !loadingIndicator) return;
+    
+    // Specify the timeline photos path
+    const basePath = '../assets/images/Timeline Related Photos/';
+    
+    // Files to exclude
+    const excludeFiles = ['samaj logo.png', 'samaj.jpg', 'school.jpg'];
+    
+    // Recursive function to scan directory and subdirectories
+    function processImages(imagePaths) {
+        galleryGrid.innerHTML = ''; // Clear any existing content
+        
+        // Filter out excluded files and remove duplicates
+        const uniquePaths = new Set();
+        const filteredImages = imagePaths.filter(path => {
+            const filename = path.split('/').pop(); // Get just the filename
+            
+            // Skip excluded files
+            if (excludeFiles.includes(filename)) {
+                return false;
+            }
+            
+            // Skip duplicates by checking if we've seen this path before
+            if (uniquePaths.has(path)) {
+                return false;
+            }
+            
+            // Add this path to the set of paths we've seen
+            uniquePaths.add(path);
+            return true;
+        });
+        
+        if (filteredImages.length === 0) {
+            // If no images are found, hide the gallery section entirely
+            if (gallerySection) {
+                gallerySection.style.display = 'none';
+            }
+            
+            loadingIndicator.style.display = 'none';
+            console.log('No gallery images found to display');
+            return;
+        }
+        
+        // Sort images by filename (which may contain dates)
+        filteredImages.sort();
+        
+        // Keep track of successfully loaded images
+        let loadedImages = 0;
+        let failedImages = 0;
+        
+        // Create gallery items for each image
+        filteredImages.forEach(imagePath => {
+            const relativePath = imagePath.startsWith('../') ? imagePath : basePath + imagePath;
+            const filename = imagePath.split('/').pop();
+            
+            // Create a nice caption from the filename
+            let caption = filename
+                .replace(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/, '') // Remove file extension
+                .replace(/^\d+\-\d+\-\d+\s+/, '') // Remove date prefix like "25-12-54 "
+                .replace(/\_/g, ' ') // Replace underscores with spaces
+                .replace(/(\d+)\-(\d+)\-(\d+)/g, (match, day, month, year) => {
+                    // Add 20 to year if it's a 2-digit year less than 50
+                    if (year.length === 2 && parseInt(year) < 50) {
+                        year = '20' + year;
+                    } 
+                    // Add 19 to year if it's a 2-digit year greater than or equal to 50
+                    else if (year.length === 2) {
+                        year = '19' + year;
+                    }
+                    return `(${month}/${day}/${year})`;
+                })
+                .replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, (match, month, day, year) => {
+                    // Format dates as "Month Day, Year"
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    try {
+                        const monthIndex = parseInt(month) - 1;
+                        if (monthIndex >= 0 && monthIndex < 12) {
+                            return `(${months[monthIndex]} ${day}, ${year})`;
+                        }
+                        return match;
+                    } catch (e) {
+                        return match;
+                    }
+                });
+            
+            // Make caption more readable by adding spaces where needed
+            caption = caption
+                .replace(/([a-z])([A-Z])/g, '$1 $2') // Add space between lower and uppercase letters
+                .replace(/  +/g, ' ') // Replace multiple spaces with a single space
+                .trim(); // Remove leading/trailing spaces
+            
+            // Create gallery item
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            
+            // Create image element
+            const img = document.createElement('img');
+            img.src = relativePath;
+            img.alt = caption;
+            img.loading = 'lazy'; // Add lazy loading for better performance
+            
+            // Create caption element
+            const captionDiv = document.createElement('div');
+            captionDiv.className = 'gallery-caption';
+            captionDiv.textContent = caption;
+            
+            // Handle image load error - prevent broken images from showing
+            img.onerror = function() {
+                failedImages++;
+                galleryItem.remove(); // Remove the item if image fails to load
+                
+                // Check if all images have been processed
+                if (loadedImages + failedImages === filteredImages.length) {
+                    finishLoading();
+                }
+            };
+            
+            // Handle image load success
+            img.onload = function() {
+                loadedImages++;
+                
+                // Check if all images have been processed
+                if (loadedImages + failedImages === filteredImages.length) {
+                    finishLoading();
+                }
+            };
+            
+            // Append elements to gallery item
+            galleryItem.appendChild(img);
+            galleryItem.appendChild(captionDiv);
+            
+            // Add gallery item to grid
+            galleryGrid.appendChild(galleryItem);
+        });
+        
+        // Function to finalize loading
+        function finishLoading() {
+            // Hide loading indicator
+            loadingIndicator.style.display = 'none';
+            
+            // Check if any images were successfully loaded
+            if (loadedImages === 0) {
+                // If no images loaded successfully, hide the gallery section
+                if (gallerySection) {
+                    gallerySection.style.display = 'none';
+                }
+                return;
+            }
+            
+            // Initialize lightbox after images are loaded
+            initGalleryLightbox();
+            
+            // Add animation to gallery items
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach((item, index) => {
+                // Stagger the animations for a nice effect
+                setTimeout(() => {
+                    item.classList.add('animate__animated', 'animate__fadeInUp');
+                }, index * 100);
+            });
+        }
+    }
+    
+    // Fetch image paths from JSON file
+    fetch('../data/gallery-images.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data || !data.images || data.images.length === 0) {
+                // Handle empty data
+                if (gallerySection) {
+                    gallerySection.style.display = 'none';
+                }
+                loadingIndicator.style.display = 'none';
+                return;
+            }
+            
+            processImages(data.images);
+        })
+        .catch(error => {
+            console.error('Error loading gallery images:', error);
+            galleryGrid.innerHTML = '<div class="error-message">Error loading images. Please try again later.</div>';
+            loadingIndicator.style.display = 'none';
+        });
+}
+
+/**
+ * Initialize animations for committee pages
+ */
+function initCommitteeAnimations() {
+    // Check if we're on a committee page
+    if (document.querySelector('.committee-main')) {
+        console.log('Initializing committee page animations');
+        
+        // Add animation class to hero content
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.classList.add('animated');
+        }
+        
+        // Apply animations to each committee column
+        const committeeColumns = document.querySelectorAll('.committee-col');
+        committeeColumns.forEach((col, index) => {
+            // Add a slight delay based on index
+            col.style.animationDelay = `${index * 0.2}s`;
+            
+            // Add entrance animation
+            col.classList.add('animate__animated', 'animate__fadeInUp');
+            
+            // Apply item index to paragraphs for staggered animation
+            const paragraphs = col.querySelectorAll('p');
+            paragraphs.forEach((p, pIndex) => {
+                p.style.setProperty('--item-index', pIndex + 1);
+            });
+            
+            // Apply item index to list items for staggered animation
+            const listItems = col.querySelectorAll('ul li');
+            listItems.forEach((li, liIndex) => {
+                li.style.setProperty('--item-index', liIndex + 1);
+            });
+            
+            // Add hover animation for headings
+            const headings = col.querySelectorAll('.committee-heading');
+            headings.forEach(heading => {
+                heading.addEventListener('mouseenter', function() {
+                    heading.classList.add('heading-hover');
+                });
+                
+                heading.addEventListener('mouseleave', function() {
+                    heading.classList.remove('heading-hover');
+                });
+            });
+        });
+        
+        // Add smooth scroll to anchor links
+        const anchorLinks = document.querySelectorAll('a[href^="#"]');
+        anchorLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Intersection Observer for on-scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe committee rows
+        const committeeRows = document.querySelectorAll('.committee-row');
+        committeeRows.forEach(row => {
+            observer.observe(row);
+        });
+    }
 } 

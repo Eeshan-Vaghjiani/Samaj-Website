@@ -5,55 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCLP Samaj Mahila Mandal (Ladies Wing), Nairobi</title>
     <link rel="stylesheet" href="../../dist/tailwind.css">
-  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
     <script src="../js/main.js" defer></script>
+    <script src="../js/animations.js" defer></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar">
-        <div class="breadcrumb-container">
-            <span><a href="index.html">Home</a> > <a href="#">Committees</a> > <span class="active">Mahila Mandal</span></span>
-            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+    <!-- Hero section styled like index page -->
+    <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/2016 Free Medical Camp emphasis on Women_s healthcare.jpg') center center / cover no-repeat;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content animate__animated animate__fadeIn">
+            <h2 class="animate__animated animate__zoomIn animate__delay-1s">MAHILA MANDAL (LADIES WING)</h2>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Empowering women in our community since 2016</p>
+            <a href="#about" class="btn animate__animated animate__fadeIn animate__delay-1s">Learn More</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/2016 Free Medical Camp emphasis on Women_s healthcare.jpg" alt="Mahila Mandal" class="hero-bg">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>SCLP SAMAJ MAHILA MANDAL (LADIES WING), NAIROBI</h1>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="committee-main">
+    <!-- About Section -->
+    <section id="about">
         <div class="container">
+            <h2 class="section-title">About Mahila Mandal</h2>
+            <p class="section-subtitle">Supporting and empowering women in our community</p>
+            
+            <!-- First row -->
             <div class="committee-row">
-                <div class="committee-col white-bg">
-                    <h2 class="committee-heading gold">ABOUT MAHILA MANDAL</h2>
+                <div class="committee-col white-bg animate__animated animate__fadeInLeft">
+                    <h3 class="committee-heading gold">ABOUT MAHILA MANDAL</h3>
                     <p>
                         The SCLP Samaj Ladies Wing operates under the banner of Shree Cutchi Leva Patel Samaj-Nairobi. It was revamped in April 2016.
                     </p>
                     <p>
                         The Ladies Wing organizes activities related to and involving women in our community with the following objectives:
                     </p>
-                    <ul>
+                    <ul class="duties-list">
                         <li>To promote activities for enhancement of all types of skills for women of our community</li>
                         <li>To enhance educational, social, moral, physical and cultural advancement of women</li>
                         <li>To undertake programs for the relief of illiteracy, poverty and assistance to the needy</li>
                     </ul>
                 </div>
-                <div class="committee-col gold-bg">
-                    <h2 class="committee-heading">ACTIVITIES</h2>
+                <div class="committee-col gold-bg animate__animated animate__fadeInRight">
+                    <h3 class="committee-heading">ACTIVITIES</h3>
                     <p>
                         SCLP Samaj Ladies Wing carries out regular activities and events that mainly revolve around:
                     </p>
-                    <ul>
+                    <ul class="duties-list">
                         <li>Health</li>
                         <li>Sports</li>
                         <li>Hindu festivals</li>
@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <div id="footer-placeholder"></div>
 
@@ -89,34 +89,30 @@
                 document.getElementById('footer-placeholder').innerHTML = data;
             });
 
-        // Mobile navigation toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-            const nav = document.querySelector('nav');
-            
-            if (mobileNavToggle) {
-                mobileNavToggle.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                });
-            }
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
         });
 
-        // Scroll up button
+        // Scroll Up Button
         const scrollUpBtn = document.getElementById('scrollUpBtn');
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
                 scrollUpBtn.style.display = 'flex';
             } else {
                 scrollUpBtn.style.display = 'none';
             }
         });
-
-        scrollUpBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        
+        scrollUpBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        
+        // Hide on load
+        scrollUpBtn.style.display = 'none';
     </script>
 </body>
 </html>

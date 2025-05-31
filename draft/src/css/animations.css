@@ -370,4 +370,161 @@ html {
     margin: 0 !important;
     padding: 0 !important;
   }
+}
+
+/* Committee page animations */
+.committee-col {
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.committee-col:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.committee-heading::after {
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.committee-col:hover .committee-heading::after {
+  width: 80px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Staggered animation for list items */
+.committee-col ul li {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeInRight 0.5s ease forwards;
+  animation-delay: calc(0.1s * var(--item-index, 0));
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Set animation delays for list items */
+.committee-col ul li:nth-child(1) { --item-index: 1; }
+.committee-col ul li:nth-child(2) { --item-index: 2; }
+.committee-col ul li:nth-child(3) { --item-index: 3; }
+.committee-col ul li:nth-child(4) { --item-index: 4; }
+.committee-col ul li:nth-child(5) { --item-index: 5; }
+.committee-col ul li:nth-child(6) { --item-index: 6; }
+.committee-col ul li:nth-child(7) { --item-index: 7; }
+.committee-col ul li:nth-child(8) { --item-index: 8; }
+.committee-col ul li:nth-child(9) { --item-index: 9; }
+.committee-col ul li:nth-child(10) { --item-index: 10; }
+
+/* Animate the paragraphs as well */
+.committee-col p {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease forwards;
+  animation-delay: calc(0.1s * var(--item-index, 0));
+}
+
+.committee-col p:nth-child(2) { --item-index: 1; }
+.committee-col p:nth-child(3) { --item-index: 2; }
+.committee-col p:nth-child(4) { --item-index: 3; }
+.committee-col p:nth-child(5) { --item-index: 4; }
+.committee-col p:nth-child(6) { --item-index: 5; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animated gradient border */
+@keyframes gradientBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hero section entrance animation */
+.hero-content h1 {
+  animation: zoomIn 1s ease forwards;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Committee rows entrance animation */
+.committee-row {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: rowFadeIn 0.8s ease forwards;
+}
+
+.committee-row:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.committee-row:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.committee-row:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+@keyframes rowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Disable animations in mobile view to prevent styling conflicts */
+@media (max-width: 992px) {
+  .committee-row,
+  .committee-col {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .committee-col p,
+  .committee-col ul li {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .animate__animated.animate__fadeInLeft,
+  .animate__animated.animate__fadeInRight,
+  .animate__animated.animate__fadeInUp,
+  .animate__animated.animate__fadeIn {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 } 

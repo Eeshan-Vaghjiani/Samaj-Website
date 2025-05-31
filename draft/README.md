@@ -1,5 +1,5 @@
 # Shree Cutchi Leva Patel Samaj Website
-
+npx http-server -o ./src/pages/index.html
 This repository contains the website for the Shree Cutchi Leva Patel Samaj community in Nairobi, Kenya.
 
 ## Project Structure

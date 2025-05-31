@@ -5,38 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCLP Samaj Karibu Rapid Response, Nairobi</title>
     <link rel="stylesheet" href="../../dist/tailwind.css">
-  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
     <script src="../js/main.js" defer></script>
+    <script src="../js/animations.js" defer></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar">
-        <div class="breadcrumb-container">
-            <span><a href="index.html">Home</a> > <a href="#">Committees</a> > <span class="active">Karibu Rapid Response</span></span>
-            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+    <!-- Hero section styled like index page -->
+    <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/KRR First Aid Training 2014.JPG') center center / cover no-repeat;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content animate__animated animate__fadeIn">
+            <h2 class="animate__animated animate__zoomIn animate__delay-1s">KARIBU RAPID RESPONSE (KRR)</h2>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Ready to assist during emergencies since 2012</p>
+            <a href="#about" class="btn animate__animated animate__fadeIn animate__delay-1s">Learn More</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/KRR First Aid Training 2014.JPG" alt="Karibu Rapid Response" class="hero-bg">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>SCLP SAMAJ KARIBU RAPID RESPONSE, NAIROBI</h1>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="committee-main">
+    <!-- About Section -->
+    <section id="about">
         <div class="container">
-            <!-- Vision and Inception -->
-            <div class="committee-row">
-                <div class="committee-col white-bg">
-                    <h2 class="committee-heading gold">ABOUT KRR</h2>
+            <h2 class="section-title">About Karibu Rapid Response</h2>
+            <p class="section-subtitle">Committed to emergency response and community safety</p>
+            
+            <!-- First row -->
+            <div class="committee-row" style="opacity: 1 !important;">
+                <div class="committee-col white-bg animate__animated animate__fadeInLeft" style="background: white !important; border-top-color: var(--navy) !important;">
+                    <h3 class="committee-heading gold">ABOUT KRR</h3>
                     <p>
                         Established in 2012, the vision of KRR is to have a large team of disciplined volunteer members who are inspired to willingly attend and assist members of our community and society at large during national or natural calamity and distress calls.
                     </p>
@@ -44,8 +43,8 @@
                         The inception of KRR came with the increase in requirement for handling distress related assistance needed by our community members. In preparation for the 2013 elections, KRR started being formalised under our welfare subcommittee of our Samaj.
                     </p>
                 </div>
-                <div class="committee-col gold-bg">
-                    <h2 class="committee-heading">TRAINING & DEVELOPMENT</h2>
+                <div class="committee-col gold-bg animate__animated animate__fadeInRight" style="background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 204, 0, 0.15)) !important; border-top-color: var(--yellow) !important;">
+                    <h3 class="committee-heading">TRAINING & DEVELOPMENT</h3>
                     <p>
                         We train members to develop self-esteem and confidence; through regular orientations they acquire skills and experience to handle distress situations with calmness and precision. They also learn to liaise with relevant groups, agencies & authorities to provide timely assistance to our community and the society at large during any calamity or distress call.
                     </p>
@@ -55,10 +54,10 @@
                 </div>
             </div>
 
-            <!-- Community Service -->
-            <div class="committee-row">
-                <div class="committee-col gold-bg">
-                    <h2 class="committee-heading">COMMUNITY SERVICE</h2>
+            <!-- Second row -->
+            <div class="committee-row" style="opacity: 1 !important;">
+                <div class="committee-col gold-bg animate__animated animate__fadeInLeft" style="background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 204, 0, 0.15)) !important; border-top-color: var(--yellow) !important;">
+                    <h3 class="committee-heading">COMMUNITY SERVICE</h3>
                     <p>
                         KRR, works with the Kenya Police assisting in community policing. We have provided transport logistics to the police to enable smooth patrolling operations to keep the area safe and prevent any forms of crime. This noble cause has assisted many residents of the area and generally leads to safe environment.
                     </p>
@@ -66,8 +65,8 @@
                         KRR, has worked closely together with all other such institutions to work as a team, for example to prevent crime during the election periods and assist in national crisis' such as the Westgate attack and also on more happier occasions such as assisting in the welcoming event of the Indian Prime Minister Shree Narendra Modi during his visit.
                     </p>
                 </div>
-                <div class="committee-col white-bg">
-                    <h2 class="committee-heading gold">COMMUNITY FUNCTIONS & SUPPORT</h2>
+                <div class="committee-col white-bg animate__animated animate__fadeInRight" style="background: white !important; border-top-color: var(--navy) !important;">
+                    <h3 class="committee-heading gold">COMMUNITY FUNCTIONS & SUPPORT</h3>
                     <p>
                         KRR handles all the security, parking, crowd control and mobility related matters during any of our community functions by mobilising the required resources.
                     </p>
@@ -77,7 +76,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <div id="footer-placeholder"></div>
 
@@ -97,34 +96,30 @@
                 document.getElementById('footer-placeholder').innerHTML = data;
             });
 
-        // Mobile navigation toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-            const nav = document.querySelector('nav');
-            
-            if (mobileNavToggle) {
-                mobileNavToggle.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                });
-            }
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileNavToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
         });
 
-        // Scroll up button
+        // Scroll Up Button
         const scrollUpBtn = document.getElementById('scrollUpBtn');
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
                 scrollUpBtn.style.display = 'flex';
             } else {
                 scrollUpBtn.style.display = 'none';
             }
         });
-
-        scrollUpBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        
+        scrollUpBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        
+        // Hide on load
+        scrollUpBtn.style.display = 'none';
     </script>
 </body>
 </html>

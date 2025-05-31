@@ -5,38 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCLP Samaj Higher Education Loans (HELC), Nairobi</title>
     <link rel="stylesheet" href="../../dist/tailwind.css">
-  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
     <script src="../js/main.js" defer></script>
+    <script src="../js/animations.js" defer></script>
 </head>
 <body>
     <!-- Include header -->
     <div id="header-placeholder"></div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar">
-        <div class="breadcrumb-container">
-            <span><a href="index.html">Home</a> > <a href="#">Committees</a> > <span class="active">Higher Education Loans (HELC)</span></span>
-            <a href="#" class="breadcrumb-return">< Return to previous page</a>
+    <!-- Hero section styled like index page -->
+    <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/KRR First Aid Training 2016.JPG') center center / cover no-repeat;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content animate__animated animate__fadeIn">
+            <h2 class="animate__animated animate__zoomIn animate__delay-1s">HIGHER EDUCATION LOANS (HELC)</h2>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Supporting our community's educational aspirations</p>
+            <a href="#about" class="btn animate__animated animate__fadeIn animate__delay-1s">Learn More</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/KRR First Aid Training 2016.JPG" alt="Higher Education Loans" class="hero-bg">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>SCLP SAMAJ HIGHER EDUCATION LOANS (HELC), NAIROBI</h1>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="committee-main">
+    <!-- About Section -->
+    <section id="about">
         <div class="container">
+            <h2 class="section-title">Higher Education Loans Committee</h2>
+            <p class="section-subtitle">Investing in our community's future through education</p>
+            
             <div class="committee-row">
-                <div class="committee-col white-bg">
-                    <h2 class="committee-heading gold">ABOUT HIGHER EDUCATION LOANS</h2>
+                <div class="committee-col white-bg animate__animated animate__fadeInUp">
+                    <h3 class="committee-heading gold">ABOUT HIGHER EDUCATION LOANS</h3>
                     <p>
                         The Higher Education Loan Committee is community donor funded initiative that provides interest-free loans to selected applicants for their higher education within Kenya.
                     </p>
@@ -46,10 +45,14 @@
                     <p>
                         Through this initiative, the committee aims to empower and uplift the community, fostering a more educated and prosperous society.
                     </p>
+                    
+                    <div class="committee-image mt-8">
+                        <img src="../assets/images/Timeline Related Photos/2.Ronald Ngala/Gujarati Classes During 1970_s.jpg" alt="Education Initiative" class="rounded-lg shadow-md">
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <!-- Include footer -->
     <div id="footer-placeholder"></div>

@@ -6,64 +6,89 @@
   <title>SCLP Samaj Youth League, Nairobi</title>
   <link rel="stylesheet" href="../../dist/tailwind.css">
   <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="../js/main.js" defer></script>
+  <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
+  <script src="../js/main.js" defer></script>
+  <script src="../js/animations.js" defer></script>
 </head>
 <body>
   <!-- Include header -->
   <div id="header-placeholder"></div>
 
-  <!-- Breadcrumb -->
-  <div class="breadcrumb-bar">
-    <div class="breadcrumb-container">
-      <span><a href="index.html">Home</a> > <a href="#">Committees</a> > <span class="active">Youth League</span></span>
-      <a href="#" class="breadcrumb-return">< Return to previous page</a>
+  <!-- Hero section styled like index page -->
+  <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Youth League Kabaddi 2013.jpg') center center / cover no-repeat;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content animate__animated animate__fadeIn">
+      <h2 class="animate__animated animate__zoomIn animate__delay-1s">SCLP SAMAJ YOUTH LEAGUE</h2>
+      <p class="animate__animated animate__fadeIn animate__delay-1s">Empowering the youth of our community since 1992</p>
+      <a href="#about" class="btn animate__animated animate__fadeIn animate__delay-1s">Learn More</a>
     </div>
   </div>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Youth League Kabaddi 2013.jpg" alt="Youth League" class="hero-bg">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>SCLP SAMAJ YOUTH LEAGUE, NAIROBI</h1>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <main class="committee-main">
+  <!-- About Section -->
+  <section id="about">
     <div class="container">
-      <!-- Mission and Vision -->
+      <h2 class="section-title">Our Mission & Vision</h2>
+      <p class="section-subtitle">Building the future of our community through youth engagement</p>
+      
       <div class="committee-row">
-        <div class="committee-col white-bg">
-          <h2 class="committee-heading gold">MISSION AND VISION</h2>
-          <ul>
+        <div class="committee-col white-bg animate__animated animate__fadeInLeft">
+          <h3 class="committee-heading gold">MISSION AND VISION</h3>
+          <ul class="duties-list">
             <li>To enhance educational, social moral, physical, cultural and financial advancement of the members and our community.</li>
             <li>To undertake programmes for the relief of illiteracy, poverty and/or distress of the needy.</li>
             <li>The league shall endevour to participate and assist the samaj in organizing its activities.</li>
             <li>To promote activities for the well being of our youth with a view to fostering unity and brotherhood amongst out society.</li>
           </ul>
+          <div class="committee-image">
+            <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Youth League's 1st Golf Tournament held at Sigona Golf Club in June 2008.JPG" alt="Youth League Activities" class="rounded-lg shadow-md">
+          </div>
         </div>
-        <div class="committee-col gold-bg">
-          <h2 class="committee-heading">HISTORY</h2>
-          <p>
-            Formed in the year 1992, the initiative to start the youth league and on 03rd September 1992, the managing committee gave permission to form this committee with a change in the constitution.
-          </p>
-          <p>
-            Officially formed on 22nd November 1992, they cultivated friendships and used sports, culture and education to build bridges within the community.
-          </p>
-          <p>
-            The energetic team published our first ever official newsletter in November 1992; it became the best medium to pass on information to individuals of the community. Saastha, as it was named in June 2009, continues to keep the community updated on all activities of samaj along with enlightening us on different theoretical aspects of life.
-          </p>
+        <div class="committee-col gold-bg animate__animated animate__fadeInRight">
+          <h3 class="committee-heading">HISTORY</h3>
+          <div class="timeline-mini">
+            <div class="timeline-item-mini">
+              <span class="timeline-date-mini">3rd September 1992</span>
+              <div class="timeline-content-mini">
+                <p>The managing committee gave permission to form the Youth League committee with a change in the constitution.</p>
+              </div>
+            </div>
+            <div class="timeline-item-mini">
+              <span class="timeline-date-mini">22nd November 1992</span>
+              <div class="timeline-content-mini">
+                <p>Officially formed, they cultivated friendships and used sports, culture and education to build bridges within the community.</p>
+              </div>
+            </div>
+            <div class="timeline-item-mini">
+              <span class="timeline-date-mini">November 1992</span>
+              <div class="timeline-content-mini">
+                <p>The energetic team published our first ever official newsletter; it became the best medium to pass on information to individuals of the community.</p>
+              </div>
+            </div>
+            <div class="timeline-item-mini">
+              <span class="timeline-date-mini">June 2009</span>
+              <div class="timeline-content-mini">
+                <p>The newsletter was named Saastha, and continues to keep the community updated on all activities of samaj along with enlightening us on different theoretical aspects of life.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Sports and Events -->
+  <!-- Activities Section -->
+  <section class="committees">
+    <div class="container">
+      <h2 class="section-title">Our Activities</h2>
+      <p class="section-subtitle">Promoting sports, culture and community engagement</p>
+      
       <div class="committee-row">
-        <div class="committee-col gold-bg">
-          <h2 class="committee-heading">SPORTS TAKING PLACE</h2>
-          <ul>
+        <div class="committee-col gold-bg animate__animated animate__fadeInLeft">
+          <h3 class="committee-heading">SPORTS TAKING PLACE</h3>
+          <ul class="duties-list">
             <li>Volleyball (since 2005)</li>
             <li>Cricket (since 2006)</li>
             <li>Throwball (since 2018)</li>
@@ -71,28 +96,65 @@
             <li>Rounders (since 2020)</li>
           </ul>
         </div>
-        <div class="committee-col white-bg">
-          <h2 class="committee-heading gold">ANNUAL EVENTS</h2>
-          <ul>
-            <li>Volleyball tournament</li>
-            <li>6 aside cricket tournament</li>
-            <li>Inter gaam cricket tournament</li>
-            <li>Samaj tennis league (cricket)</li>
-            <li>Samaj premier league (cricket)</li>
-            <li>Easters event</li>
-            <li>Throwball tournament</li>
-            <li>Indoor sports tournament</li>
-            <li>Kutchi got talent</li>
-            <li>Diwali dhamaka</li>
-            <li>Holi mela</li>
-            <li>Sports dinner for all the sports and its sponsors</li>
-            <li>Navratri</li>
-            <li>More new exciting events coming up</li>
-          </ul>
+        <div class="committee-col white-bg animate__animated animate__fadeInRight">
+          <h3 class="committee-heading gold">ANNUAL EVENTS</h3>
+          <div class="events-grid">
+            <div class="event-item">
+              <i class="fas fa-trophy event-icon"></i>
+              <span>Volleyball tournament</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-cricket event-icon"></i>
+              <span>6 aside cricket tournament</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-medal event-icon"></i>
+              <span>Inter gaam cricket tournament</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-basketball-ball event-icon"></i>
+              <span>Samaj tennis league</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-award event-icon"></i>
+              <span>Samaj premier league</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-egg event-icon"></i>
+              <span>Easters event</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-volleyball-ball event-icon"></i>
+              <span>Throwball tournament</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-table-tennis event-icon"></i>
+              <span>Indoor sports tournament</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-star event-icon"></i>
+              <span>Kutchi got talent</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-fire event-icon"></i>
+              <span>Diwali dhamaka</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-palette event-icon"></i>
+              <span>Holi mela</span>
+            </div>
+            <div class="event-item">
+              <i class="fas fa-utensils event-icon"></i>
+              <span>Sports dinner</span>
+            </div>
+          </div>
+          <div class="center-btn mt-6">
+            <a href="#" class="read-more">View Event Calendar</a>
+          </div>
         </div>
       </div>
     </div>
-  </main>
+  </section>
 
   <!-- Include footer -->
   <div id="footer-placeholder"></div>
