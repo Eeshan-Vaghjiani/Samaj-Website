@@ -245,14 +245,14 @@ body {
 
 /* Section Styles */
 section {
-    padding: 80px 0;
+    padding: 30px 0;
 }
 
 .section-title {
     text-align: center;
     color: var(--navy);
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: -10px;
     font-weight: 600;
     position: relative;
     padding-bottom: 15px;
@@ -364,7 +364,7 @@ section {
     transform: translateY(-2px);
 }
 
-.read-more {
+/* .read-more {
     display: inline-block;
     margin-top: 20px;
     padding: 8px 20px;
@@ -380,7 +380,7 @@ section {
 .read-more:hover {
     background-color: var(--navy);
     color: var(--white);
-}
+} */
 
 .center-btn {
     text-align: center;
