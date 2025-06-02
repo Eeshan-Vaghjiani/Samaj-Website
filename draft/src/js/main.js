@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load footer component
     loadFooter();
-    
-    // Load breadcrumb component if placeholder exists
-    loadBreadcrumb();
+
     
     // Slideshow functionality
     initSlideshow();
@@ -1020,71 +1018,6 @@ function loadTimelineData(lang) {
             console.error('Error loading timeline:', error);
             timeline.innerHTML = `<div class="error-message">Error loading timeline data. Please try again later.</div>`;
         });
-}
-
-/**
- * Load breadcrumb component
- */
-function loadBreadcrumb() {
-    const breadcrumbPlaceholder = document.getElementById('breadcrumb-placeholder');
-    if (breadcrumbPlaceholder) {
-        fetch('../components/breadcrumb.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(data => {
-                breadcrumbPlaceholder.innerHTML = data;
-                
-                // Set page-specific breadcrumb data
-                configureBreadcrumb();
-            })
-            .catch(error => {
-                console.error('Error loading breadcrumb:', error);
-            });
-    }
-}
-
-/**
- * Configure breadcrumb based on current page
- */
-function configureBreadcrumb() {
-    const parentLink = document.getElementById('breadcrumb-parent');
-    const currentPage = document.getElementById('breadcrumb-current');
-    
-    if (!parentLink || !currentPage) return;
-    
-    // Get current page path
-    const path = window.location.pathname;
-    const pageName = path.split('/').pop();
-    
-    // Configure breadcrumb based on current page
-    switch(pageName) {
-        case 'events-timeline.html':
-            parentLink.textContent = 'Our Samaj';
-            parentLink.href = '#our-samaj';
-            currentPage.textContent = 'Journey of Development';
-            break;
-        case 'charitable-trust.html':
-            parentLink.textContent = 'Initiatives';
-            parentLink.href = '#initiatives';
-            currentPage.textContent = 'Charitable Trust';
-            break;
-        case 'youth-league.html':
-            parentLink.textContent = 'Committees';
-            parentLink.href = '#committees';
-            currentPage.textContent = 'Youth League';
-            break;
-        // Add more pages as needed
-        default:
-            // For any other page, try to make a best guess
-            const title = document.title;
-            currentPage.textContent = title.split(' - ')[0];
-            parentLink.textContent = 'Samaj';
-            parentLink.href = 'index.html';
-    }
 }
 
 /**
