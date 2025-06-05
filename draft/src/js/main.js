@@ -6,14 +6,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Load header component
     loadHeader();
-    
+
     // Load footer component
     loadFooter();
 
-    
     // Slideshow functionality
     initSlideshow();
-    
+
     // Mobile navigation is now handled in the header
     // initMobileNav();
     
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Committee page animations
     initCommitteeAnimations();
-    
+
     // Check if we're on the history-in-pictures page
     if (document.querySelector('.gallery-grid')) {
         // Load gallery images
@@ -102,6 +101,7 @@ function loadHeader() {
                 setTimeout(() => {
                     initMobileNav();
                     initHeaderScrollBehavior();
+                    highlightActiveLink();
                     console.log('Header scripts executed manually');
                 }, 300);
             })
@@ -1442,3 +1442,26 @@ function initCommitteeAnimations() {
         });
     }
 } 
+
+function highlightActiveLink() {
+    const currentPage = window.location.pathname.split('/').pop(); // e.g. 'board-and-management.html'
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop();
+
+        if (linkPage === currentPage) {
+            link.classList.add('active');
+
+            // Now highlight the parent dropdown link too
+            const parentLi = link.closest('li.has-dropdown');
+            if (parentLi) {
+                // Find the first direct child <a> of the parent dropdown li and add active class
+                const parentLink = parentLi.querySelector(':scope > a.nav-link');
+                if (parentLink) {
+                    parentLink.classList.add('active');
+                }
+            }
+        }
+    });
+}

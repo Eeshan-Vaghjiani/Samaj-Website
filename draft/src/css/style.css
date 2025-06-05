@@ -244,6 +244,12 @@ body {
     max-height: 55px !important;
 }
 
+.nav-link.active,
+.dropdown-menu a.active {
+    color: #e60000;
+    font-weight: bold;
+}
+
 /* Section Styles */
 section {
     padding: 30px 0;
