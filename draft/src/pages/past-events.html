@@ -5,27 +5,325 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Past Events - Shree Cutchi Leva Patel Samaj, Nairobi</title>
     <link rel="stylesheet" href="../../dist/tailwind.css">
-  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
     <script src="../js/main.js" defer></script>
+    <script src="../js/animations.js" defer></script>
+    <style>
+        .events-hero {
+            height: 60vh;
+        }
+        
+        .events-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: var(--navy-light);
+            color: var(--navy);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--navy);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .year-filter {
+            margin: 20px 0 40px;
+            text-align: center;
+        }
+        
+        .year-filter select {
+            padding: 10px 30px;
+            border-radius: 30px;
+            background-color: var(--navy-light);
+            color: var(--navy);
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .event-poster {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .event-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .event-card:hover .event-poster img {
+            transform: scale(1.05);
+        }
+        
+        .event-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            min-width: 70px;
+        }
+        
+        .event-date .day {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1;
+        }
+        
+        .event-date .month {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--red);
+            text-transform: uppercase;
+        }
+        
+        .past-event-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 10;
+        }
+        
+        .event-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .event-category {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .event-category.youth-league {
+            background-color: var(--navy);
+        }
+        
+        .event-category.cec {
+            background-color: var(--purple, #6B46C1);
+        }
+        
+        .event-category.krr {
+            background-color: var(--orange, #ED8936);
+        }
+        
+        .event-category.mrs {
+            background-color: var(--red);
+        }
+        
+        .event-category.mahila-mandal {
+            background-color: var(--pink, #D53F8C);
+        }
+        
+        .event-category.educational {
+            background-color: var(--green);
+        }
+        
+        .event-category.charity {
+            background-color: var(--teal, #38B2AC);
+        }
+        
+        .event-category.cultural {
+            background-color: var(--yellow);
+            color: var(--navy);
+        }
+        
+        .event-category.meeting {
+            background-color: var(--gray, #718096);
+        }
+        
+        .event-category.community {
+            background-color: var(--blue, #4299E1);
+        }
+        
+        .event-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .event-content p {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .event-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .event-details span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .event-details i {
+            color: var(--red);
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+        
+        .event-btn {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 10px 25px;
+            background-color: var(--navy-light);
+            color: var(--navy);
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .event-btn:hover {
+            background-color: var(--navy);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .gallery-btn {
+            background-color: var(--red-light);
+            color: var(--red);
+        }
+        
+        .gallery-btn:hover {
+            background-color: var(--red);
+        }
+        
+        .no-events {
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(0,0,0,0.03);
+            border-radius: 10px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .events-hero {
+                height: 40vh;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-poster {
+                height: 180px;
+            }
+            
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
     <div id="header-placeholder"></div>
 
     <!-- Hero Section -->
-    <section class="hero hero-events">
-        <img src="./images/events-hero.jpg" alt="Past Events" class="hero-bg">
+    <div class="hero-section events-hero" style="background: url('../assets/images/Timeline Related Photos/4. 5 Years (2003-2007)/Medical Camp 5th December 2004.JPG') center center / cover no-repeat;">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>PAST EVENTS</h1>
+            <h2>Past Events</h2>
+            <p>Relive our community gatherings and celebrations</p>
         </div>
-    </section>
+    </div>
 
     <!-- Main Content -->
-    <main class="events-main">
+    <section class="events-section">
         <div class="container">
+            <h2 class="section-title">Our Past Events</h2>
+            
+            <div class="year-filter">
+                <select id="year-select">
+                    <option value="all">All Years</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+            
             <div class="events-filters">
                 <button class="filter-btn active" data-category="all">All Events</button>
                 <button class="filter-btn" data-category="youth-league">Youth League</button>
@@ -33,181 +331,267 @@
                 <button class="filter-btn" data-category="krr">KRR</button>
                 <button class="filter-btn" data-category="mrs">MRS</button>
                 <button class="filter-btn" data-category="mahila-mandal">Mahila Mandal</button>
+                <button class="filter-btn" data-category="educational">Educational</button>
+                <button class="filter-btn" data-category="charity">Charity</button>
+                <button class="filter-btn" data-category="cultural">Cultural</button>
             </div>
 
-            <div class="events-grid">
-                <!-- Event Card 1 -->
-                <div class="event-card past" data-category="youth-league">
+            <div id="events-grid" class="events-grid">
+                <!-- Sample Past Events (Would be loaded from a past-events.json file in a real implementation) -->
+                <div class="event-card animate__animated animate__fadeInUp" data-category="cultural" data-year="2023">
+                    <div class="past-event-badge">Past Event</div>
                     <div class="event-poster">
-                        <img src="./images/events/cultural-night.jpg" alt="Cultural Night 2024">
-                    </div>
-                    <div class="event-date">
-                        <span class="day">15</span>
-                        <span class="month">FEB</span>
+                        <img src="../assets/images/Timeline Related Photos/1. 10 Years (1984-1993)/14-8-93 Diwali Celebrations & Dance.jpg" alt="Diwali Celebration 2023">
+                        <div class="event-date">
+                            <span class="day">12</span>
+                            <span class="month">NOV</span>
+                        </div>
                     </div>
                     <div class="event-content">
-                        <span class="event-category">Youth League</span>
-                        <h3>Cultural Night 2024</h3>
-                        <p>A night of cultural performances, music, and dance showcasing our rich heritage.</p>
+                        <span class="event-category cultural">Cultural</span>
+                        <h3>Diwali Celebration 2023</h3>
+                        <p>Annual Diwali celebration with cultural performances, traditional food, and fireworks display. The event featured dance performances, singing competitions, and a special light show.</p>
                         <div class="event-details">
-                            <span><i class="fas fa-clock"></i> 7:00 PM - 11:00 PM</span>
+                            <span><i class="fas fa-clock"></i> 6:00 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Samaj Cultural Center</span>
+                            <span><i class="fas fa-user"></i> Cultural Committee</span>
+                        </div>
+                        <div class="event-actions" style="display: flex; gap: 10px;">
+                            <a href="#" class="event-btn">View Details</a>
+                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-card animate__animated animate__fadeInUp" data-category="youth-league" data-year="2023">
+                    <div class="past-event-badge">Past Event</div>
+                    <div class="event-poster">
+                        <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Six-A-Side Soccer 2016 (2).jpg" alt="Youth Sports Tournament 2023">
+                        <div class="event-date">
+                            <span class="day">8</span>
+                            <span class="month">AUG</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <span class="event-category youth-league">Youth League</span>
+                        <h3>Youth Sports Tournament 2023</h3>
+                        <p>A day of sports activities for the youth including cricket, football, and athletics. Over 150 youth members participated in various sporting events and competitions.</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-clock"></i> 9:00 AM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Samaj Sports Ground</span>
+                            <span><i class="fas fa-user"></i> Youth League</span>
+                        </div>
+                        <div class="event-actions" style="display: flex; gap: 10px;">
+                            <a href="#" class="event-btn">View Details</a>
+                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-card animate__animated animate__fadeInUp" data-category="mrs" data-year="2022">
+                    <div class="past-event-badge">Past Event</div>
+                    <div class="event-poster">
+                        <img src="../assets/images/Timeline Related Photos/4. 5 Years (2003-2007)/Medical Camp 5th December 2004.JPG" alt="Health and Wellness Camp 2022">
+                        <div class="event-date">
+                            <span class="day">15</span>
+                            <span class="month">JUL</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <span class="event-category mrs">MRS</span>
+                        <h3>Health and Wellness Camp 2022</h3>
+                        <p>Free health checkups, consultations with specialists, and wellness workshops. Over 500 community members received free health screenings and medical advice.</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-clock"></i> 8:00 AM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Samaj Medical Center</span>
+                            <span><i class="fas fa-user"></i> Medical Relief Scheme</span>
+                        </div>
+                        <div class="event-actions" style="display: flex; gap: 10px;">
+                            <a href="#" class="event-btn">View Details</a>
+                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-card animate__animated animate__fadeInUp" data-category="cec" data-year="2022">
+                    <div class="past-event-badge">Past Event</div>
+                    <div class="event-poster">
+                        <img src="../assets/images/Timeline Related Photos/5. Second Leg (1993-2003)/Business Award 16th December 2000.jpg" alt="Business Networking Mixer 2022">
+                        <div class="event-date">
+                            <span class="day">28</span>
+                            <span class="month">SEP</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <span class="event-category cec">CEC</span>
+                        <h3>Business Networking Mixer 2022</h3>
+                        <p>An evening of business networking for entrepreneurs and professionals from our community. The event featured keynote speakers and roundtable discussions.</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-clock"></i> 6:30 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Samaj Conference Hall</span>
+                            <span><i class="fas fa-user"></i> Cutchi Economic Council</span>
+                        </div>
+                        <div class="event-actions" style="display: flex; gap: 10px;">
+                            <a href="#" class="event-btn">View Details</a>
+                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-card animate__animated animate__fadeInUp" data-category="mahila-mandal" data-year="2021">
+                    <div class="past-event-badge">Past Event</div>
+                    <div class="event-poster">
+                        <img src="../assets/images/Timeline Related Photos/3. 25 Years (1983)/Ladies Event.jpg" alt="Women's Entrepreneurship Workshop 2021">
+                        <div class="event-date">
+                            <span class="day">10</span>
+                            <span class="month">JUN</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <span class="event-category mahila-mandal">Mahila Mandal</span>
+                        <h3>Women's Entrepreneurship Workshop 2021</h3>
+                        <p>A workshop focused on empowering women entrepreneurs with business skills, marketing strategies, and financial planning. Over 100 women participated in this empowering event.</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-clock"></i> 2:00 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Samaj Community Center</span>
+                            <span><i class="fas fa-user"></i> Mahila Mandal</span>
+                        </div>
+                        <div class="event-actions" style="display: flex; gap: 10px;">
+                            <a href="#" class="event-btn">View Details</a>
+                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-card animate__animated animate__fadeInUp" data-category="krr" data-year="2021">
+                    <div class="past-event-badge">Past Event</div>
+                    <div class="event-poster">
+                        <img src="../assets/images/Timeline Related Photos/4. 5 Years (2003-2007)/KRR Certificate 20th June 2005.jpg" alt="Emergency Response Training 2021">
+                        <div class="event-date">
+                            <span class="day">25</span>
+                            <span class="month">AUG</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <span class="event-category krr">KRR</span>
+                        <h3>Emergency Response Training 2021</h3>
+                        <p>Training in basic first aid, CPR, fire safety, and emergency response procedures. All participants received certification and emergency response kits.</p>
+                        <div class="event-details">
+                            <span><i class="fas fa-clock"></i> 9:00 AM</span>
                             <span><i class="fas fa-map-marker-alt"></i> Samaj Hall</span>
+                            <span><i class="fas fa-user"></i> Karibu Rapid Response</span>
                         </div>
-                        <div class="event-gallery">
-                            <img src="./images/event-gallery-1.jpg" alt="Cultural Night">
-                            <img src="./images/event-gallery-2.jpg" alt="Cultural Night">
+                        <div class="event-actions" style="display: flex; gap: 10px;">
+                            <a href="#" class="event-btn">View Details</a>
+                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
                         </div>
-                        <a href="#" class="event-btn">View Gallery</a>
-                    </div>
-                </div>
-
-                <!-- Event Card 2 -->
-                <div class="event-card past" data-category="cec">
-                    <div class="event-poster">
-                        <img src="./images/events/entrepreneurship-workshop.jpg" alt="Entrepreneurship Workshop">
-                    </div>
-                    <div class="event-date">
-                        <span class="day">10</span>
-                        <span class="month">FEB</span>
-                    </div>
-                    <div class="event-content">
-                        <span class="event-category">CEC</span>
-                        <h3>Entrepreneurship Workshop</h3>
-                        <p>Workshop on business development and entrepreneurship skills.</p>
-                        <div class="event-details">
-                            <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Conference Room</span>
-                        </div>
-                        <div class="event-gallery">
-                            <img src="./images/event-gallery-3.jpg" alt="Workshop">
-                            <img src="./images/event-gallery-4.jpg" alt="Workshop">
-                        </div>
-                        <a href="#" class="event-btn">View Gallery</a>
-                    </div>
-                </div>
-
-                <!-- Event Card 3 -->
-                <div class="event-card past" data-category="krr">
-                    <div class="event-poster">
-                        <img src="./images/events/medical-camp.jpg" alt="Medical Camp">
-                    </div>
-                    <div class="event-date">
-                        <span class="day">05</span>
-                        <span class="month">FEB</span>
-                    </div>
-                    <div class="event-content">
-                        <span class="event-category">KRR</span>
-                        <h3>Medical Camp</h3>
-                        <p>Free medical checkup camp for the community members.</p>
-                        <div class="event-details">
-                            <span><i class="fas fa-clock"></i> 9:00 AM - 4:00 PM</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Medical Clinic</span>
-                        </div>
-                        <div class="event-gallery">
-                            <img src="./images/event-gallery-5.jpg" alt="Medical Camp">
-                            <img src="./images/event-gallery-6.jpg" alt="Medical Camp">
-                        </div>
-                        <a href="#" class="event-btn">View Gallery</a>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollUpBtn" class="scroll-up">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-        // Load header and footer
         document.addEventListener('DOMContentLoaded', function() {
-            // Load header
-            fetch('../components/header.html')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const headerPlaceholder = document.getElementById('header-placeholder');
-                    if (headerPlaceholder) {
-                        headerPlaceholder.innerHTML = data;
-                        
-                        // Initialize mobile menu after header is loaded
-                        const mobileMenuToggle = document.querySelector('.mobile-nav-toggle');
-                        const nav = document.querySelector('nav');
-                        
-                        if (mobileMenuToggle && nav) {
-                            mobileMenuToggle.addEventListener('click', function() {
-                                nav.classList.toggle('active');
-                            });
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading header:', error);
-                    document.getElementById('header-placeholder').innerHTML = 'Error loading header';
-                });
-
-            // Load footer
-            fetch('../components/footer.html')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const footerPlaceholder = document.getElementById('footer-placeholder');
-                    if (footerPlaceholder) {
-                        footerPlaceholder.innerHTML = data;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading footer:', error);
-                    document.getElementById('footer-placeholder').innerHTML = 'Error loading footer';
-                });
-
-            // Event filtering
+            // Set up event filtering by category
+            setupCategoryFilters();
+            
+            // Set up event filtering by year
+            setupYearFilter();
+            
+            // Initialize scroll to top button
+            initScrollToTop();
+        });
+        
+        function setupCategoryFilters() {
             const filterButtons = document.querySelectorAll('.filter-btn');
             const eventCards = document.querySelectorAll('.event-card');
-
+            
             filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', function() {
                     // Remove active class from all buttons
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     // Add active class to clicked button
-                    button.classList.add('active');
-
-                    const category = button.getAttribute('data-category');
-
-                    eventCards.forEach(card => {
-                        if (category === 'all' || card.getAttribute('data-category') === category) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    filterEvents();
                 });
             });
-        });
-    </script>
-
-    <button class="scroll-up" id="scrollUpBtn"><i class="fa fa-arrow-up"></i></button>
-    <script>
-        const scrollUpBtn = document.getElementById('scrollUpBtn');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 200) {
-                scrollUpBtn.style.display = 'block';
-            } else {
-                scrollUpBtn.style.display = 'none';
+        }
+        
+        function setupYearFilter() {
+            const yearSelect = document.getElementById('year-select');
+            
+            yearSelect.addEventListener('change', function() {
+                filterEvents();
+            });
+        }
+        
+        function filterEvents() {
+            const selectedCategory = document.querySelector('.filter-btn.active').getAttribute('data-category');
+            const selectedYear = document.getElementById('year-select').value;
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            let visibleCount = 0;
+            
+            eventCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                const cardYear = card.getAttribute('data-year');
+                
+                const categoryMatch = selectedCategory === 'all' || cardCategory === selectedCategory;
+                const yearMatch = selectedYear === 'all' || cardYear === selectedYear;
+                
+                if (categoryMatch && yearMatch) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                    
+                    // Add animation classes
+                    card.classList.remove('animate__fadeInUp');
+                    void card.offsetWidth; // Trigger reflow
+                    card.classList.add('animate__fadeInUp');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Show or hide "no events" message
+            const noEventsMessage = document.querySelector('.no-events');
+            if (noEventsMessage) {
+                if (visibleCount === 0) {
+                    noEventsMessage.style.display = 'block';
+                } else {
+                    noEventsMessage.style.display = 'none';
+                }
             }
-        });
-        scrollUpBtn.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        // Hide on load
-        scrollUpBtn.style.display = 'none';
+        }
+        
+        function initScrollToTop() {
+            const scrollUpBtn = document.getElementById('scrollUpBtn');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 200) {
+                    scrollUpBtn.style.display = 'block';
+                } else {
+                    scrollUpBtn.style.display = 'none';
+                }
+            });
+            
+            scrollUpBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Hide on load
+            scrollUpBtn.style.display = 'none';
+        }
     </script>
 </body>
 </html> 

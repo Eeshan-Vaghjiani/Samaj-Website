@@ -142,11 +142,20 @@ body {
 
 /* Social icons fix */
 .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    height: 44px;
-    padding-right: 10px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    margin-left: 15px !important;
+}
+
+.header-right .social-icons {
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-top: 0 !important;
 }
 
 .search-icon {
@@ -179,28 +188,22 @@ body {
     display: none;
 }
 
-.header-right .social-icons {
-    height: 44px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
 .header-right .social-icons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 35px;
-    margin-top: -2px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 35px !important;
+    width: 35px !important;
+    margin-top: -2px !important;
 }
 
 .header-right .social-icons a i {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    vertical-align: middle;
-    line-height: 1;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 16px !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
 }
 
 /* Scrolled header state */
@@ -225,16 +228,15 @@ body {
 
 .header-wrapper.scrolled .logo-left {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 10px;
     width: 55px;
     height: 55px;
     margin: 0;
     padding: 0;
-    transform: translateY(-50%) scale(0.85);
+    transform: translateY(-50%); 
     transform-origin: center;
     z-index: 1001;
-    margin-top: 25px;
 }
 
 .header-wrapper.scrolled .logo-left .logo {
@@ -242,6 +244,7 @@ body {
     height: auto;
     max-width: 55px !important;
     max-height: 55px !important;
+    display: block !important;
 }
 
 .nav-link.active,
@@ -519,6 +522,11 @@ section {
     line-height: 1.7;
 }
 
+.trust-text .center-btn {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
 /* Committees Section */
 .committees {
     background-color: var(--light-gray);
@@ -528,8 +536,10 @@ section {
 footer {
     background-color: var(--navy);
     color: white;
-    padding: 60px 0 20px;
+    padding: 40px 0 20px;
     position: relative;
+    background-image: linear-gradient(to bottom, #0c2340, #0a1c33);
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
 }
 
 footer::before {
@@ -542,85 +552,391 @@ footer::before {
     background: linear-gradient(to right, var(--red), var(--yellow), var(--green), var(--navy));
 }
 
+/* Footer top with logo */
+.footer-top {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.footer-top::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--red), var(--yellow));
+    border-radius: 3px;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo h2 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+/* Footer columns */
 .footer-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    margin-bottom: 40px;
+    gap: 30px;
+    margin-bottom: 30px;
+    position: relative;
+    justify-items: center; /* Center grid items horizontally */
+    text-align: center; /* Center text content */
+}
+
+.footer-column {
+    padding: 0 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Keep content centered */
+    text-align: left; /* Align text to left for better readability */
+}
+
+.footer-column::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0; /* Restore to left alignment */
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--red), transparent);
+    border-radius: 3px;
 }
 
 .footer-column h3 {
     color: white;
-    margin-bottom: 25px;
-    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-size: 1rem;
     font-weight: 600;
     position: relative;
     padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left; /* Align headings to left */
+    align-self: flex-start; /* Align heading to left of column */
+    padding-left: 15px; /* Add padding to account for vertical line */
 }
 
 .footer-column h3::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 15px; /* Position from the left instead of center */
     width: 40px;
     height: 2px;
     background-color: var(--red);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    transform: none; /* Remove the centering transform */
+}
+
+.footer-column:hover h3::after {
+    width: 60px;
 }
 
 .footer-column ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center; /* Center list items */
 }
 
 .footer-column ul li {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease;
 }
 
-.footer-column ul li a {
+.footer-column ul li:hover {
+    transform: translateY(3px); /* Changed from translateX to translateY for centered design */
+}
+
+.footer-column ul li a, 
+.contact-info li {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    transition: var(--transition);
-    font-size: 0.95rem;
-    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content */
+    padding: 3px 0;
+}
+
+.footer-column ul li a i {
+    margin-right: 8px;
+    font-size: 0.8rem;
+    color: var(--yellow);
+    transition: transform 0.3s ease;
 }
 
 .footer-column ul li a:hover {
     color: white;
-    transform: translateX(5px);
 }
 
-footer .social-icons {
+.footer-column ul li a:hover i {
+    transform: translateX(3px);
+    color: var(--red);
+}
+
+/* Contact info styling */
+.contact-info {
+    width: 100%;
+}
+
+.contact-info li {
+    margin-bottom: 12px;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 25px;
+    text-align: left;
     display: flex;
-    gap: 15px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.contact-info li i {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--red);
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+.contact-info li:hover i {
+    transform: scale(1.2) translateY(-50%); /* Maintain vertical centering when scaling */
+}
+
+/* Social media icons in footer - comprehensive styling */
+.social-icons {
+    display: flex !important;
+    gap: 12px !important;
+    margin-top: 20px !important;
+    justify-content: center !important;
+}
+
+/* Special styling for footer column social icons */
+.footer-column .social-icons {
+    margin-top: 20px !important;
+    padding-left: 25px !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-self: flex-start !important;
+    width: 100% !important;
+}
+
+/* Contact info styling - ensure it aligns with social icons */
+.contact-info {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+.social-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 50% !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    transition: all 0.3s ease !important;
+    font-size: 1rem !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.social-icons a i {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 16px !important;
+}
+
+/* Social media brand colors */
+.facebook-icon {
+    color: #3b5998 !important; /* Facebook blue */
+    background-color: rgba(59, 89, 152, 0.1) !important;
+}
+
+.instagram-icon {
+    color: #E1306C !important; /* Instagram pink */
+    background-color: rgba(225, 48, 108, 0.1) !important;
+}
+
+.youtube-icon {
+    color: #FF0000 !important; /* YouTube red */
+    background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+.facebook-icon:hover {
+    background-color: #3b5998 !important;
+    color: white !important;
+}
+
+.instagram-icon:hover {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D) !important;
+    color: white !important;
+}
+
+.youtube-icon:hover {
+    background-color: #FF0000 !important;
+    color: white !important;
+}
+
+/* Footer bottom */
+.footer-bottom {
     margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    text-align: center; /* Ensure text is centered */
 }
 
-footer .social-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--navy-light);
-    color: var(--navy);
-    transition: var(--transition);
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-footer .social-icon:hover {
-    background-color: var(--navy);
-    color: var(--white);
-    transform: translateY(-3px);
+.footer-bottom::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .copyright {
     text-align: center;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive footer adjustments */
+@media (max-width: 768px) {
+    footer {
+        padding: 30px 0 15px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .footer-column {
+        margin-bottom: 0;
+        border-left: none;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .footer-column::before {
+        width: 40px;
+        height: 2px;
+        top: 10px;
+        left: 0;
+    }
+    
+    .logo-img {
+        width: 70px;
+    }
+    
+    .footer-logo h2 {
+        font-size: 1.1rem;
+    }
+    
+    .footer-top {
+        margin-bottom: 25px;
+    }
+    
+    .footer-column h3 {
+        margin-bottom: 15px;
+        padding-left: 15px;
+        text-align: left;
+        align-self: flex-start;
+    }
+    
+    .footer-column h3::after {
+        left: 15px;
+        transform: none;
+    }
+    
+    .footer-column ul {
+        width: 100%;
+        text-align: left;
+    }
+    
+    .contact-info li {
+        justify-content: flex-start;
+        text-align: left;
+    }
+    
+    .footer-column .social-icons {
+        padding-left: 15px !important;
+        margin-top: 15px !important;
+        justify-content: flex-start !important;
+        display: flex !important;
+        align-self: flex-start !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Other styles remain unchanged */
+    
+    .footer-column ul li a, 
+    .contact-info li {
+        justify-content: flex-start;
+        padding-left: 0; /* Reset padding as contact-info has its own padding */
+    }
+    
+    .social-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .footer-column .social-icons {
+        padding-left: 15px !important;
+        display: flex !important;
+        justify-content: flex-start !important;
+        align-self: flex-start !important;
+        width: 100% !important;
+    }
 }
 
 /* Responsive styles */
@@ -761,10 +1077,7 @@ footer .social-icon:hover {
         transform: translateX(-50%);
     }
 
-    .social-icons {
-        justify-content: center;
-        margin-top: 20px;
-    }
+    /* General social icons styling for mobile */
 
     .section-title {
         font-size: 1.6rem;
@@ -1012,18 +1325,18 @@ footer .social-icon:hover {
     
     /* Social icons go to the bottom */
     .nav-container .header-right {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #eee;
-        width: 100%;
-        display: flex;
-        justify-content: center;
+        margin-top: 30px !important;
+        padding-top: 20px !important;
+        border-top: 1px solid #eee !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
     }
     
     .nav-container .header-right .social-icons {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
+        display: flex !important;
+        justify-content: center !important;
+        gap: 20px !important;
     }
     
     /* Make sure the menu appears when active */
@@ -1080,15 +1393,32 @@ footer .social-icon:hover {
 
     .footer-column h3 {
         font-size: 1.1rem;
+        text-align: left;
+        align-self: flex-start;
     }
 
     .footer-column ul li {
         font-size: 0.9rem;
+        text-align: left;
+    }
+
+    .footer-column ul li a, 
+    .contact-info li {
+        justify-content: flex-start;
+    }
+
+    .contact-info li {
+        padding: 0 0 0 25px; /* Keep consistent padding for icon space */
+        text-align: left;
     }
 
     .social-icon {
         width: 35px;
         height: 35px;
+    }
+
+    .footer-content {
+        gap: 20px; /* Reduce gap for smaller screens */
     }
 }
 
@@ -1167,13 +1497,7 @@ footer .social-icon:hover {
     color: #3b5998;
 }
 
-.twitter-icon {
-    color: #1da1f2;
-}
-
-.linkedin-icon {
-    color: #0077b5;
-}
+/* Social media icon specific styles are now defined separately for header and footer */
 
 /* Mobile toggle button - updated for better visibility and animation */
 .mobile-nav-toggle {
@@ -2652,4 +2976,323 @@ section.hero {
     .achievement-item h3 {
         font-size: 1.1rem;
     }
+}
+
+/* New Package Card Styles with GIF images */
+.package {
+  position: relative;
+  border-radius: 10px;
+  padding: 30px 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.package:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.package .img-wrap {
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--light-gray);
+  padding: 15px;
+}
+
+.package .img-wrap img {
+  width: 100%;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+.package:hover .img-wrap img {
+  transform: scale(1.1);
+}
+
+.package h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.package p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.btn-custom-1 {
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-custom-1:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.text-purple {
+  color: #6f42c1;
+}
+
+.btn-purple {
+  background-color: #6f42c1;
+  color: white !important;
+}
+
+.btn-purple:hover {
+  background-color: #5a32a3;
+  color: white !important;
+}
+
+.text-teal {
+  color: #20c997;
+}
+
+.btn-teal {
+  background-color: #20c997;
+  color: white !important;
+}
+
+.btn-teal:hover {
+  background-color: #16a07b;
+  color: white !important;
+}
+
+.text-success {
+  color: #28a745;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white !important;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  color: white !important;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white !important;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  color: white !important;
+}
+
+.text-info {
+  color: #17a2b8;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white !important;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  color: white !important;
+}
+
+.text-primary {
+  color: #007bff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white !important;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  color: white !important;
+}
+
+.text-warning {
+  color: #ffc107;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529 !important;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  color: #212529 !important;
+}
+
+/* Package grid layout fix */
+.committees .row,
+.charitable-trust .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.committees .col-lg-4,
+.charitable-trust .col-lg-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+
+@media (max-width: 991.98px) {
+  .committees .col-md-6,
+  .charitable-trust .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .committees .col-md-6,
+  .charitable-trust .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .package {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+  
+  .package h3 {
+    font-size: 1.2rem;
+  }
+  
+  .package .img-wrap {
+    width: 70px;
+    height: 70px;
+  }
 } 
+
+/* Package card spacing and padding */
+.row.g-4 {
+  --bs-gutter-x: 2rem;
+  --bs-gutter-y: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.row.g-4 > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-top: var(--bs-gutter-y);
+}
+
+.package {
+  position: relative;
+  border-radius: 10px;
+  padding: 30px 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+  background-color: #fff;
+}
+
+/* Footer social icons styling moved above */
+
+/* Media queries for social icons moved to the respective breakpoint sections */
+
+/* Social icon colors for header */
+.header-right .social-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    transition: all 0.3s ease !important;
+}
+
+.header-right .social-icon:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.header-right .facebook-icon {
+    color: #3b5998 !important; /* Facebook blue */
+    background-color: rgba(59, 89, 152, 0.1) !important;
+}
+
+.header-right .instagram-icon {
+    color: #E1306C !important; /* Instagram pink */
+    background-color: rgba(225, 48, 108, 0.1) !important;
+}
+
+.header-right .youtube-icon {
+    color: #FF0000 !important; /* YouTube red */
+    background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+.header-right .facebook-icon:hover {
+    background-color: #3b5998 !important;
+    color: white !important;
+}
+
+.header-right .instagram-icon:hover {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D) !important;
+    color: white !important;
+}
+
+.header-right .youtube-icon:hover {
+    background-color: #FF0000 !important;
+    color: white !important;
+}
+
+@media (max-width: 768px) {
+    /* Override any conflicting styles */
+    .header-wrapper.scrolled .logo-left {
+        position: absolute !important;
+        top: 50% !important;
+        left: 10px !important;
+        transform: translateY(-50%) !important;
+        width: 45px !important;
+        height: 45px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: 1001 !important;
+    }
+    
+    .header-wrapper.scrolled .logo-left .logo {
+        width: 45px !important;
+        height: auto !important;
+        max-width: 45px !important;
+        max-height: 45px !important;
+        object-fit: contain !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}

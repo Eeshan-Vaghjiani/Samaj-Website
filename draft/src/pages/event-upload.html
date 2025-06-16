@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Event - Shree Cutchi Leva Patel Samaj</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/event-upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../assets/images/Timeline Related Photos/samaj logo.png" type="image/png">
+    <script src="../js/main.js" defer></script>
+    <script src="../js/animations.js" defer></script>
+    <script src="../js/event-processor.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section -->
+    <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/samaj.jpg') center center / cover no-repeat; height: 40vh;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>Upload Event</h2>
+            <p>Add new events with beautiful watermarked images</p>
+        </div>
+    </div>
+
+    <!-- Event Upload Form Section -->
+    <section class="upload-section">
+        <div class="upload-container">
+            <h2 class="upload-title">Event Upload Form</h2>
+
+            <form id="event-upload-form">
+                <!-- Event Details -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-title">Event Title*</label>
+                        <input type="text" id="event-title" name="event-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-category">Event Category*</label>
+                        <select id="event-category" name="event-category" required>
+                            <option value="">Select Category</option>
+                            <option value="meeting">Meeting</option>
+                            <option value="sports">Sports</option>
+                            <option value="cultural">Cultural</option>
+                            <option value="religious">Religious</option>
+                            <option value="educational">Educational</option>
+                            <option value="charity">Charity</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-date">Event Date*</label>
+                        <input type="date" id="event-date" name="event-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-time">Event Time*</label>
+                        <input type="time" id="event-time" name="event-time" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="event-location">Event Location*</label>
+                        <input type="text" id="event-location" name="event-location" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="event-description">Event Description*</label>
+                        <textarea id="event-description" name="event-description" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-organizer">Organizer*</label>
+                        <input type="text" id="event-organizer" name="event-organizer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-contact">Contact Number*</label>
+                        <input type="tel" id="event-contact" name="event-contact" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="event-registration" name="event-registration">
+                            <label for="event-registration">Registration Required</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-deadline">Registration Deadline</label>
+                        <input type="date" id="event-deadline" name="event-deadline">
+                    </div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Event Image*</label>
+                        <div class="file-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div class="upload-text">Click or drag image to upload</div>
+                            <div class="upload-info">Support JPG, PNG or GIF (Max 5MB)</div>
+                            <input type="file" id="event-image" name="event-image" accept="image/*" required>
+                        </div>
+                        <div id="image-preview"></div>
+                        <button type="button" id="process-image" class="process-button">Add Watermark</button>
+                        <!-- Hidden field to store the watermarked image filename -->
+                        <input type="hidden" id="event-image-filename" name="event-image-filename">
+                    </div>
+                </div>
+
+                <!-- Status message -->
+                <div id="status-message" class="status-message"></div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Event</button>
+                    <button type="reset" class="btn btn-secondary">Reset Form</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Instructions Section -->
+    <section class="instructions-section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="package text-center bg-white">
+                        <span class="img-wrap"><img src="../assets/images/gifs/upload.gif" alt="Upload Icon" class="img-fluid"></span>
+                        <h3 class="text-purple">1. Upload Image</h3>
+                        <p>Upload a high-quality image related to your event. The image should be clear and visually appealing.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="package text-center bg-white">
+                        <span class="img-wrap"><img src="../assets/images/gifs/edit.gif" alt="Process Icon" class="img-fluid"></span>
+                        <h3 class="text-teal">2. Add Watermark</h3>
+                        <p>Our system will automatically add the Samaj logo as a watermark to the top-left corner of your image.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="package text-center bg-white">
+                        <span class="img-wrap"><img src="../assets/images/gifs/save.gif" alt="Save Icon" class="img-fluid"></span>
+                        <h3 class="text-success">3. Save Event</h3>
+                        <p>Fill in all event details and save. Your event with the watermarked image will be published on our website.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollUpBtn" class="scroll-up">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+</html> 

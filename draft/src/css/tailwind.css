@@ -91,16 +91,20 @@
     @apply text-gray-700 text-lg mr-1;
   }
   
+  /* Comment out the social icons style here to avoid conflict with style.css */
+  /* 
   .social-icons {
     @apply flex items-center gap-3;
   }
+  */
   
   .header-wrapper.scrolled .nav-container {
     @apply w-full rounded-none bg-white/95;
   }
   
   .header-wrapper.scrolled .logo-left {
-    @apply scale-75 origin-left;
+    /* Remove conflicting styles */
+    /* @apply scale-75 origin-left; */
   }
   
   .mobile-nav-toggle {
@@ -299,6 +303,8 @@
     @apply text-center text-white/60 mt-10 pt-8 border-t border-white/10;
   }
 
+  /* Let style.css handle social icons instead */
+  /* 
   .social-icons {
     @apply flex gap-4 mt-6;
   }
@@ -310,6 +316,7 @@
   .social-icon:hover {
     @apply bg-navy text-white transform -translate-y-1;
   }
+  */
 }
 
 /* Mobile styling */
@@ -383,7 +390,10 @@
     @apply left-1/2 -translate-x-1/2;
   }
   
+  /* Let style.css handle social icons instead */
+  /*
   .social-icons {
     @apply justify-center;
   }
+  */
 } 

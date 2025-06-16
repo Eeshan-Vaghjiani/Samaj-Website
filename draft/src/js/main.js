@@ -116,176 +116,133 @@ function loadHeader() {
  * Initialize mobile navigation
  */
 function initMobileNav() {
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mobileToggle = document.querySelector('.mobile-nav-toggle');
     const navContainer = document.querySelector('.nav-container');
-    
-    if (mobileNavToggle && navContainer) {
-        console.log('Mobile nav elements found');
-        
-        // Prevent default action on button when it's clicked directly
-        mobileNavToggle.onclick = function(e) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            return false;
-        };
-        
-        // Ensure the icon is in hamburger state on load
-        resetMobileIcon(mobileNavToggle);
-        
-        // Store the current scroll position globally
-        window.lastScrollPosition = 0;
-        
-        // Direct click handler on the toggle button
-        mobileNavToggle.addEventListener('click', function(e) {
-            // Prevent any default behavior - extra thorough
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation(); // Prevent document click from firing
-            }
-            console.log('Mobile toggle clicked');
-            
-            // Toggle menu state
-            const isActive = navContainer.classList.contains('mobile-active');
-            if (isActive) {
-                closeMenu(navContainer, mobileNavToggle);
+
+    if (mobileToggle && navContainer) {
+        // Add click event to mobile toggle button
+        mobileToggle.addEventListener('click', function() {
+            if (navContainer.classList.contains('mobile-active')) {
+                closeMenu(navContainer, mobileToggle);
             } else {
-                // Store current scroll position when opening the menu
-                window.lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-                console.log('Saving scroll position:', window.lastScrollPosition);
-                openMenu(navContainer, mobileNavToggle);
-            }
-            
-            // Prevent any hash navigation
-            return false;
-        }, {capture: true});
-        
-        // Prevent clicks on button from propagating
-        mobileNavToggle.addEventListener('click', function(e) {
-            if (e) {
-                e.stopPropagation();
-                e.preventDefault();
-            }
-            return false;
-        }, {capture: true});
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (navContainer.classList.contains('mobile-active') &&
-                !navContainer.contains(e.target) &&
-                e.target !== mobileNavToggle &&
-                !mobileNavToggle.contains(e.target)) {
-                
-                closeMenu(navContainer, mobileNavToggle);
-                
-                // Don't reset the scroll position
-                console.log('Maintaining scroll position on outside click');
+                openMenu(navContainer, mobileToggle);
             }
         });
+
+        // Add click event to all dropdown menus
+        const dropdownItems = document.querySelectorAll('.nav-menu li.has-dropdown');
         
-        // Improved mobile dropdown menus with smooth transitions
-        const dropdownLinks = document.querySelectorAll('.nav-menu li.has-dropdown > a');
-        dropdownLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    e.stopPropagation(); // Prevent closing the mobile menu
-                    
-                    const parent = this.parentNode;
-                    const dropdown = parent.querySelector('.dropdown-menu');
-                    const isOpen = parent.classList.contains('show-dropdown');
-                    
-                    console.log('Dropdown clicked:', dropdown);
-                    console.log('Is currently open:', isOpen);
-                    
-                    // First close any open dropdowns
-                    document.querySelectorAll('.nav-menu li.has-dropdown.show-dropdown').forEach(item => {
-                        if (item !== parent) {
-                            item.classList.remove('show-dropdown');
-                            console.log('Closed other dropdown');
-                        }
-                    });
-                    
-                    // Toggle this dropdown with a slight delay to ensure proper rendering
-                    setTimeout(() => {
-                        parent.classList.toggle('show-dropdown');
-                        console.log('Toggled dropdown to:', parent.classList.contains('show-dropdown'));
-                        
-                        // Force browser to recalculate layout
-                        dropdown.offsetHeight;
-                    }, 10);
-                    
-                    // Smooth scroll to show dropdown content if needed
-                    if (!isOpen && dropdown) {
-                        // Wait for the dropdown to expand
-                        setTimeout(() => {
-                            // Check if the dropdown is below viewport
-                            const dropdownBottom = dropdown.getBoundingClientRect().bottom;
-                            const viewportHeight = window.innerHeight;
-                            
-                            console.log('Dropdown bottom:', dropdownBottom, 'Viewport height:', viewportHeight);
-                            
-                            if (dropdownBottom > viewportHeight - 50) { // Add extra margin
-                                // Scroll to make entire dropdown visible
-                                const scrollAmount = dropdownBottom - viewportHeight + 100; // 100px extra padding
-                                console.log('Scrolling down by:', scrollAmount);
-                                
-                                window.scrollBy({
-                                    top: scrollAmount,
-                                    behavior: 'smooth'
-                                });
-                            }
-                        }, 350); // Wait a bit longer for dropdown animation
+        dropdownItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (window.innerWidth <= 768) { // Only for mobile view
+                link.addEventListener('click', function(e) {
+                    // Prevent default only if dropdown has items and we're on mobile
+                    if (item.querySelector('.dropdown-menu')) {
+                        e.preventDefault();
+                        item.classList.toggle('show-dropdown');
                     }
-                    
-                    // Prevent any hash or default navigation
-                    return false;
-                }
-            });
-        });
-        
-        // Add search functionality
-        const searchIcons = document.querySelectorAll('.search-icon');
-        if (searchIcons.length) {
-            searchIcons.forEach(searchIcon => {
-                searchIcon.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Implement search functionality or toggle search box
-                    console.log('Search icon clicked');
-                    
-                    // Prevent any hash or default navigation
-                    return false;
                 });
+            }
+        });
+
+        // Set dropdown behavior on window resize
+        window.addEventListener('resize', function() {
+            const dropdownItems = document.querySelectorAll('.nav-menu li.has-dropdown');
+            
+            if (window.innerWidth <= 768) {
+                // Mobile behavior: click to show dropdown
+                dropdownItems.forEach(item => {
+                    const link = item.querySelector('a');
+                    if (!link.hasClickListener) {
+                        link.addEventListener('click', function(e) {
+                            if (item.querySelector('.dropdown-menu')) {
+                                e.preventDefault();
+                                item.classList.toggle('show-dropdown');
+                            }
+                        });
+                        link.hasClickListener = true;
+                    }
+                });
+            } else {
+                // Desktop behavior: hover to show dropdown
+                dropdownItems.forEach(item => {
+                    item.classList.remove('show-dropdown');
+                });
+            }
+        });
+
+        // Desktop dropdown behavior
+        if (window.innerWidth > 768) {
+            // Clear any existing event handlers first
+            dropdownItems.forEach(item => {
+                const link = item.querySelector('a');
+                link.removeEventListener('click', function(){});
             });
         }
-    } else {
-        console.error('Mobile nav elements not found');
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navContainer.classList.contains('mobile-active') && 
+                !e.target.closest('.nav-container') && 
+                !e.target.closest('.mobile-nav-toggle')) {
+                closeMenu(navContainer, mobileToggle);
+            }
+        });
+
+        // Initialize dropdown on page load
+        initDropdownMenus();
     }
 }
 
 /**
- * Open the mobile menu
+ * Initialize dropdown menus for both mobile and desktop
+ */
+function initDropdownMenus() {
+    const dropdownItems = document.querySelectorAll('.nav-menu li.has-dropdown');
+    
+    dropdownItems.forEach(item => {
+        // Add accessibility attributes
+        const link = item.querySelector('a');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        
+        if (link && dropdownMenu) {
+            link.setAttribute('aria-expanded', 'false');
+            link.setAttribute('aria-haspopup', 'true');
+            
+            // For desktop: handle hover events
+            if (window.innerWidth > 768) {
+                item.addEventListener('mouseenter', function() {
+                    dropdownMenu.style.display = 'block';
+                    link.setAttribute('aria-expanded', 'true');
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    dropdownMenu.style.display = '';
+                    link.setAttribute('aria-expanded', 'false');
+                });
+            }
+            
+            // For mobile: existing click handler in initMobileNav will handle this
+        }
+    });
+}
+
+/**
+ * Open mobile menu with animation
  */
 function openMenu(navContainer, toggleButton) {
-    // Store scroll position in body's data attribute
-    document.body.setAttribute('data-scroll-position', window.lastScrollPosition);
-    document.body.style.top = `-${window.lastScrollPosition}px`;
-    
-    // Add active classes
-    navContainer.classList.add('mobile-active');
-    document.body.classList.add('menu-open');
-    
-    // Change icon to X
-    const icon = toggleButton.querySelector('i');
-    if (icon) {
-        icon.className = ''; // Clear all classes
-        icon.classList.add('fas', 'fa-times');
-        console.log('Icon changed to close (X)');
-    }
-    
-    // Ensure mobile logo exists and is visible
+    // Ensure we have the mobile logo visible
     ensureMobileLogo(navContainer);
+    
+    // Change the toggle button to X
+    toggleButton.innerHTML = '<i class="fas fa-times"></i>';
+    toggleButton.setAttribute('aria-expanded', 'true');
+    
+    // Add active class to nav container with transition
+    navContainer.classList.add('mobile-active');
+    
+    // Prevent body scrolling
+    document.body.classList.add('menu-open');
 }
 
 /**
@@ -1162,195 +1119,197 @@ function initGalleryLightbox() {
 function loadGalleryImages() {
     const galleryGrid = document.getElementById('gallery-grid');
     const loadingIndicator = document.getElementById('gallery-loading');
-    const gallerySection = document.querySelector('.gallery-section');
     
-    if (!galleryGrid || !loadingIndicator) return;
+    if (!galleryGrid || !loadingIndicator) {
+        console.error('Gallery elements not found');
+        return;
+    }
     
-    // Specify the timeline photos path
+    console.log('Starting to load gallery images');
+    
+    // Show loading indicator
+    loadingIndicator.style.display = 'block';
+    galleryGrid.innerHTML = ''; // Clear any existing content
+    
+    // Specify the timeline photos path - updated to use correct relative path
     const basePath = '../assets/images/Timeline Related Photos/';
     
     // Files to exclude
     const excludeFiles = ['samaj logo.png', 'samaj.jpg', 'school.jpg'];
     
-    // Recursive function to scan directory and subdirectories
-    function processImages(imagePaths) {
-        galleryGrid.innerHTML = ''; // Clear any existing content
-        
-        // Filter out excluded files and remove duplicates
-        const uniquePaths = new Set();
-        const filteredImages = imagePaths.filter(path => {
-            const filename = path.split('/').pop(); // Get just the filename
-            
-            // Skip excluded files
-            if (excludeFiles.includes(filename)) {
-                return false;
-            }
-            
-            // Skip duplicates by checking if we've seen this path before
-            if (uniquePaths.has(path)) {
-                return false;
-            }
-            
-            // Add this path to the set of paths we've seen
-            uniquePaths.add(path);
-            return true;
-        });
-        
-        if (filteredImages.length === 0) {
-            // If no images are found, hide the gallery section entirely
-            if (gallerySection) {
-                gallerySection.style.display = 'none';
-            }
-            
-            loadingIndicator.style.display = 'none';
-            console.log('No gallery images found to display');
-            return;
-        }
-        
-        // Sort images by filename (which may contain dates)
-        filteredImages.sort();
-        
-        // Keep track of successfully loaded images
-        let loadedImages = 0;
-        let failedImages = 0;
-        
-        // Create gallery items for each image
-        filteredImages.forEach(imagePath => {
-            const relativePath = imagePath.startsWith('../') ? imagePath : basePath + imagePath;
-            const filename = imagePath.split('/').pop();
-            
-            // Create a nice caption from the filename
-            let caption = filename
-                .replace(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/, '') // Remove file extension
-                .replace(/^\d+\-\d+\-\d+\s+/, '') // Remove date prefix like "25-12-54 "
-                .replace(/\_/g, ' ') // Replace underscores with spaces
-                .replace(/(\d+)\-(\d+)\-(\d+)/g, (match, day, month, year) => {
-                    // Add 20 to year if it's a 2-digit year less than 50
-                    if (year.length === 2 && parseInt(year) < 50) {
-                        year = '20' + year;
-                    } 
-                    // Add 19 to year if it's a 2-digit year greater than or equal to 50
-                    else if (year.length === 2) {
-                        year = '19' + year;
-                    }
-                    return `(${month}/${day}/${year})`;
-                })
-                .replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, (match, month, day, year) => {
-                    // Format dates as "Month Day, Year"
-                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                    try {
-                        const monthIndex = parseInt(month) - 1;
-                        if (monthIndex >= 0 && monthIndex < 12) {
-                            return `(${months[monthIndex]} ${day}, ${year})`;
-                        }
-                        return match;
-                    } catch (e) {
-                        return match;
-                    }
-                });
-            
-            // Make caption more readable by adding spaces where needed
-            caption = caption
-                .replace(/([a-z])([A-Z])/g, '$1 $2') // Add space between lower and uppercase letters
-                .replace(/  +/g, ' ') // Replace multiple spaces with a single space
-                .trim(); // Remove leading/trailing spaces
-            
-            // Create gallery item
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            
-            // Create image element
-            const img = document.createElement('img');
-            img.src = relativePath;
-            img.alt = caption;
-            img.loading = 'lazy'; // Add lazy loading for better performance
-            
-            // Create caption element
-            const captionDiv = document.createElement('div');
-            captionDiv.className = 'gallery-caption';
-            captionDiv.textContent = caption;
-            
-            // Handle image load error - prevent broken images from showing
-            img.onerror = function() {
-                failedImages++;
-                galleryItem.remove(); // Remove the item if image fails to load
-                
-                // Check if all images have been processed
-                if (loadedImages + failedImages === filteredImages.length) {
-                    finishLoading();
-                }
-            };
-            
-            // Handle image load success
-            img.onload = function() {
-                loadedImages++;
-                
-                // Check if all images have been processed
-                if (loadedImages + failedImages === filteredImages.length) {
-                    finishLoading();
-                }
-            };
-            
-            // Append elements to gallery item
-            galleryItem.appendChild(img);
-            galleryItem.appendChild(captionDiv);
-            
-            // Add gallery item to grid
-            galleryGrid.appendChild(galleryItem);
-        });
-        
-        // Function to finalize loading
-        function finishLoading() {
-            // Hide loading indicator
-            loadingIndicator.style.display = 'none';
-            
-            // Check if any images were successfully loaded
-            if (loadedImages === 0) {
-                // If no images loaded successfully, hide the gallery section
-                if (gallerySection) {
-                    gallerySection.style.display = 'none';
-                }
-                return;
-            }
-            
-            // Initialize lightbox after images are loaded
-            initGalleryLightbox();
-            
-            // Add animation to gallery items
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach((item, index) => {
-                // Stagger the animations for a nice effect
-                setTimeout(() => {
-                    item.classList.add('animate__animated', 'animate__fadeInUp');
-                }, index * 100);
-            });
-        }
-    }
-    
     // Fetch image paths from JSON file
     fetch('../data/gallery-images.json')
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Network response was not ok: ' + response.statusText);
             }
+            console.log('Successfully fetched gallery-images.json');
             return response.json();
         })
         .then(data => {
             if (!data || !data.images || data.images.length === 0) {
-                // Handle empty data
-                if (gallerySection) {
-                    gallerySection.style.display = 'none';
-                }
-                loadingIndicator.style.display = 'none';
-                return;
+                throw new Error('No images found in gallery data');
             }
             
-            processImages(data.images);
+            console.log(`Found ${data.images.length} images in JSON data`);
+            
+            // Create a manual set of images as a fallback
+            const manualImages = [
+                '25-12-54 Inauguration of Ronald Ngala Samaj.jpg',
+                '09-08-81 Visit by Indira Gandhi.jpg',
+                '21-10-91 Foundation Stone Laying of Devshi Dhanji Memorial Hall by Mr _ Mrs. Ramji Devshi Vekaria.jpg',
+                '15-08-10 Kay Pavilion Foundation.JPG',
+                '2.Ronald Ngala/1954 Opening Ceremony by Mr. Khimji Ramji Patel, Mr.Ramji Kurji Raghwani _ Mr. Lalji Harji Varsani.jpg',
+                '3 First 10 Years 1993-2002/Foundation Stone Laying of Samaj Flats Phase II on 14th February 1999.jpg',
+                '4. 5 Years (2003-2007)/Youth League Volleyball Tournament March 2006.JPG',
+                '6. Next 10 Years (2008 - 2018)/2016 Free Medical Camp - Eye Checkup.JPG'
+            ];
+            
+            // Use manual images if necessary
+            const imagesToUse = data.images.length > 0 ? data.images : manualImages;
+            console.log(`Using ${imagesToUse.length} images for gallery`);
+            
+            // Filter out excluded files and remove duplicates
+            const uniquePaths = new Set();
+            const filteredImages = imagesToUse.filter(path => {
+                const filename = path.split('/').pop(); // Get just the filename
+                
+                // Skip excluded files
+                if (excludeFiles.includes(filename)) {
+                    return false;
+                }
+                
+                // Skip duplicates
+                if (uniquePaths.has(path)) {
+                    return false;
+                }
+                
+                uniquePaths.add(path);
+                return true;
+            });
+            
+            if (filteredImages.length === 0) {
+                throw new Error('No valid images found after filtering');
+            }
+            
+            console.log(`After filtering, using ${filteredImages.length} images`);
+            
+            // Keep track of loading progress
+            let loadedImages = 0;
+            let failedImages = 0;
+            
+            // Create gallery items for each image
+            filteredImages.forEach((imagePath, index) => {
+                const relativePath = basePath + imagePath;
+                const filename = imagePath.split('/').pop();
+                
+                console.log(`Processing image ${index + 1}/${filteredImages.length}: ${relativePath}`);
+                
+                // Create a nice caption from the filename
+                let caption = filename
+                    .replace(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/, '') // Remove file extension
+                    .replace(/^\d+\-\d+\-\d+\s+/, '') // Remove date prefix
+                    .replace(/\_/g, ' ') // Replace underscores with spaces
+                    .replace(/(\d+)\-(\d+)\-(\d+)/g, (match, day, month, year) => {
+                        // Format dates
+                        if (year.length === 2) {
+                            year = parseInt(year) < 50 ? '20' + year : '19' + year;
+                        }
+                        return `(${month}/${day}/${year})`;
+                    })
+                    .replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, (match, month, day, year) => {
+                        // Format dates as "Month Day, Year"
+                        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        try {
+                            const monthIndex = parseInt(month) - 1;
+                            if (monthIndex >= 0 && monthIndex < 12) {
+                                return `(${months[monthIndex]} ${day}, ${year})`;
+                            }
+                        } catch (e) {
+                            console.error('Error formatting date:', e);
+                        }
+                        return match;
+                    })
+                    .replace(/([a-z])([A-Z])/g, '$1 $2') // Add space between lower and uppercase letters
+                    .replace(/  +/g, ' ') // Replace multiple spaces with a single space
+                    .trim();
+                
+                // Create gallery item
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                
+                // Create image element
+                const img = document.createElement('img');
+                img.src = relativePath;
+                img.alt = caption;
+                img.loading = 'lazy';
+                
+                // Create caption element
+                const captionDiv = document.createElement('div');
+                captionDiv.className = 'gallery-caption';
+                captionDiv.textContent = caption;
+                
+                // Handle image load error
+                img.onerror = function() {
+                    console.error('Failed to load image:', relativePath);
+                    failedImages++;
+                    galleryItem.remove();
+                    
+                    // Check if all images have been processed
+                    if (loadedImages + failedImages === filteredImages.length) {
+                        finishLoading();
+                    }
+                };
+                
+                // Handle image load success
+                img.onload = function() {
+                    console.log('Successfully loaded image:', relativePath);
+                    loadedImages++;
+                    
+                    // Check if all images have been processed
+                    if (loadedImages + failedImages === filteredImages.length) {
+                        finishLoading();
+                    }
+                };
+                
+                // Append elements to gallery item
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(captionDiv);
+                
+                // Add gallery item to grid
+                galleryGrid.appendChild(galleryItem);
+            });
+            
+            // Function to finalize loading
+            function finishLoading() {
+                console.log(`Finished loading gallery: ${loadedImages} loaded, ${failedImages} failed`);
+                
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+                
+                // Check if any images were successfully loaded
+                if (loadedImages === 0) {
+                    galleryGrid.innerHTML = '<div class="error-message">No images could be loaded. Please try again later.</div>';
+                    return;
+                }
+                
+                // Initialize lightbox after images are loaded
+                console.log('Initializing gallery lightbox');
+                initGalleryLightbox();
+                
+                // Add animation to gallery items
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                galleryItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('animate__animated', 'animate__fadeInUp');
+                    }, index * 100);
+                });
+            }
         })
         .catch(error => {
             console.error('Error loading gallery images:', error);
-            galleryGrid.innerHTML = '<div class="error-message">Error loading images. Please try again later.</div>';
             loadingIndicator.style.display = 'none';
+            galleryGrid.innerHTML = `<div class="error-message">Error loading images: ${error.message}</div>`;
         });
 }
 

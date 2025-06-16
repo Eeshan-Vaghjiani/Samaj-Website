@@ -258,6 +258,7 @@
 
 .header-wrapper.scrolled .logo-left {
   transition: all 0.3s ease;
+  /* Removed any positioning styles to avoid conflicts */
 }
 
 .nav-container {
@@ -285,11 +286,13 @@
 }
 
 .social-icon {
-  transition: var(--transition);
+  /* Only handle transitions, not positioning */
+  transition: all 0.3s ease;
 }
 
 .social-icon:hover {
-  transition: var(--transition);
+  /* Only handle transitions, not positioning */
+  transition: all 0.3s ease;
 }
 
 /* Smooth scrolling */
@@ -346,8 +349,8 @@ html {
   }
   
   /* Ensure logo stays fixed */
-  .logo-left,
-  .logo-left .logo {
+  .header-wrapper:not(.scrolled) .logo-left,
+  .header-wrapper:not(.scrolled) .logo-left .logo {
     transform: none !important;
     transition: none !important;
     animation: none !important;
