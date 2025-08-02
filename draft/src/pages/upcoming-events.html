@@ -325,6 +325,8 @@
     </button>
 
     <script>
+  
+
         document.addEventListener('DOMContentLoaded', function() {
             // Load events from JSON file
             fetch('../data/events/upcoming-events.json')
@@ -342,7 +344,7 @@
                     
                     // Render events
                     renderEvents(sortedEvents);
-                    
+                    styleFilterButtons();
                     // Set up event filtering
                     setupFilters(sortedEvents);
                 })
@@ -360,7 +362,33 @@
             // Initialize scroll to top button
             initScrollToTop();
         });
-        
+const categoryColors = {
+    'youth-league': 'var(--navy)',
+    'cec': 'var(--purple, #6B46C1)',
+    'krr': 'var(--orange, #ED8936)',
+    'mrs': 'var(--red)',
+    'mahila-mandal': 'var(--pink, #D53F8C)',
+    'educational': 'var(--green)',
+    'charity': 'var(--teal, #38B2AC)',
+    'cultural': 'var(--yellow)',
+    'meeting': 'var(--gray, #718096)',
+    'community': 'var(--blue, #4299E1)',
+};       
+        function styleFilterButtons() {
+            const buttons = document.querySelectorAll('.filter-btn');
+                buttons.forEach(btn => {
+                const category = btn.getAttribute('data-category');
+                    if (categoryColors[category]) {
+                        btn.style.backgroundColor = categoryColors[category];
+                        btn.style.color = (category === 'cultural') ? 'var(--navy)' : 'white'; // Handle contrast
+                        } else {
+                        // Default for "All Events" or undefined categories
+                        btn.style.backgroundColor = 'var(--navy-light)';
+                        btn.style.color = 'var(--navy)';
+                    }
+                });
+        }
+
         function renderEvents(events) {
             const eventsGrid = document.getElementById('events-grid');
             eventsGrid.innerHTML = '';
