@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shree Cutchi Leva Patel Samaj - Board & Management</title>
-    <link rel="stylesheet" href="../../dist/tailwind.css">
-  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/board-management.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script src="../js/main.js" defer></script>
+    <script src="../js/board-management.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -16,99 +20,180 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <img src="../assets/images/Timeline Related Photos/board-and-management.png" alt="Board & Management" class="hero-bg">
+        <img src="../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Youth League Mithai Box Making _ Decoration during Diwali Dhamaka 2013 Event(1).JPG" alt="Board & Management" class="hero-bg">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>SHREE CUTCHI LEVA PATEL SAMAJ, NAIROBI</h1>
         </div>
     </section>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
     <!-- Main Content -->
-    <main class="board-main">
-        <div class="container">
-            <div class="board-row">
-                <div class="board-col">
-                    <h2 class="board-heading gold">BOARD OF DIRECTORS</h2>
-                    <p>
-                        The Board of Directors is the governing body of the Samaj, responsible for making strategic decisions and ensuring the organization's mission is fulfilled.
-                    </p>
+    <main class="page-content board-directory">
+
+        <section class="board-directory__controls flex-wrap"> <!-- Controls -->
+
+            <form id="year-filter"> <!-- Filter by year. -->
+                
+                <label for="year-served">Year: </label>
+                <select onchange="filterMembersByYear(event)" name="year-served" id="year-served" form="year-filter">
+                    <option value="2025" selected>2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                    <option value="2010">2010</option>
+                </select>
+
+            </form>
+
+
+            <form id="controls__search" data-active="active" class="search"> <!-- Search bar. Filter by all parameters. -->
+
+                <label for="search__here">
+                    <input id="search__here" type="text" name="search__here" placeholder="Search here!" aria-label="search" autocomplete="off">
+                    <div tabindex="0" class="icon-btn"><i class="fa-solid fa-magnifying-glass" aria-label="search-submit"></i></div>
+                </label>
+
+                <ul tabindex="0" class="search__results" id="search__results">
+
+                    <li class="message">
+                        <p>Try searching!</p>
+                    </li>
+
+                </ul>
+
+            </form>
+
+        </section>
+
+        <section class="board-directory__block sclp-board "> <!-- Container for SCLP Samaj Trustees members list. --> 
+            <h1>SCLP Samaj Trustees</h1>
+            <ul id="trustees"></ul>
+        </section>
+
+        <section class="board-directory__block charitable-board"> <!-- Container for SCLP Charitable Trustees members list. -->
+            <h1>SCLP Charitable Trust Trustees</h1>
+            <ul id="trustees-charitable"></ul>
+        </section>
+
+
+
+
+        <!-- An overlay to show more info about individual member profile. -->
+        <section class="board-directory__overlay">
+            <button class="close"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="overlay__content">
+
+                <div class="member-profile scrollable">
+                    <div class="member-profile__hero"></div>
+
+                    <article class="member-profile__overview">
+                        <div class="overview__avatar">
+                            <figure>
+                                <img loading="lazy" src="../assets/images/Board And Management/Not Members/not-member-18.png">
+                            </figure>
+                        </div>
+
+                        <div class="members__description">
+                            <div>
+                                <span>2022 - 2025</span>
+                                <span> - SCLP</span>
+                                <h5>Mr. Manji Vekaria</h5>
+                            </div>
+                        </div>
+
+                    </article>
+
+                    <div class="member-profile__details">
+                        <div class="details__about">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate aliquam sed, harum id doloribus omnis. Dolorum voluptas eos architecto harum tempora fugiat molestias repudiandae ullam animi, error, consequatur provident vero!</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae aspernatur ut doloribus incidunt dicta. Adipisci ipsa aperiam perferendis dolorum iusto!</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias nisi explicabo dolore perspiciatis, reprehenderit eos consectetur nemo sunt aliquam numquam exercitationem natus consequuntur vero dignissimos temporibus tempore? Velit, quod distinctio autem voluptatem maxime magni quasi odio cupiditate officiis sapiente?</p>
+                        </div>
+
+                        <div class="details__history">
+                            <p>2025 <span>SCLP Samaj</span></p>
+                            <p>2024 <span>SCLP Samaj</span></p>
+                            <p>2023 <span>Charitable Trust</span></p>
+                            <p>2019 - 2022 <span>SCLP Samaj</span></p>
+                        </div>
+                    </div>
+                 </div>
                 </div>
-                <div class="board-col gold-bg">
-                    <h2 class="board-heading">MANAGEMENT COMMITTEE</h2>
-                    <ul>
-                        <li>Executive leadership and governance</li>
-                        <li>Strategic planning and implementation</li>
-                        <li>Financial oversight and resource management</li>
-                        <li>Community engagement and outreach</li>
-                        <li>Event coordination and execution</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
+        </section>
+        
     </main>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>SHREE CUTCHI LEVA PATEL SAMAJ</h3>
-                    <ul>
-                        <li>BARINGO SQUARE, NAIROBI WEST</li>
-                        <li>Phone: +254 735 602 925</li>
-                        <li>Email: sclps.nairobi@gmail.com</li>
-                    </ul>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>OUR SAMAJ</h3>
-                    <ul>
-                        <li><a href="board-and-management.html">Board & Management</a></li>
-                        <li><a href="history.html">History</a></li>
-                        <li><a href="vision-mission.html">Vision & Mission</a></li>
-                        <li><a href="constitution.html">Constitution</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                © 2024 Shree Cutchi Leva Patel Samaj. All rights reserved.
-            </div>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <button class="scroll-up" id="scrollUpBtn"><i class="fas fa-arrow-up"></i></button>
-
-    <script>
-        // Mobile Navigation Toggle
-        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-        const nav = document.querySelector('nav');
-        
-        mobileNavToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-        });
-
-        // Scroll Up Button
-        const scrollUpBtn = document.getElementById('scrollUpBtn');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 200) {
-                scrollUpBtn.style.display = 'flex';
-            } else {
-                scrollUpBtn.style.display = 'none';
-            }
-        });
-        
-        scrollUpBtn.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-        // Hide on load
-        scrollUpBtn.style.display = 'none';
-    </script>
 </body>
 </html>

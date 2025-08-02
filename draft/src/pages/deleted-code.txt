@@ -1,0 +1,76 @@
+<li>
+    <article>
+        <figure>
+            <img src="../assets/images/Timeline Related Photos/samaj11.jpg" alt="member-1">
+            <figcaption>Mr. Laxman B. Raghwani</figcaption>
+        </figure>
+
+        <div class="members__description">
+            <span>2020 - 2025</span>
+            <span>Treasurer</span>
+            <h5>Mr. Kurji L. Patel</h5>
+        </div>
+    </article>
+</li>
+
+
+
+
+
+
+
+
+
+
+ <li>
+                        <figure>
+                            <img src="../assets/images/Board And Management/Members/kanit.png" alt="search-res-1">
+                        </figure>
+
+                        <div class="members__description">
+                            <h5>Mr. Kanti Kerai</h5>
+                            <span>1990 - 2004</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <figure>
+                            <img src="../assets/images/Board And Management/Members/kishore.png" alt="search-res-1">
+                        </figure>
+
+                        <div class="members__description">
+                            <h5>Mr. Kishor Hirani</h5>
+                            <span>2025</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <figure>
+                            <img src="../assets/images/Board And Management/Members/Manji-R.jpg" alt="search-res-1">
+                        </figure>
+
+                        <div class="members__description">
+                            <h5>Mr. Manji Vekaria Rabadia</h5>
+                            <span>2024 - 2025</span>
+                        </div>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       <li>
+                    <div class="message">
+                        <p>Try searching by name!</p>
+                    </div>
+                   </li>

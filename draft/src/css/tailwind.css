@@ -74,7 +74,7 @@
     @apply relative;
   }
   
-  .nav-menu li a {
+  .nav-menu li a, .nav-menu li p {
     @apply text-gray-700 no-underline font-medium text-sm py-1 transition duration-300 whitespace-nowrap hover:text-[#ec5237];
     display: block;
   }
@@ -361,7 +361,8 @@
     @apply flex-col gap-6 w-full items-center pt-8;
   }
   
-  .nav-container.mobile-active .nav-menu li a {
+  .nav-container.mobile-active .nav-menu li a,
+  .nav-container.mobile-active .nav-menu li p {
     @apply text-lg py-2;
   }
   

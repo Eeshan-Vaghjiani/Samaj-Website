@@ -1,0 +1,481 @@
+
+/*      TO SOLVE:
+`         1. Responsive to mobile viewport. Header is floating when scrolled down and refreshed.
+          2. When search bar is focused, the sibling and uncle are hid to let the search bar take most of the width without forcing any element to next row.
+              - This approach is achieved through JavaScript by toggling .active class on the parent of search bar. Works perfectly.
+              - The same behaviour can be achieved independent of JavaScript, through CSS only. 
+              - CSS only approach is tedious, complicated, fragile, adding unnecessary layers or custom logic, and has limited control. Therefore, used JavaScript.
+              - But perform a test using CSS only to check if it satisfy all needs, if it does, then no harm in removing JavaScript dependency.
+
+          3. Member show more overlay has a problem in drawing when scrolled. The white background leaves traces (white lines) on it's background overlay.
+            - For now, this problem has been solved by giving background color to both overlay and it's direct child.
+
+          4. In search bar, quick focus out and then in before the transition is complete will trigger a bug, where the year-filter will not hide when in focused state.
+
+          5. For search bar and it's components, try different transition tactics/effects to make it smooth as much as possible.
+          
+          6. Exiting out of board-directory__overlay, for a short time (until transition completes), both scrollbar are shown; one for body and one for overlay.
+            - Fixed using JavaScript.
+            - Find alternative.
+          
+          7. Change board-directory__overlay styling; transitions, color, width, height, and etc.
+*/
+
+.flex-wrap { display: flex; flex-wrap: wrap; }
+
+.scrollable { /* Scrollable container. */
+  scrollbar-gutter: stable;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.scrollable::-webkit-scrollbar { width: 8px; }
+.scrollable::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 1000px;
+  border: 2px solid white;
+}
+
+.board-directory, .board-directory__overlay {
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+.board-directory {
+  --fs-400: 1.6rem;
+  --fs-300: 1.175rem;
+  --fs-200: 1.075rem;
+  --fs-100: .9rem;
+
+  position: relative;
+  font-size: var(--fs-200);
+}
+
+.board-directory select, .board-directory input { outline: none; }
+
+.board-directory figure { /* Styles for profile img container for this page. */
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background-color: var(--white);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.board-directory figure:not(.loaded) { background-image: url('../assets/images/Board And Management/default-man-avatar.PNG'); }
+
+.board-directory figure:not(.loaded)::before { /* The pulsing container. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 1);
+  animation: pulse 2.5s infinite;
+}
+
+.board-directory figure img { /* General styles for img itself for this page. */
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  object-fit: cover;
+  object-position: top;
+  background-color: white;
+  transition: opacity 200ms ease-in-out;
+}
+
+.board-directory figure.loaded img { opacity: 1; }
+
+.board-directory ul { /* The member's list. */
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board-directory .message { /* General messages for this page. */
+  background-color: rgba(128, 128, 128, .50);
+  border-radius: .2rem;
+  color: var(--navy);
+  margin: auto;
+}
+
+.board-directory .message, #year-filter { font-weight: 600; text-align: center; }
+
+.board-directory .message.error { /* General messages for this page, but errors. */
+  color: red;
+  background-color: rgba(255, 0, 0, .175);
+}
+
+.load::after { /* Loading state styling */
+  content: "";
+  position: absolute;
+  inset: 50% 0 0 50%;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100000px;
+  border: 2px solid grey;
+  border-left: none;
+  border-bottom: none;
+
+  animation: load 1000ms infinite linear;
+}
+
+.board-directory__controls, .board-directory__block ul, .search__results {
+  min-height: 5rem;
+}
+
+.board-directory li article { display: flex; }
+
+.board-directory__controls { /* Flex container. */
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.board-directory__controls select {
+  font-size: var(--fs-200);
+}
+
+/* Always hide #year-filter when search bar is focused. */
+.board-directory__controls.active #year-filter { display: none; } 
+
+.icon-btn { cursor: pointer; } /* Search icon container. */
+
+.search {
+  position: relative;
+  min-width: 1rem;
+  transition-property: min-width;
+}
+
+.search, .search__results {
+  transition-duration: 300ms; /* If duration changed, change in JavaScript. */
+  transition-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.search label { 
+  display: flex;
+  font-size: var(--fs-300);
+}
+
+.search input {
+  flex-grow: 1;
+  width: 0;
+  opacity: 0;
+  border: none;
+  font-size: inherit;
+  background-color: transparent;
+}
+
+.search:focus-within { min-width: 100%; transition-delay: 0ms; }
+
+.search:not(:focus-within) { transition-delay: 300ms; }
+
+.search:not(:focus-within) .search__results { transition-delay: 0ms; }
+
+.search:focus-within input { opacity: 1; }
+
+.search:focus-within label { background-color: rgba(245, 245, 245, 1); }
+
+.search:focus-within .search__results { 
+  transform: scaleY(1);
+  opacity: 1;
+  transition-delay: 300ms;
+}
+
+ul.search__results { /* Only displayed when search bar is focused. */
+  --fs-300: 1rem;
+  --fs-100: .8rem;
+
+  position: absolute;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: .4rem;
+  overflow-y: auto;
+  max-height: 600px;
+  inset: 100% 0 auto;
+  opacity: 0;
+  transform: scaleY(0);
+  z-index: 100;
+  background-color: var(--white);
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
+  transition-property: transform, opacity;
+  transform-origin: top;
+}
+
+.search__results li article { /* Individual search result item. */
+  cursor: pointer;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search__results li[data-year]:hover { /* Only the member cards of search results. */
+  background-color: rgba(245, 245, 245, 1);
+}
+
+.search__results figure {
+  flex-shrink: 0; /* Never ever shrink, prevents shrinking of width or height. */
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1000px;
+}
+
+.search__results.load::after { /* Loading state styling */
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.members__description { /* Member profile description container. */
+  flex-grow: 1; 
+  font-weight: normal;
+}
+
+.members__description h5 { font-size: var(--fs-300); }
+
+.members__description span { font-size: var(--fs-100); color: grey; }
+
+.board-directory__block .members__description h5,
+.overlay__avatar .members__description h5 { margin-top: .4rem; }
+
+
+.board-directory__block { margin-bottom: 3rem; }
+
+.board-directory__block h1 {
+  text-align: center;
+  margin-bottom: 1.4rem;
+}
+
+.board-directory__block ul {
+  position: relative;
+  justify-content: space-around;
+}
+
+/* 280 inside 230 */
+.board-directory__block li {
+  flex: 0 0 100%; /* 25%, 33%, 50% for smaller screens. */
+  max-width: 100%;
+}
+
+.board-directory__block article:hover figure img {
+  transform: scale(1.1) translateY(6%);
+}
+
+.board-directory__block li article {
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 10px 50px 0 rgba(0, 0, 0, .1);
+  border-radius: .2rem;
+}
+
+.board-directory__block figure img { cursor: pointer; transition: transform 200ms ease-in-out; }
+
+.board-directory__overlay.active-overlay { transform: scaleY(1); } /* Immediate entry. */
+
+.board-directory__overlay:not(.active-overlay) { transition: transform 0ms 300ms ease; } /* Delayed exit. */
+
+.board-directory__overlay {
+  position: fixed;
+  inset: 0 auto;
+  padding: 0;
+  padding-top: 112px;
+  z-index: 100;
+  transform: scaleY(0);
+}
+
+/* Header position is different when scrolled, hence adjustement for the overlay. */
+body:has(.header-wrapper.scrolled) .board-directory__overlay { padding-top: 70px; } 
+
+.board-directory__overlay button.close { /* Instead of wrapping in container to set the position, chose Math way. */
+  position: absolute;
+  border: none;
+  margin-top: .5rem;
+  right: calc(((100% - min(800px, 94%)) / 2) + 2%);
+  font-size: var(--fs-300);
+  color: var(--white);
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, .45);
+  z-index: 101;
+}
+
+.overlay__content {
+  height: 100%;
+  background-color: rgba(128, 128, 128, .90);
+}
+
+.member-profile {
+  width: min(800px, 94%);
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  background-color: white;
+  opacity: 0;
+  transform: scaleY(0);
+  transition: transform 300ms, opacity 400ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: 0 50vh;
+}
+
+.active-overlay .member-profile {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.member-profile__hero { /* Background image. */
+  width: 100%;
+  text-align: end;
+  padding: 1rem 0;
+}
+
+.member-profile__overview {
+  max-width: 16rem;
+  margin: 0 auto 3rem auto;
+}
+
+.overview__avatar {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: .6rem;
+  overflow: hidden;
+  box-shadow: 0 -10px 25px 0 rgba(0, 0, 0, .3);
+}
+
+
+.member-profile .members__description {
+  background-color: white;
+  margin-top: -40%;
+  padding: 45% 0 0;
+  border-radius: .6rem;
+  box-shadow: 0 10px 50px 0 rgba(0, 0, 0, .2);
+}
+
+.details__about {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.details__history {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  justify-content: space-evenly;
+}
+
+.details__history p {
+  background-color: var(--navy);
+  padding: .4rem 1rem;
+  border-radius: 2rem;
+  color: var(--white);
+  text-align: center;
+}
+
+
+@keyframes load { /* Loading animation. */
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: .2;}
+  50% { opacity: 0;}
+  100% { opacity: .2;}
+}
+
+@media only screen and (min-width: 150px) {
+  .board-directory .message { padding: .2rem .8rem; width: max-content; }
+
+  .board-directory__controls { padding: 0 .6rem; }
+
+  .board-directory__controls select { margin-left: .6rem; padding-right: 5rem; }
+
+  .search:focus-within input { padding: 0 .6rem; }
+
+  .search__results { padding: 1rem .4rem; }
+
+  .board-directory__block li { padding: 1rem .6rem; }
+
+  .board-directory__block .members__description { padding: 1.6rem; padding-right: .4rem; }
+
+  .board-directory__overlay button.close { padding: 0 .4rem; }
+
+  .member-profile__overview .members__description { padding: 45% 1.2rem 3rem 20%; }
+
+  .member-profile__details { padding: 0 1rem; } /* Text content at bottom should not touch the overlay borders. */
+
+}
+
+
+
+@media only screen and (min-width: 375px) {
+
+  .board-directory__block li {
+    flex: 0 0 85%; 
+    max-width: 85%;
+  }
+
+}
+
+@media only screen and (min-width: 576px) {
+
+  .board-directory, .board-directory__overlay { max-width: 570px; }
+
+
+  .search__results {
+    --fs-100: .9rem;
+  }
+
+  .board-directory__block li {
+    flex: 0 0 50%; 
+    max-width: 50%;
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+  .board-directory, .board-directory__overlay { max-width: 1200px; }
+
+
+  .member-profile__hero {
+    background-image: url('../assets/images/Board\ And\ Management/Others/10.jpg');
+    background-position: center top;
+    background-size: cover;
+    background-color: grey;
+    padding-bottom: 25em;
+  }
+
+  .member-profile__overview {
+    max-width: 24rem;
+    margin-top: -22rem;
+
+    --fs-100: 1rem;
+    --fs-300: 1.6rem;
+  }
+
+  .board-directory__block li {
+    flex: 0 0 25%; 
+    max-width: 25%;
+  }
+
+}
+
+
+@media only screen and (min-width: 1150px) {
+
+  .board-directory__block li {
+    flex: 0 0 20%; 
+    max-width: 20%;
+  }
+
+}
+
+
+
+

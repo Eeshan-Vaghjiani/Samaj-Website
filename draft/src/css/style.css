@@ -32,6 +32,20 @@ body {
     line-height: 1.6;
 }
 
+.message { /* General messages. */
+  background-color: rgba(128, 128, 128, .50);
+  color: var(--navy);
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: .4rem 0;
+}
+
+.message.error { /* General messages, but errors. */
+  color: red;
+  background-color: rgba(255, 0, 0, .175);
+}
+
 .container {
     width: 90%;
     max-width: 1200px;
@@ -40,7 +54,7 @@ body {
 
 /* Header styles - complete redesign */
 .header-wrapper {
-    margin-top: -10px;
+    /* margin-top: -10px; */
     position: fixed;
     width: 100%;
     top: 0;
@@ -123,7 +137,8 @@ body {
     align-items: center;
 }
 
-.nav-menu li a {
+.nav-menu li a, .nav-menu li p {
+    cursor: pointer;
     color: #4b5563;
     text-decoration: none;
     font-weight: 500;
@@ -964,7 +979,7 @@ footer::before {
     }
     
     .header-layout {
-        justify-content: flex-start; /* Change from space-between to flex-start */
+        /* justify-content: flex-start; Change from space-between to flex-start */
         align-items: center;
         padding: 0;
         position: relative;
@@ -981,16 +996,10 @@ footer::before {
     
     /* Right side actions container - keep fixed on the right */
     .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
         height: 45px;
-        margin: 0;
-        padding: 0;
         position: absolute;
         right: 0;
         top: 50%;
-        transform: translateY(-50%);
         z-index: 1002; /* Higher z-index to stay above other elements */
     }
     
@@ -1002,23 +1011,9 @@ footer::before {
         justify-content: center;
         height: 45px;
         width: 45px;
-        margin: 0;
-        padding: 0;
     }
     
-    .mobile-nav-toggle {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        transform: none;
-        background: rgba(255,255,255,0.2);
-        padding: 8px;
-        border-radius: 4px;
-        margin: 0;
-        height: 45px;
-        width: 45px;
-    }
+    .mobile-nav-toggle { display: flex !important; }
     
     /* Logo positioning */
     .logo-left {
@@ -1083,52 +1078,6 @@ footer::before {
         font-size: 1.6rem;
     }
     
-    /* Header actions */
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        height: 45px;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        z-index: 1001;
-    }
-    
-    .header-actions .search-icon {
-        color: #4b5563;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        height: 45px;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .mobile-nav-toggle {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        transform: none;
-        background: rgba(255,255,255,0.2);
-        padding: 8px;
-        border-radius: 4px;
-        margin: 0;
-        height: 45px;
-        width: 45px;
-    }
-    
-    .mobile-nav-toggle i {
-        font-size: 1.3rem;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
     /* Override any conflicting styles */
     .header-wrapper.scrolled .logo-left,
     .header-wrapper.scrolled .logo-left .logo {
@@ -1143,20 +1092,9 @@ footer::before {
     
     /* Make sure header actions stay in position even in scrolled state */
     .header-wrapper.scrolled .header-actions {
-        position: absolute !important;
         right: 16px !important;
         top: 50% !important;
         transform: translateY(-50%) !important;
-        height: 45px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Hero section adjustments */
-    .hero-section + .header-wrapper .header-actions .search-icon,
-    .hero-section + .header-wrapper .mobile-nav-toggle i {
-        color: white;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
     
     /* Ensure nav container doesn't affect logo */
@@ -1250,7 +1188,7 @@ footer::before {
         margin-bottom: 0 !important;
     }
     
-    .nav-menu li a {
+    .nav-menu li a, .nav-menu li p {
         width: 100%;
         height: auto;
         padding: 12px 0;
@@ -1259,7 +1197,7 @@ footer::before {
     }
     
     /* Crucial fix: Override all default dropdown styles for mobile */
-    .nav-menu li.has-dropdown > a:after {
+    .nav-menu li.has-dropdown > p:after  {
         content: "\f078" !important;
         font-family: "Font Awesome 6 Free" !important;
         font-weight: 900 !important;
@@ -1270,7 +1208,7 @@ footer::before {
         vertical-align: middle !important;
     }
     
-    .nav-menu li.has-dropdown.show-dropdown > a:after {
+    .nav-menu li.has-dropdown.show-dropdown > p:after {
         transform: rotate(180deg) !important;
     }
     
@@ -1325,6 +1263,7 @@ footer::before {
     
     /* Social icons go to the bottom */
     .nav-container .header-right {
+        margin-left: 0 !important;
         margin-top: 30px !important;
         padding-top: 20px !important;
         border-top: 1px solid #eee !important;
@@ -1348,17 +1287,10 @@ footer::before {
     }
 
     /* Fix body scrolling when menu is open with proper scroll position management */
-    body.menu-open {
-        position: fixed;
+    body:has(.mobile-active) {
         overflow: hidden;
-        width: 100%;
-        /* Don't specify height to avoid stretching issues */
-        top: 0;
-        left: 0; 
-        right: 0;
-        bottom: 0;
         /* Maintain position */
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch;        
     }
     
     /* Ensure the mobile menu itself is scrollable */
@@ -1447,7 +1379,7 @@ footer::before {
     position: relative;
 }
 
-.nav-menu li.has-dropdown > a:after {
+.nav-menu li.has-dropdown > p:after {
     content: "▼";
     font-size: 0.6rem;
     margin-left: 5px;
@@ -1503,13 +1435,12 @@ footer::before {
 .mobile-nav-toggle {
     display: none;
     background: transparent;
+    position: relative;
     border: none;
     cursor: pointer;
-    font-size: 1.8rem;
     color: #333;
+    border-radius: 4px;
     z-index: 1002;
-    padding: 8px;
-    position: relative;
     width: 44px;
     height: 44px;
     line-height: 1;
@@ -1517,25 +1448,20 @@ footer::before {
 }
 
 .mobile-nav-toggle i {
+    display: none;
+    font-size: 1.3rem;
     color: #333;
-    display: block;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
 }
 
-/* Remove any transform animation from the toggle button itself */
-.mobile-nav-toggle:hover {
-    transform: none;
-}
+.mobile-nav-toggle input { cursor: pointer; z-index: 1; margin: auto; opacity: 0; } /* Hide the checkbox. */
 
-/* Fix for header on hero section where icon might be invisible */
-.hero-section + .header-wrapper .mobile-nav-toggle i {
-    color: white;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
+/* If checked, show 'X' icon else bars*/
+.mobile-nav-toggle input:not(:checked) ~ .fa-bars { display: block; } 
+.mobile-nav-toggle input:checked ~ .fa-times { display: block; }
+
 
 /* Header right actions (search + mobile toggle) */
 .header-actions {
@@ -1543,6 +1469,11 @@ footer::before {
     align-items: center;
     gap: 15px;
 }
+
+.header-actions i, .mobile-active .header-actions i {
+    color: #4b5563;
+}
+
 
 /* Hide mobile-only logo by default */
 .mobile-menu-logo {
