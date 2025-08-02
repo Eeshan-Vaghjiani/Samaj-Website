@@ -1349,10 +1349,13 @@ footer::before {
     }
     
     .dropdown-menu li a {
-        padding: 10px 15px !important;
+        padding: 12px 15px !important;
         font-size: 0.9rem !important;
         color: #555 !important;
-        display: block !important;
+        display: flex !important;
+        align-items: center !important;
+        min-height: 40px !important;
+        line-height: 1.2 !important;
     }
     
     /* Social icons go to the bottom */
@@ -1514,9 +1517,12 @@ footer::before {
 }
 
 .dropdown-menu li a {
-    padding: 8px 16px;
-    display: block;
-    font-size: 0.8rem;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    min-height: 36px;
 }
 
 .dropdown-menu li a:hover {
