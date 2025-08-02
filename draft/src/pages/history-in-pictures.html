@@ -14,7 +14,95 @@
   <script src="../js/animations.js" defer></script>
 
   <style>
-    /* Additional local styles for gallery */
+    /* Additional local styles for folder gallery */
+    .folder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .folder-item {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border: 2px solid #dee2e6;
+      border-radius: 10px;
+      padding: 15px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 130px;
+    }
+    
+    .folder-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .folder-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--folder-color), var(--folder-color-light));
+    }
+    
+    .folder-icon {
+      font-size: 2.5rem;
+      color: var(--folder-color);
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    .folder-item:hover .folder-icon {
+      transform: scale(1.1);
+      color: var(--folder-color-light);
+    }
+    
+    .folder-item:hover {
+      border-color: var(--folder-color);
+    }
+    
+    .folder-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .folder-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+      line-height: 1.3;
+      text-align: center;
+      word-wrap: break-word;
+      max-width: 100%;
+    }
+    
+    .folder-count {
+      font-size: 0.75rem;
+      color: #666;
+      background: rgba(var(--folder-color-rgb), 0.1);
+      padding: 3px 8px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-top: auto;
+      flex-shrink: 0;
+    }
+    
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -74,6 +162,53 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    
+    .back-button {
+      background: #0066cc;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .back-button:hover {
+      background: #0052a3;
+      transform: translateY(-2px);
+    }
+    
+    .folder-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      padding: 12px 16px;
+      background: transparent;
+      position: relative;
+    }
+    
+    .folder-header h3 {
+      margin: 0;
+      color: #333;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    
+    .back-button {
+      position: absolute;
+      left: 16px;
+      top: 12px;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -97,12 +232,29 @@
         <h2 class="gold">OUR JOURNEY THROUGH TIME</h2>
       </div>
 
-      <!-- Gallery grid - Now dynamically loaded -->
-      <div class="gallery-grid" id="galleryGrid">
-        <!-- Loading indicator -->
-        <div class="loading" id="loadingIndicator">
-          <div class="loading-spinner"></div>
-          <p>Loading gallery images...</p>
+      <!-- Folder View -->
+      <div class="folder-view" id="folderView">
+        <div class="folder-grid" id="folderGrid">
+          <!-- Loading indicator -->
+          <div class="loading" id="loadingIndicator">
+            <div class="loading-spinner"></div>
+            <p>Loading gallery folders...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery View -->
+      <div class="gallery-view hidden" id="galleryView">
+        <div class="folder-header">
+          <button class="back-button" id="backButton">
+            <i class="fas fa-arrow-left"></i>
+            Back to Folders
+          </button>
+          <h3 id="currentFolderTitle">Folder Images</h3>
+        </div>
+        
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Images will be loaded here -->
         </div>
       </div>
     </div>
@@ -118,13 +270,23 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Get reference to gallery grid
+      // Get references to elements
+      const folderView = document.getElementById('folderView');
+      const galleryView = document.getElementById('galleryView');
+      const folderGrid = document.getElementById('folderGrid');
       const galleryGrid = document.getElementById('galleryGrid');
       const loadingIndicator = document.getElementById('loadingIndicator');
+      const backButton = document.getElementById('backButton');
+      const currentFolderTitle = document.getElementById('currentFolderTitle');
       const baseImagePath = '../assets/images/Timeline Related Photos/';
       
       // Fetch images from JSON file
       fetchGalleryImages();
+      
+      // Back button functionality
+      backButton.addEventListener('click', function() {
+        showFolderView();
+      });
       
       /**
        * Fetch gallery images from JSON file
@@ -144,8 +306,8 @@
             loadingIndicator.remove();
           }
           
-          // Process and display images
-          displayGalleryImages(data.images);
+          // Process and display folders
+          displayFolders(data.images);
           
         } catch (error) {
           console.error('Error loading gallery images:', error);
@@ -159,14 +321,149 @@
         }
       }
       
+             /**
+        * Group images by folder and display folders
+        * @param {Array} images - Array of image paths
+        */
+       function displayFolders(images) {
+         const folders = groupImagesByFolder(images);
+         
+         // Define color schemes for folders
+         const colorSchemes = [
+           { color: '#e60000', light: '#ff6b6b', rgb: '230, 0, 0' },      // Red
+           { color: '#0066cc', light: '#4da6ff', rgb: '0, 102, 204' },     // Blue
+           { color: '#009933', light: '#66cc66', rgb: '0, 153, 51' },      // Green
+           { color: '#cc6600', light: '#ff9933', rgb: '204, 102, 0' },     // Orange
+           { color: '#660099', light: '#9933cc', rgb: '102, 0, 153' },     // Purple
+           { color: '#cc0066', light: '#ff3399', rgb: '204, 0, 102' },     // Pink
+           { color: '#006666', light: '#339999', rgb: '0, 102, 102' },     // Teal
+           { color: '#cc3300', light: '#ff6633', rgb: '204, 51, 0' },      // Dark Orange
+           { color: '#663300', light: '#996633', rgb: '102, 51, 0' },      // Brown
+           { color: '#660066', light: '#993399', rgb: '102, 0, 102' }      // Dark Purple
+         ];
+         
+         // Create folder items
+         Object.keys(folders).forEach((folderName, index) => {
+           const folderItem = document.createElement('div');
+           folderItem.className = 'folder-item animate__animated animate__fadeInUp';
+           
+           // Assign color scheme
+           const colorScheme = colorSchemes[index % colorSchemes.length];
+           folderItem.style.setProperty('--folder-color', colorScheme.color);
+           folderItem.style.setProperty('--folder-color-light', colorScheme.light);
+           folderItem.style.setProperty('--folder-color-rgb', colorScheme.rgb);
+           
+                       const folderIcon = document.createElement('div');
+            folderIcon.className = 'folder-icon';
+            folderIcon.innerHTML = '<i class="fas fa-folder"></i>';
+            
+            const folderContent = document.createElement('div');
+            folderContent.className = 'folder-content';
+            
+            const folderTitle = document.createElement('div');
+            folderTitle.className = 'folder-title';
+            folderTitle.textContent = formatFolderName(folderName);
+            
+            const folderCount = document.createElement('div');
+            folderCount.className = 'folder-count';
+            folderCount.textContent = `${folders[folderName].length} images`;
+            
+            folderContent.appendChild(folderTitle);
+            folderContent.appendChild(folderCount);
+            
+            folderItem.appendChild(folderIcon);
+            folderItem.appendChild(folderContent);
+           
+           // Add click functionality
+           folderItem.addEventListener('click', function() {
+             showGalleryView(folderName, folders[folderName]);
+           });
+           
+           folderGrid.appendChild(folderItem);
+         });
+       }
+      
+      /**
+       * Group images by their folder structure
+       * @param {Array} images - Array of image paths
+       * @returns {Object} Object with folder names as keys and arrays of images as values
+       */
+      function groupImagesByFolder(images) {
+        const folders = {};
+        
+        images.forEach(imagePath => {
+          const pathParts = imagePath.split('/');
+          let folderName = 'Root';
+          
+          if (pathParts.length > 1) {
+            folderName = pathParts[0];
+          }
+          
+          if (!folders[folderName]) {
+            folders[folderName] = [];
+          }
+          
+          folders[folderName].push(imagePath);
+        });
+        
+        return folders;
+      }
+      
+      /**
+       * Format folder name for display
+       * @param {string} folderName - Raw folder name
+       * @returns {string} Formatted folder name
+       */
+      function formatFolderName(folderName) {
+        if (folderName === 'Root') {
+          return 'General Images';
+        }
+        
+        // Remove numbering and format
+        let formatted = folderName.replace(/^\d+\.\s*/, '');
+        
+        // Replace underscores with spaces
+        formatted = formatted.replace(/_/g, ' ');
+        
+        // Capitalize first letter of each word
+        formatted = formatted.replace(/\b\w/g, l => l.toUpperCase());
+        
+        return formatted;
+      }
+      
+      /**
+       * Show folder view
+       */
+      function showFolderView() {
+        folderView.classList.remove('hidden');
+        galleryView.classList.add('hidden');
+        galleryGrid.innerHTML = '';
+      }
+      
+      /**
+       * Show gallery view for specific folder
+       * @param {string} folderName - Name of the folder
+       * @param {Array} images - Array of images in the folder
+       */
+      function showGalleryView(folderName, images) {
+        folderView.classList.add('hidden');
+        galleryView.classList.remove('hidden');
+        
+        // Update folder title
+        currentFolderTitle.textContent = formatFolderName(folderName);
+        
+        // Clear previous images
+        galleryGrid.innerHTML = '';
+        
+        // Display images
+        displayGalleryImages(images);
+      }
+      
       /**
        * Display gallery images with lazy loading
        * @param {Array} images - Array of image paths
        */
       function displayGalleryImages(images) {
-        // Only show a reasonable number of images (first 50)
-        const imagesToShow = images.slice(0, 50);
-        
         // Create observer for lazy loading
         const imageObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
@@ -191,7 +488,7 @@
         });
         
         // Process each image
-        imagesToShow.forEach(imagePath => {
+        images.forEach(imagePath => {
           // Create gallery item
           const galleryItem = document.createElement('div');
           galleryItem.className = 'gallery-item animate__animated';
