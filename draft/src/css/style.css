@@ -1042,6 +1042,7 @@ footer::before {
         justify-content: center;
         height: 45px;
         width: 45px;
+        text-decoration: none !important;
     }
     
     .mobile-nav-toggle { display: flex !important; }
@@ -3196,6 +3197,7 @@ section.hero {
     overflow: hidden !important;
     position: relative !important;
     transition: all 0.3s ease !important;
+    text-decoration: none !important;
 }
 
 .header-right .social-icon:hover {
