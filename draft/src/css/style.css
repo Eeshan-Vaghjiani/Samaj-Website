@@ -477,6 +477,10 @@ section:not(.hero-section) {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
     margin-top: 50px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 .journey-card {
@@ -574,6 +578,9 @@ section:not(.hero-section) {
     gap: 30px;
     margin-top: 24px;
     width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .trust-content {
@@ -1113,7 +1120,7 @@ footer::before {
         font-size: 1rem;
     }
 
-    .committee-cards, .trust-committee-cards {
+    .committee-cards {
         grid-template-columns: 1fr;
     }
 
@@ -1361,6 +1368,38 @@ footer::before {
     }
 }
 
+/* Large screen optimization */
+@media (min-width: 1400px) {
+    .trust-committee-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        max-width: 1400px;
+    }
+    
+    .journey-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+    
+    .events-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+}
+
+/* Tablet-specific breakpoint for better 3-column layouts */
+@media (max-width: 900px) {
+    .trust-committee-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .journey-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
 @media (max-width: 576px) {
     .hero-content h2 {
         font-size: 1.6rem;
@@ -1376,6 +1415,10 @@ footer::before {
     }
     
     .journey-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .trust-committee-cards {
         grid-template-columns: 1fr;
     }
     
