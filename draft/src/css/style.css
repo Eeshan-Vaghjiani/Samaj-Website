@@ -296,6 +296,37 @@ section:not(.hero-section) {
     margin-top: 0;
     clear: both;
 }
+.YLlogoImg {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    margin-top: 30px;
+    border-radius: 10%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @media (min-width: 640px) {
+    .YLlogoImg {
+      width: 180px;
+      height: 180px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .YLlogoImg {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .YLlogoImg {
+      width: 220px;
+      height: 220px;
+    }
+  }
 
 .section-title {
     text-align: center;
@@ -1035,6 +1066,7 @@ footer::before {
         justify-content: center;
         height: 45px;
         width: 45px;
+        text-decoration: none !important;
     }
     
     .mobile-nav-toggle { display: flex !important; }
@@ -3185,6 +3217,7 @@ section.hero {
     overflow: hidden !important;
     position: relative !important;
     transition: all 0.3s ease !important;
+    text-decoration: none !important;
 }
 
 .header-right .social-icon:hover {
