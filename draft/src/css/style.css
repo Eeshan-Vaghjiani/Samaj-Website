@@ -25,6 +25,10 @@ html {
     overflow-x: hidden;
 }
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--white);
     color: #333;
@@ -3126,6 +3130,7 @@ section.hero {
 }
 
 /* Package grid layout fix */
+.row,
 .committees .row,
 .charitable-trust .row {
   display: flex;
@@ -3135,14 +3140,16 @@ section.hero {
 }
 
 .committees .col-lg-4,
-.charitable-trust .col-lg-4 {
+.charitable-trust .col-lg-4,
+.col-lg-4 {
   flex: 0 0 33.333333%;
   max-width: 33.333333%;
 }
 
 @media (max-width: 991.98px) {
   .committees .col-md-6,
-  .charitable-trust .col-md-6 {
+  .charitable-trust .col-md-6,
+  .col-md-6 {
     flex: 0 0 50%;
     max-width: 50%;
   }
@@ -3150,7 +3157,15 @@ section.hero {
 
 @media (max-width: 767.98px) {
   .committees .col-md-6,
-  .charitable-trust .col-md-6 {
+  .charitable-trust .col-md-6,
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .committees .col-lg-4,
+  .charitable-trust .col-lg-4,
+  .col-lg-4 {
     flex: 0 0 100%;
     max-width: 100%;
   }
@@ -3185,8 +3200,6 @@ section.hero {
 
 .row.g-4 > * {
   flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
