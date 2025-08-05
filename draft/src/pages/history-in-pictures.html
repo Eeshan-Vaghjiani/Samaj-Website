@@ -23,21 +23,17 @@
     }
     
     .folder-item {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border: 2px solid #dee2e6;
-      border-radius: 10px;
-      padding: 15px 12px;
-      text-align: center;
+      background: #ffffff;
+      border: 1px solid #e1e5e9;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 130px;
+      min-height: 180px;
     }
     
     .folder-item:hover {
@@ -75,19 +71,34 @@
     .folder-content {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      padding: 12px;
       flex-grow: 1;
-      justify-content: center;
+      justify-content: space-between;
       width: 100%;
+      background: #ffffff;
+    }
+    
+    /* Folder thumbnail styles */
+    .folder-thumbnail {
+      position: relative;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .folder-item:hover .folder-thumbnail {
+      transform: scale(1.02);
     }
     
     .folder-title {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: #333;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       line-height: 1.3;
-      text-align: center;
+      text-align: left;
       word-wrap: break-word;
       max-width: 100%;
     }
@@ -328,59 +339,66 @@
        function displayFolders(images) {
          const folders = groupImagesByFolder(images);
          
-         // Define color schemes for folders
-         const colorSchemes = [
-           { color: '#e60000', light: '#ff6b6b', rgb: '230, 0, 0' },      // Red
-           { color: '#0066cc', light: '#4da6ff', rgb: '0, 102, 204' },     // Blue
-           { color: '#009933', light: '#66cc66', rgb: '0, 153, 51' },      // Green
-           { color: '#cc6600', light: '#ff9933', rgb: '204, 102, 0' },     // Orange
-           { color: '#660099', light: '#9933cc', rgb: '102, 0, 153' },     // Purple
-           { color: '#cc0066', light: '#ff3399', rgb: '204, 0, 102' },     // Pink
-           { color: '#006666', light: '#339999', rgb: '0, 102, 102' },     // Teal
-           { color: '#cc3300', light: '#ff6633', rgb: '204, 51, 0' },      // Dark Orange
-           { color: '#663300', light: '#996633', rgb: '102, 51, 0' },      // Brown
-           { color: '#660066', light: '#993399', rgb: '102, 0, 102' }      // Dark Purple
-         ];
-         
-         // Create folder items
-         Object.keys(folders).forEach((folderName, index) => {
-           const folderItem = document.createElement('div');
-           folderItem.className = 'folder-item animate__animated animate__fadeInUp';
-           
-           // Assign color scheme
-           const colorScheme = colorSchemes[index % colorSchemes.length];
-           folderItem.style.setProperty('--folder-color', colorScheme.color);
-           folderItem.style.setProperty('--folder-color-light', colorScheme.light);
-           folderItem.style.setProperty('--folder-color-rgb', colorScheme.rgb);
-           
-                       const folderIcon = document.createElement('div');
-            folderIcon.className = 'folder-icon';
-            folderIcon.innerHTML = '<i class="fas fa-folder"></i>';
-            
-            const folderContent = document.createElement('div');
-            folderContent.className = 'folder-content';
-            
-            const folderTitle = document.createElement('div');
-            folderTitle.className = 'folder-title';
-            folderTitle.textContent = formatFolderName(folderName);
-            
-            const folderCount = document.createElement('div');
-            folderCount.className = 'folder-count';
-            folderCount.textContent = `${folders[folderName].length} images`;
-            
-            folderContent.appendChild(folderTitle);
-            folderContent.appendChild(folderCount);
-            
-            folderItem.appendChild(folderIcon);
-            folderItem.appendChild(folderContent);
-           
-           // Add click functionality
-           folderItem.addEventListener('click', function() {
-             showGalleryView(folderName, folders[folderName]);
-           });
-           
-           folderGrid.appendChild(folderItem);
-         });
+        // Define color schemes for folders
+        const colorSchemes = [
+          { color: '#e60000', light: '#ff6b6b', rgb: '230, 0, 0' },      // Red
+          { color: '#0066cc', light: '#4da6ff', rgb: '0, 102, 204' },     // Blue
+          { color: '#009933', light: '#66cc66', rgb: '0, 153, 51' },      // Green
+          { color: '#cc6600', light: '#ff9933', rgb: '204, 102, 0' },     // Orange
+          { color: '#660099', light: '#9933cc', rgb: '102, 0, 153' },     // Purple
+          { color: '#cc0066', light: '#ff3399', rgb: '204, 0, 102' },     // Pink
+          { color: '#006666', light: '#339999', rgb: '0, 102, 102' },     // Teal
+          { color: '#cc3300', light: '#ff6633', rgb: '204, 51, 0' },      // Dark Orange
+          { color: '#663300', light: '#996633', rgb: '102, 51, 0' },      // Brown
+          { color: '#660066', light: '#993399', rgb: '102, 0, 102' }      // Dark Purple
+        ];
+        
+        // Create folder items with images
+        Object.keys(folders).forEach((folderName, index) => {
+          const folderItem = document.createElement('div');
+          folderItem.className = 'folder-item animate__animated animate__fadeInUp';
+          
+          // Assign color scheme
+          const colorScheme = colorSchemes[index % colorSchemes.length];
+          folderItem.style.setProperty('--folder-color', colorScheme.color);
+          folderItem.style.setProperty('--folder-color-light', colorScheme.light);
+          folderItem.style.setProperty('--folder-color-rgb', colorScheme.rgb);
+
+          // Use a random image in the folder as thumbnail
+          const randomIndex = Math.floor(Math.random() * folders[folderName].length);
+          const randomImagePath = folders[folderName][randomIndex];
+          const folderThumbnail = document.createElement('div');
+          folderThumbnail.className = 'folder-thumbnail';
+          folderThumbnail.style.backgroundImage = `url(${baseImagePath}${randomImagePath})`;
+          folderThumbnail.style.height = '100px';
+          folderThumbnail.style.backgroundSize = 'cover';
+          folderThumbnail.style.width = '100%';
+          folderThumbnail.style.borderRadius = '10px 10px 0 0';
+          
+          const folderContent = document.createElement('div');
+          folderContent.className = 'folder-content';
+          
+          const folderTitle = document.createElement('div');
+          folderTitle.className = 'folder-title';
+          folderTitle.textContent = formatFolderName(folderName);
+          
+          const folderCount = document.createElement('div');
+          folderCount.className = 'folder-count';
+          folderCount.textContent = `${folders[folderName].length} images`;
+          
+          folderContent.appendChild(folderTitle);
+          folderContent.appendChild(folderCount);
+          
+          folderItem.appendChild(folderThumbnail);
+          folderItem.appendChild(folderContent);
+          
+          // Add click functionality
+          folderItem.addEventListener('click', function() {
+            showGalleryView(folderName, folders[folderName]);
+          });
+          
+          folderGrid.appendChild(folderItem);
+        });
        }
       
       /**
