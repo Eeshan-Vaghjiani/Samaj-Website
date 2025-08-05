@@ -224,19 +224,22 @@
         .event-btn {
             display: inline-block;
             align-self: flex-start;
-            padding: 10px 25px;
+            padding: 12px 28px;
             background-color: var(--navy-light);
             color: var(--navy);
             border-radius: 30px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
+            font-size: 0.9rem;
         }
         
         .event-btn:hover {
             background-color: var(--navy);
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            text-decoration: none;
         }
         
         .create-event-btn {
