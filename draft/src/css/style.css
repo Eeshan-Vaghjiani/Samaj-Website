@@ -17,6 +17,9 @@
     --border-radius: 12px;
     --box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     --transition: all 0.3s ease;
+    --fs-base: clamp(0.938rem, 0.85rem + 0.35vw, 1.125rem);
+    --fs-lg:   clamp(1.250rem, 1.05rem + 0.80vw, 1.750rem);
+    --fs-xl:   clamp(1.500rem, 1.30rem + 1.20vw, 2.250rem);
 }
 
 
@@ -33,10 +36,11 @@ html {
 body {
     background-color: var(--white);
     color: #333;
-    line-height: 1.6;
+    line-height: 1.7;
     overflow-x: hidden;
     position: relative;
     min-height: 100vh;
+    font-size: var(--fs-base);
 }
 
 .message { /* General messages. */
@@ -3488,4 +3492,49 @@ section.hero {
         visibility: visible !important;
         opacity: 1 !important;
     }
+}
+
+/* ------------------------------------------------------------------ */
+/* 📱✨ UI/UX IMPROVEMENT PASS – AUG 2025                          */
+/* ------------------------------------------------------------------ */
+
+/* 3. Buttons – tactile hover / tap feedback & focus-visible outline */
+.btn {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    will-change: transform;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+}
+
+/* 4. Smooth link colour transition and clearer tap feedback */
+a { transition: color 0.20s ease; }
+a:hover { color: var(--navy); }
+
+/* 5. Utility – hide horizontal scroll just in case */
+html, body { overflow-x: hidden; }
+
+/* 6. Ultra-narrow devices fix – bring content in a touch */
+@media (max-width: 420px) { .container { width: 94% !important; } }
+
+/* 7. One-column fall-back for key grids on phones */
+@media (max-width: 576px) {
+    .journey-grid,
+    .committee-cards,
+    .trust-committee-cards,
+    .events-grid,
+    .achievements-grid { grid-template-columns: 1fr !important; }
+}
+
+/* 8. Respect users that prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
