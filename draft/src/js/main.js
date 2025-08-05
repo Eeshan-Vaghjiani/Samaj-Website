@@ -234,8 +234,15 @@ function openMenu(navContainer, toggleButton) {
     // Ensure we have the mobile logo visible
     ensureMobileLogo(navContainer);
     
-    // Change the toggle button to X
-    toggleButton.innerHTML = '<i class="fas fa-times"></i>';
+    // Change the toggle button to X while preserving color styling
+    const icon = toggleButton.querySelector('i');
+    if (icon) {
+        icon.className = 'fas fa-times';
+        icon.style.color = '#4b5563';
+        icon.style.display = 'block';
+        icon.style.opacity = '1';
+        icon.style.visibility = 'visible';
+    }
     toggleButton.setAttribute('aria-expanded', 'true');
     
     // Add active class to nav container with transition
@@ -243,6 +250,8 @@ function openMenu(navContainer, toggleButton) {
     
     // Prevent body scrolling
     document.body.classList.add('menu-open');
+    
+    console.log('Menu opened, icon changed to close');
 }
 
 /**
@@ -337,8 +346,11 @@ function closeMenu(navContainer, toggleButton) {
 function resetMobileIcon(toggleButton) {
     const icon = toggleButton.querySelector('i');
     if (icon) {
-        icon.className = ''; // Clear all classes
-        icon.classList.add('fas', 'fa-bars');
+        icon.className = 'fas fa-bars'; // Set hamburger classes
+        icon.style.color = '#4b5563'; // Ensure color is preserved
+        icon.style.display = 'block';
+        icon.style.opacity = '1';
+        icon.style.visibility = 'visible';
         console.log('Icon reset to hamburger');
     }
 }

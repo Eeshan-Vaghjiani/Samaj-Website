@@ -19,17 +19,18 @@
     --transition: all 0.3s ease;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+html {
+    height: 100%;
+    overflow-x: hidden;
 }
 
 body {
     background-color: var(--white);
     color: #333;
     line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .message { /* General messages. */
@@ -203,6 +204,21 @@ body {
     display: none;
 }
 
+/* Ensure mobile nav toggle matches search icon color on mobile */
+@media (max-width: 768px) {
+    .mobile-nav-toggle {
+        display: block !important;
+        color: #4b5563;
+    }
+    
+    .mobile-nav-toggle i {
+        display: block !important;
+        color: #4b5563 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
 .header-right .social-icons a {
     display: inline-flex !important;
     align-items: center !important;
@@ -271,6 +287,14 @@ body {
 /* Section Styles */
 section {
     padding: 30px 0;
+    position: relative;
+    z-index: 5;
+}
+
+/* Ensure sections after hero don't overlap */
+section:not(.hero-section) {
+    margin-top: 0;
+    clear: both;
 }
 
 .section-title {
@@ -1448,19 +1472,15 @@ footer::before {
 }
 
 .mobile-nav-toggle i {
-    display: none;
+    display: block !important;
     font-size: 1.3rem;
-    color: #333;
+    color: #4b5563 !important;
     position: absolute;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
 }
-
-.mobile-nav-toggle input { cursor: pointer; z-index: 1; margin: auto; opacity: 0; } /* Hide the checkbox. */
-
-/* If checked, show 'X' icon else bars*/
-.mobile-nav-toggle input:not(:checked) ~ .fa-bars { display: block; } 
-.mobile-nav-toggle input:checked ~ .fa-times { display: block; }
 
 
 /* Header right actions (search + mobile toggle) */
@@ -2033,7 +2053,7 @@ section.hero {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .hero-content {
