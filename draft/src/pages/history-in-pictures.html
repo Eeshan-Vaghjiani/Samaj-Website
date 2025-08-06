@@ -624,10 +624,13 @@
         // Replace underscores with spaces
         caption = caption.replace(/_/g, ' ');
         
-        // Check if caption is only numeric (possibly with spaces/dashes)
+        // Check if caption is only numeric or contains "pic" followed by a number
         // Hide titles that are just numbers like "1234", "01", "001", etc.
+        // Also hide titles like "pic1", "pic_001", "picture 2", etc.
         const numericOnlyPattern = /^[\d\s\-\.]+$/;
-        if (numericOnlyPattern.test(caption.trim())) {
+        const picPattern = /^(pic|picture)[\s_\-]?\d+$/i;
+
+        if (numericOnlyPattern.test(caption.trim()) || picPattern.test(caption.trim())) {
           return ''; // Return empty string to hide the title
         }
         
