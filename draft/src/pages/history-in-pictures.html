@@ -426,7 +426,7 @@
             slideshowIndex = (slideshowIndex + 1) % imagesInFolder.length;
           }
           updateThumbnail();
-          const slideshowInterval = setInterval(updateThumbnail, 2000);
+          const slideshowInterval = setInterval(updateThumbnail, 15000); // 15 seconds
 
           // Only one click handler, clears interval and opens gallery
           folderItem.addEventListener('click', function() {
