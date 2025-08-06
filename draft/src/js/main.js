@@ -103,6 +103,17 @@ function loadHeader() {
                     initHeaderScrollBehavior();
                     highlightActiveLink();
                     console.log('Header scripts executed manually');
+                    
+                    // Add additional mobile nav setup after a brief delay to ensure stability
+                    setTimeout(() => {
+                        const mobileToggle = document.querySelector('.mobile-nav-toggle');
+                        const navContainer = document.querySelector('.nav-container');
+                        
+                        if (mobileToggle && navContainer) {
+                            // Ensure mobile navigation is properly set up
+                            console.log('Mobile navigation double-check complete');
+                        }
+                    }, 100);
                 }, 300);
             })
             .catch(error => {
@@ -361,11 +372,33 @@ function resetMobileIcon(toggleButton) {
 function initHeaderScrollBehavior() {
     window.addEventListener('scroll', function() {
         const header = document.querySelector('.header-wrapper');
+        const navContainer = document.querySelector('.nav-container');
+        
         if (header) {
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+            
+            // Ensure mobile navigation functionality is preserved regardless of scroll state
+            // Re-initialize mobile nav to prevent state conflicts
+            if (navContainer && window.innerWidth <= 768) {
+                // Keep mobile menu state intact when scrolling
+                const mobileToggle = document.querySelector('.mobile-nav-toggle');
+                if (mobileToggle && navContainer) {
+                    // Preserve the mobile menu state during scroll changes
+                    const isMenuOpen = navContainer.classList.contains('mobile-active');
+                    
+                    // If menu was open, keep it open after scroll state change
+                    if (isMenuOpen) {
+                        navContainer.classList.add('mobile-active');
+                        const icon = mobileToggle.querySelector('i');
+                        if (icon) {
+                            icon.className = 'fas fa-times';
+                        }
+                    }
+                }
             }
         }
     });

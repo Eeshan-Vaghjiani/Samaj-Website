@@ -56,6 +56,9 @@ const slideshowContainer = document.createElement('div');
       
       // Add keyboard navigation
       this.initKeyboardNavigation();
+      
+      // Add touch/swipe support for mobile
+      this.initTouchNavigation();
     }
 
     goToSlide(index) {
@@ -168,6 +171,56 @@ const slideshowContainer = this.$el.querySelector('.slideshow-hero-container');
           this.startAutoplay();
         }, 3000); // Resume after 3 seconds
       }
+    }
+    
+    initTouchNavigation() {
+      let startX = null;
+      let startY = null;
+      let endX = null;
+      let endY = null;
+      const minSwipeDistance = 50;
+      
+      this.$el.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+      
+      this.$el.addEventListener('touchmove', (e) => {
+        if (!startX || !startY) return;
+        
+        endX = e.touches[0].clientX;
+        endY = e.touches[0].clientY;
+      }, { passive: true });
+      
+      this.$el.addEventListener('touchend', (e) => {
+        if (!startX || !startY || !endX || !endY) return;
+        
+        const deltaX = endX - startX;
+        const deltaY = endY - startY;
+        
+        // Check if horizontal swipe is more significant than vertical
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          if (Math.abs(deltaX) > minSwipeDistance) {
+            if (deltaX > 0) {
+              // Swipe right - previous slide
+              this.pauseAutoplay();
+              this.prevSlide();
+              this.resumeAutoplay();
+            } else {
+              // Swipe left - next slide
+              this.pauseAutoplay();
+              this.nextSlide();
+              this.resumeAutoplay();
+            }
+          }
+        }
+        
+        // Reset values
+        startX = null;
+        startY = null;
+        endX = null;
+        endY = null;
+      }, { passive: true });
     }
   }
 
