@@ -592,12 +592,12 @@ img[loading="lazy"].loaded {
 @media (max-width: 768px) {
     .mobile-nav-toggle {
         display: block !important;
-        color: #4b5563;
+        color: #d74127;
     }
     
     .mobile-nav-toggle i {
         display: block !important;
-        color: #4b5563 !important;
+        color: #d74127!important;
         opacity: 1 !important;
         visibility: visible !important;
     }
@@ -1119,7 +1119,9 @@ section:not(.hero-section) {
         transition: var(--transition-fast);
     }
 }
-
+.event-icon cricket-icon{
+    width: 1px;
+}
 .journey-date {
     display: inline-block;
     padding: 0px 16px;
@@ -1932,7 +1934,7 @@ footer::before {
     }
     
     .header-actions .search-icon {
-        color: #4b5563;
+        color: #d74127;
         font-size: 1.2rem;
         display: flex;
         align-items: center;
@@ -2516,7 +2518,7 @@ footer::before {
     position: relative;
     border: none;
     cursor: pointer;
-    color: #333;
+    color: #d74127;
     border-radius: var(--border-radius-sm);
     z-index: 1002;
     width: var(--touch-target);
@@ -2535,19 +2537,19 @@ footer::before {
 }
 
 .mobile-nav-toggle:hover {
-    background-color: rgba(75, 85, 99, 0.1);
+    background-color: #d74127;
     transform: scale(1.05);
 }
 
 .mobile-nav-toggle:active {
     transform: scale(0.95);
-    background-color: rgba(75, 85, 99, 0.15);
+    background-color: #d74127;
 }
 
 .mobile-nav-toggle i {
     display: block !important;
     font-size: 1.25rem;
-    color: #4b5563 !important;
+    color: #d74127 !important;
     transition: var(--transition);
     pointer-events: none;
 }
@@ -2572,7 +2574,8 @@ footer::before {
 }
 
 .header-actions i, .mobile-active .header-actions i {
-    color: #4b5563;
+    color: #d74127;
+    
 }
 
 

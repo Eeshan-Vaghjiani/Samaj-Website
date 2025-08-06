@@ -103,8 +103,8 @@
               <span>Volleyball tournament</span>
             </div>
             <div class="event-item">
-              <i class="fas fa-cricket"></i>
-              <span>6 aside cricket tournament</span>
+              <img src="../assets/images/custom-icons/cricket.png" alt="Cricket Icon" style="width: 32px; height: 32px;" class="event-icon cricket-icon">
+              <span style="margin-top: -8px;">6 aside cricket tournament</span>
             </div>
             <div class="event-item">
               <i class="fas fa-medal event-icon"></i>
@@ -174,30 +174,44 @@
         document.getElementById('footer-placeholder').innerHTML = data;
       });
 
-    // Mobile Navigation Toggle
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const nav = document.querySelector('nav');
-    
-    mobileNavToggle.addEventListener('click', () => {
-      nav.classList.toggle('active');
-    });
 
-    // Scroll Up Button
-    const scrollUpBtn = document.getElementById('scrollUpBtn');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 200) {
-        scrollUpBtn.style.display = 'flex';
-      } else {
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll Up Button
+      const scrollUpBtn = document.getElementById('scrollUpBtn');
+      if (scrollUpBtn) {
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 200) {
+            scrollUpBtn.style.display = 'flex';
+          } else {
+            scrollUpBtn.style.display = 'none';
+          }
+        });
+        
+        scrollUpBtn.addEventListener('click', function() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Hide on load
         scrollUpBtn.style.display = 'none';
       }
+
+      // Cricket icon hover functionality on event-item container
+      const cricketEventItem = document.querySelector('.event-item:has(.cricket-icon)');
+      const cricketIcon = document.querySelector('.cricket-icon');
+
+      console.log('Cricket Event Item Element:', cricketEventItem);
+      console.log('Cricket Icon Element:', cricketIcon);
+
+      if (cricketEventItem && cricketIcon) {
+        cricketEventItem.addEventListener('mouseover', () => {
+          cricketIcon.src = '../assets/images/custom-icons/cricket click.png';
+        });
+        cricketEventItem.addEventListener('mouseout', () => {
+          cricketIcon.src = '../assets/images/custom-icons/cricket.png';
+        });
+      }
     });
-    
-    scrollUpBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // Hide on load
-    scrollUpBtn.style.display = 'none';
   </script>
 </body>
 </html>
