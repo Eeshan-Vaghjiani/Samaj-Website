@@ -27,7 +27,7 @@
     /* Mobile-first spacing variables */
     --spacing-xs: 0.5rem;    /* 8px */
     --spacing-sm: 1rem;      /* 16px */
-    --spacing-md: 1.5rem;    /* 24px */
+    --spacing-md: -0.5rem;    /* 24px */
     --spacing-lg: 2rem;      /* 32px */
     --spacing-xl: 3rem;      /* 48px */
     --spacing-2xl: 4rem;     /* 64px */
@@ -4281,6 +4281,9 @@ section.hero {
   transition: all 0.3s ease;
   height: 100%;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Footer social icons styling moved above */
