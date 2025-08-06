@@ -111,8 +111,8 @@
               <span>Inter gaam cricket tournament</span>
             </div>
             <div class="event-item">
-              <i class="fas fa-basketball-ball event-icon"></i>
-              <span>Samaj tennis league</span>
+              <img src="../assets/images/custom-icons/tennis.png" alt="Tennis Icon" style="width: 32px; height: 32px;" class="event-icon tennis-icon">
+              <span style="margin-top: -8px;">Samaj tennis league</span>
             </div>
             <div class="event-item">
               <i class="fas fa-award event-icon"></i>
@@ -209,6 +209,22 @@
         });
         cricketEventItem.addEventListener('mouseout', () => {
           cricketIcon.src = '../assets/images/custom-icons/cricket.png';
+        });
+      }
+
+      // Tennis icon hover functionality on event-item container
+      const tennisEventItem = document.querySelector('.event-item:has(.tennis-icon)');
+      const tennisIcon = document.querySelector('.tennis-icon');
+
+      console.log('Tennis Event Item Element:', tennisEventItem);
+      console.log('Tennis Icon Element:', tennisIcon);
+
+      if (tennisEventItem && tennisIcon) {
+        tennisEventItem.addEventListener('mouseover', () => {
+          tennisIcon.src = '../assets/images/custom-icons/tennis click.png';
+        });
+        tennisEventItem.addEventListener('mouseout', () => {
+          tennisIcon.src = '../assets/images/custom-icons/tennis.png';
         });
       }
     });
