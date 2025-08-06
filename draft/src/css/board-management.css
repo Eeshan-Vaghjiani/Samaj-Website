@@ -198,12 +198,13 @@ ul.search__results { /* Only displayed when search bar is focused. */
   inset: 100% 0 auto;
   opacity: 0;
   transform: scaleY(0);
-  z-index: 100;
+  z-index: 1000;
   background-color: var(--white);
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, .2);
   transition-property: transform, opacity;
   transform-origin: top;
 }
+
 
 .search__results li article { /* Individual search result item. */
   cursor: pointer;
@@ -249,7 +250,6 @@ ul.search__results { /* Only displayed when search bar is focused. */
 
 .board-directory__block ul {
   position: relative;
-  justify-content: space-around;
 }
 
 /* 280 inside 230 */
@@ -426,6 +426,7 @@ body:has(.header-wrapper.scrolled) .board-directory__overlay { padding-top: 70px
 
   .board-directory, .board-directory__overlay { max-width: 570px; }
 
+  .board-directory__block ul { justify-content: space-around; }
 
   .search__results {
     --fs-100: .9rem;
