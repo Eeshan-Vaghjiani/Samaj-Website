@@ -425,23 +425,10 @@
   }
 }
 
-/* Mobile navigation adjustments */
+/* Mobile navigation adjustments - Hide arrows on mobile */
 @media (max-width: 767px) {
   .slideshow-hero-nav {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .slideshow-hero-nav i {
-    font-size: 18px;
-  }
-  
-  .slideshow-hero-nav.prev {
-    left: 15px;
-  }
-  
-  .slideshow-hero-nav.next {
-    right: 15px;
+    display: none !important;
   }
 }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Past Events - Shree Cutchi Leva Patel Samaj, Nairobi</title>
-    <link rel="stylesheet" href="../../dist/tailwind.css">
+    <link rel="stylesheet" href="../css/tailwind.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -63,9 +63,28 @@
         
         .events-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
             margin-bottom: 50px;
+            justify-content: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Better responsive behavior for events grid */
+        @media (max-width: 992px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
+            }
         }
         
         .event-card {
@@ -158,6 +177,7 @@
             font-weight: 500;
             margin-bottom: 15px;
             color: white;
+            text-transform: uppercase;
         }
         
         .event-category.youth-league {
@@ -242,7 +262,7 @@
         
         .event-btn {
             display: inline-block;
-            align-self: flex-start;
+            align-self: center;
             padding: 10px 25px;
             background-color: var(--navy-light);
             color: var(--navy);
@@ -250,6 +270,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             text-decoration: none;
+            text-align: center;
         }
         
         .event-btn:hover {
@@ -357,8 +378,8 @@
                             <span><i class="fas fa-user"></i> Cultural Committee</span>
                         </div>
                         <div class="event-actions" style="display: flex; gap: 10px;">
-                            <a href="#" class="event-btn">View Details</a>
-                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                            <a href="javascript:void(0);" class="event-btn" onclick="alert(\'Event details coming soon!\')">View Details</a>
+                            <a href="history-in-pictures.html" class="event-btn gallery-btn">Photo Gallery</a>
                         </div>
                     </div>
                 </div>
@@ -382,8 +403,8 @@
                             <span><i class="fas fa-user"></i> Youth League</span>
                         </div>
                         <div class="event-actions" style="display: flex; gap: 10px;">
-                            <a href="#" class="event-btn">View Details</a>
-                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                            <a href="javascript:void(0);" class="event-btn" onclick="alert(\'Event details coming soon!\')">View Details</a>
+                            <a href="history-in-pictures.html" class="event-btn gallery-btn">Photo Gallery</a>
                         </div>
                     </div>
                 </div>
@@ -407,8 +428,8 @@
                             <span><i class="fas fa-user"></i> Medical Relief Scheme</span>
                         </div>
                         <div class="event-actions" style="display: flex; gap: 10px;">
-                            <a href="#" class="event-btn">View Details</a>
-                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                            <a href="javascript:void(0);" class="event-btn" onclick="alert(\'Event details coming soon!\')">View Details</a>
+                            <a href="history-in-pictures.html" class="event-btn gallery-btn">Photo Gallery</a>
                         </div>
                     </div>
                 </div>
@@ -432,8 +453,8 @@
                             <span><i class="fas fa-user"></i> Cutchi Economic Council</span>
                         </div>
                         <div class="event-actions" style="display: flex; gap: 10px;">
-                            <a href="#" class="event-btn">View Details</a>
-                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                            <a href="javascript:void(0);" class="event-btn" onclick="alert(\'Event details coming soon!\')">View Details</a>
+                            <a href="history-in-pictures.html" class="event-btn gallery-btn">Photo Gallery</a>
                         </div>
                     </div>
                 </div>
@@ -457,8 +478,8 @@
                             <span><i class="fas fa-user"></i> Mahila Mandal</span>
                         </div>
                         <div class="event-actions" style="display: flex; gap: 10px;">
-                            <a href="#" class="event-btn">View Details</a>
-                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                            <a href="javascript:void(0);" class="event-btn" onclick="alert(\'Event details coming soon!\')">View Details</a>
+                            <a href="history-in-pictures.html" class="event-btn gallery-btn">Photo Gallery</a>
                         </div>
                     </div>
                 </div>
@@ -482,8 +503,8 @@
                             <span><i class="fas fa-user"></i> Karibu Rapid Response</span>
                         </div>
                         <div class="event-actions" style="display: flex; gap: 10px;">
-                            <a href="#" class="event-btn">View Details</a>
-                            <a href="#" class="event-btn gallery-btn">Photo Gallery</a>
+                            <a href="javascript:void(0);" class="event-btn" onclick="alert(\'Event details coming soon!\')">View Details</a>
+                            <a href="history-in-pictures.html" class="event-btn gallery-btn">Photo Gallery</a>
                         </div>
                     </div>
                 </div>

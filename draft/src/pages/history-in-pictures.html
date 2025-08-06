@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>History in Pictures - Shree Cutchi Leva Patel Samaj, Nairobi</title>
-  <link rel="stylesheet" href="../../dist/tailwind.css">
+      <link rel="stylesheet" href="../css/tailwind.css">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -186,6 +186,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      position: static;
+      margin-right: 0;
+      margin-bottom: 0;
     }
     
     .back-button:hover {
@@ -195,36 +198,96 @@
     
     .folder-header {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
       margin-bottom: 20px;
       padding: 12px 16px;
       background: transparent;
       position: relative;
     }
-    
+    .folder-header-row {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
     .folder-header h3 {
       margin: 0;
       color: #333;
       font-size: 1.3rem;
       font-weight: 700;
-      text-align: center;
+      text-align: left;
+      width: 100%;
     }
     
     .back-button {
-      position: absolute;
-      left: 16px;
-      top: 12px;
+      background: #0066cc;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      position: static;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+    
+    .back-button:hover {
+      background: #0052a3;
+      transform: translateY(-2px);
     }
     
     .hidden {
       display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      .folder-header {
+        padding: 8px 4px;
+        gap: 0.25rem;
+      }
+      .folder-header h3 {
+        text-align: center;
+        font-size: 1.1rem;
+      }
+      .folder-header-row {
+        justify-content: center;
+      }
+      .back-button {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Header -->
   <div id="header-placeholder"></div>
+
+  <!-- Breadcrumb
+  <div class="breadcrumb">
+    <div class="breadcrumb-container">
+      <nav class="breadcrumb-nav">
+        <a href="index.html"><i class="fas fa-home"></i></a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="#our-samaj">Our Samaj</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="current">History in Pictures</span>
+      </nav>
+      <div class="breadcrumb-actions">
+        <div class="breadcrumb-search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search gallery..." />
+        </div>
+        <i class="fas fa-images breadcrumb-icon" title="Gallery View"></i>
+      </div>
+    </div>
+  </div> -->
 
   <!-- Hero Section - Updated to match index.html style -->
   <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/25-12-54 Inauguration of Ronald Ngala Samaj.jpg') center center / cover no-repeat;">
@@ -257,10 +320,12 @@
       <!-- Gallery View -->
       <div class="gallery-view hidden" id="galleryView">
         <div class="folder-header">
-          <button class="back-button" id="backButton">
-            <i class="fas fa-arrow-left"></i>
-            Back to Folders
-          </button>
+          <div class="folder-header-row">
+            <button class="back-button" id="backButton">
+              <i class="fas fa-arrow-left"></i>
+              Back to Folders
+            </button>
+          </div>
           <h3 id="currentFolderTitle">Folder Images</h3>
         </div>
         
@@ -357,46 +422,56 @@
         Object.keys(folders).forEach((folderName, index) => {
           const folderItem = document.createElement('div');
           folderItem.className = 'folder-item animate__animated animate__fadeInUp';
-          
+
           // Assign color scheme
           const colorScheme = colorSchemes[index % colorSchemes.length];
           folderItem.style.setProperty('--folder-color', colorScheme.color);
           folderItem.style.setProperty('--folder-color-light', colorScheme.light);
           folderItem.style.setProperty('--folder-color-rgb', colorScheme.rgb);
 
-          // Use a random image in the folder as thumbnail
-          const randomIndex = Math.floor(Math.random() * folders[folderName].length);
-          const randomImagePath = folders[folderName][randomIndex];
+          // Slideshow thumbnail
           const folderThumbnail = document.createElement('div');
           folderThumbnail.className = 'folder-thumbnail';
-          folderThumbnail.style.backgroundImage = `url(${baseImagePath}${randomImagePath})`;
           folderThumbnail.style.height = '100px';
           folderThumbnail.style.backgroundSize = 'cover';
           folderThumbnail.style.width = '100%';
           folderThumbnail.style.borderRadius = '10px 10px 0 0';
-          
+
+          // Slideshow logic
+          let slideshowIndex = 0;
+          const imagesInFolder = folders[folderName];
+          function updateThumbnail() {
+            const imgPath = encodeURI(baseImagePath + imagesInFolder[slideshowIndex]);
+            folderThumbnail.style.backgroundImage = `url('${imgPath}')`;
+            slideshowIndex = (slideshowIndex + 1) % imagesInFolder.length;
+          }
+          updateThumbnail();
+          const slideshowInterval = setInterval(updateThumbnail, 15000); // 15 seconds
+
+          // Only one click handler, clears interval and opens gallery
+          folderItem.addEventListener('click', function() {
+            clearInterval(slideshowInterval);
+            showGalleryView(folderName, folders[folderName]);
+          });
+
           const folderContent = document.createElement('div');
           folderContent.className = 'folder-content';
-          
+
           const folderTitle = document.createElement('div');
           folderTitle.className = 'folder-title';
           folderTitle.textContent = formatFolderName(folderName);
-          
+          folderContent.appendChild(folderTitle);
+
           const folderCount = document.createElement('div');
           folderCount.className = 'folder-count';
           folderCount.textContent = `${folders[folderName].length} images`;
-          
+
           folderContent.appendChild(folderTitle);
           folderContent.appendChild(folderCount);
-          
+
           folderItem.appendChild(folderThumbnail);
           folderItem.appendChild(folderContent);
-          
-          // Add click functionality
-          folderItem.addEventListener('click', function() {
-            showGalleryView(folderName, folders[folderName]);
-          });
-          
+
           folderGrid.appendChild(folderItem);
         });
        }
@@ -549,6 +624,13 @@
         // Replace underscores with spaces
         caption = caption.replace(/_/g, ' ');
         
+        // Check if caption is only numeric (possibly with spaces/dashes)
+        // Hide titles that are just numbers like "1234", "01", "001", etc.
+        const numericOnlyPattern = /^[\d\s\-\.]+$/;
+        if (numericOnlyPattern.test(caption.trim())) {
+          return ''; // Return empty string to hide the title
+        }
+        
         // Extract date if available (pattern like "25-12-54" at the beginning)
         const dateMatch = caption.match(/^(\d{1,2}-\d{1,2}-\d{2,4})/);
         if (dateMatch) {
@@ -663,4 +745,4 @@
     });
   </script>
 </body>
-</html> 
+</html>
