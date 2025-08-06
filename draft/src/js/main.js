@@ -140,19 +140,34 @@ function initMobileNav() {
             }
         });
 
-        // Add click event to all dropdown menus
+        // Add click event to all dropdown menus for mobile
         const dropdownItems = document.querySelectorAll('.nav-menu li.has-dropdown');
         
         dropdownItems.forEach(item => {
-            const link = item.querySelector('a');
-            if (window.innerWidth <= 768) { // Only for mobile view
-                link.addEventListener('click', function(e) {
-                    // Prevent default only if dropdown has items and we're on mobile
-                    if (item.querySelector('.dropdown-menu')) {
-                        e.preventDefault();
-                        item.classList.toggle('show-dropdown');
+            const link = item.querySelector('a, p'); // Include both a and p elements
+            if (link) {
+                // Mobile dropdown handler
+                const mobileClickHandler = function(e) {
+                    if (window.innerWidth <= 768 && navContainer.classList.contains('mobile-active')) {
+                        const dropdownMenu = item.querySelector('.dropdown-menu');
+                        if (dropdownMenu) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            // Toggle dropdown
+                            item.classList.toggle('show-dropdown');
+                            
+                            // Update aria attributes
+                            const isExpanded = item.classList.contains('show-dropdown');
+                            link.setAttribute('aria-expanded', isExpanded.toString());
+                        }
                     }
-                });
+                };
+                
+                link.addEventListener('click', mobileClickHandler);
+                
+                // Store reference to handler for cleanup
+                link._mobileHandler = mobileClickHandler;
             }
         });
 
@@ -160,25 +175,25 @@ function initMobileNav() {
         window.addEventListener('resize', function() {
             const dropdownItems = document.querySelectorAll('.nav-menu li.has-dropdown');
             
-            if (window.innerWidth <= 768) {
-                // Mobile behavior: click to show dropdown
-                dropdownItems.forEach(item => {
-                    const link = item.querySelector('a');
-                    if (!link.hasClickListener) {
-                        link.addEventListener('click', function(e) {
-                            if (item.querySelector('.dropdown-menu')) {
-                                e.preventDefault();
-                                item.classList.toggle('show-dropdown');
-                            }
-                        });
-                        link.hasClickListener = true;
-                    }
-                });
-            } else {
-                // Desktop behavior: hover to show dropdown
+            if (window.innerWidth > 768) {
+                // Desktop behavior: close mobile menu if open and reset dropdowns
+                if (navContainer.classList.contains('mobile-active')) {
+                    closeMenu(navContainer, mobileToggle);
+                }
+                
                 dropdownItems.forEach(item => {
                     item.classList.remove('show-dropdown');
+                    const link = item.querySelector('a, p');
+                    if (link) {
+                        link.setAttribute('aria-expanded', 'false');
+                    }
                 });
+                
+                // Hide overlay if it exists
+                const overlay = document.querySelector('.nav-overlay');
+                if (overlay) {
+                    overlay.classList.remove('active');
+                }
             }
         });
 
@@ -213,7 +228,7 @@ function initDropdownMenus() {
     
     dropdownItems.forEach(item => {
         // Add accessibility attributes
-        const link = item.querySelector('a');
+        const link = item.querySelector('a, p'); // Support both a and p elements
         const dropdownMenu = item.querySelector('.dropdown-menu');
         
         if (link && dropdownMenu) {
@@ -224,16 +239,22 @@ function initDropdownMenus() {
             if (window.innerWidth > 768) {
                 item.addEventListener('mouseenter', function() {
                     dropdownMenu.style.display = 'block';
+                    dropdownMenu.style.opacity = '1';
+                    dropdownMenu.style.visibility = 'visible';
                     link.setAttribute('aria-expanded', 'true');
                 });
                 
                 item.addEventListener('mouseleave', function() {
                     dropdownMenu.style.display = '';
+                    dropdownMenu.style.opacity = '';
+                    dropdownMenu.style.visibility = '';
                     link.setAttribute('aria-expanded', 'false');
                 });
+            } else {
+                // For mobile: ensure dropdowns are properly reset
+                item.classList.remove('show-dropdown');
+                link.setAttribute('aria-expanded', 'false');
             }
-            
-            // For mobile: existing click handler in initMobileNav will handle this
         }
     });
 }
@@ -244,6 +265,20 @@ function initDropdownMenus() {
 function openMenu(navContainer, toggleButton) {
     // Ensure we have the mobile logo visible
     ensureMobileLogo(navContainer);
+    
+    // Create or show overlay
+    let overlay = document.querySelector('.nav-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'nav-overlay';
+        document.body.appendChild(overlay);
+        
+        // Add click event to close menu when clicking overlay
+        overlay.addEventListener('click', function() {
+            closeMenu(navContainer, toggleButton);
+        });
+    }
+    overlay.classList.add('active');
     
     // Change the toggle button to X while preserving color styling
     const icon = toggleButton.querySelector('i');
@@ -333,19 +368,25 @@ function ensureMobileLogo(navContainer) {
  * Close the mobile menu
  */
 function closeMenu(navContainer, toggleButton) {
-    // Get the stored scroll position
-    const scrollPosition = parseInt(document.body.getAttribute('data-scroll-position'), 10) || 0;
+    // Hide overlay
+    const overlay = document.querySelector('.nav-overlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
     
     // Remove classes that lock the body
     navContainer.classList.remove('mobile-active');
     document.body.classList.remove('menu-open');
     
-    // Reset the body position
-    document.body.style.top = '';
-    
-    // Restore scroll position
-    window.scrollTo(0, scrollPosition);
-    console.log('Restoring scroll position:', scrollPosition);
+    // Close all open dropdowns in mobile menu
+    const openDropdowns = navContainer.querySelectorAll('.has-dropdown.show-dropdown');
+    openDropdowns.forEach(dropdown => {
+        dropdown.classList.remove('show-dropdown');
+        const link = dropdown.querySelector('a, p');
+        if (link) {
+            link.setAttribute('aria-expanded', 'false');
+        }
+    });
     
     // Reset the mobile icon
     resetMobileIcon(toggleButton);

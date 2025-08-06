@@ -2040,10 +2040,27 @@ footer::before {
         margin: 0 !important;
         transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease !important;
         display: block !important;
+        z-index: 9999 !important; /* Ensure dropdowns stay on top */
     }
     
     /* When dropdown is shown, it pushes content down */
     .nav-menu li.has-dropdown.show-dropdown .dropdown-menu {
+        max-height: 500px !important;
+        padding: 10px 0 !important;
+        margin-top: 5px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    /* Force dropdown visibility on mobile regardless of scroll state */
+    .nav-container.mobile-active .nav-menu li.has-dropdown .dropdown-menu {
+        position: static !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+    
+    /* Ensure dropdown triggers work consistently */
+    .nav-container.mobile-active .nav-menu li.has-dropdown.show-dropdown .dropdown-menu {
         max-height: 500px !important;
         padding: 10px 0 !important;
         margin-top: 5px !important;
@@ -2272,7 +2289,7 @@ footer::before {
 
 /* Mobile toggle button - enhanced for better UX */
 .mobile-nav-toggle {
-    display: none;
+    display: none; /* Hidden by default on desktop */
     background: transparent;
     position: relative;
     border: none;
@@ -2284,9 +2301,15 @@ footer::before {
     height: var(--touch-target);
     line-height: 1;
     transition: var(--transition);
-    display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Show mobile toggle only on mobile/tablet screens */
+@media (max-width: 768px) {
+    .mobile-nav-toggle {
+        display: flex !important;
+    }
 }
 
 .mobile-nav-toggle:hover {
@@ -2314,9 +2337,16 @@ footer::before {
 
 /* Header right actions (search + mobile toggle) */
 .header-actions {
-    display: flex;
+    display: none; /* Hidden by default on desktop */
     align-items: center;
     gap: 15px;
+}
+
+/* Show header actions only on mobile/tablet screens */
+@media (max-width: 768px) {
+    .header-actions {
+        display: flex !important;
+    }
 }
 
 .header-actions i, .mobile-active .header-actions i {
