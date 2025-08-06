@@ -267,18 +267,18 @@ function openMenu(navContainer, toggleButton) {
     ensureMobileLogo(navContainer);
     
     // Create or show overlay
-    let overlay = document.querySelector('.nav-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'nav-overlay';
-        document.body.appendChild(overlay);
+    // let overlay = document.querySelector('.nav-overlay');
+    // if (!overlay) {
+    //     overlay = document.createElement('div');
+    //     overlay.className = 'nav-overlay';
+    //     document.body.appendChild(overlay);
         
-        // Add click event to close menu when clicking overlay
-        overlay.addEventListener('click', function() {
-            closeMenu(navContainer, toggleButton);
-        });
-    }
-    overlay.classList.add('active');
+    //     // Add click event to close menu when clicking overlay
+    //     overlay.addEventListener('click', function() {
+    //         closeMenu(navContainer, toggleButton);
+    //     });
+    // }
+    // overlay.classList.add('active');
     
     // Change the toggle button to X while preserving color styling
     const icon = toggleButton.querySelector('i');
