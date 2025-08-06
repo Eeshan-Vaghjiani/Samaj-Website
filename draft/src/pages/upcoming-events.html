@@ -191,6 +191,10 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
             margin-bottom: 50px;
+            justify-content: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* Better responsive behavior for events grid */
@@ -284,6 +288,7 @@
             font-weight: 500;
             margin-bottom: 15px;
             color: white;
+            text-transform: uppercase;
         }
         
         .event-category.youth-league {
@@ -368,7 +373,7 @@
         
         .event-btn {
             display: inline-block;
-            align-self: flex-start;
+            align-self: center;
             padding: 12px 28px;
             background-color: var(--navy-light);
             color: var(--navy);
@@ -377,6 +382,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             font-size: 0.9rem;
+            text-align: center;
         }
         
         .event-btn:hover {
@@ -440,6 +446,26 @@
 <body>
     <!-- Header -->
     <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i></a>
+                <span class="breadcrumb-sep">›</span>
+                <a href="#events">Events</a>
+                <span class="breadcrumb-sep">›</span>
+                <span class="current">Upcoming Events</span>
+            </nav>
+            <div class="breadcrumb-actions">
+                <div class="breadcrumb-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search events..." />
+                </div>
+                <i class="fas fa-calendar-plus breadcrumb-icon" title="Add Event"></i>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <div class="hero-section events-hero" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Six-A-Side Soccer 2016 (2).jpg') center center / cover no-repeat;">

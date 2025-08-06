@@ -180,6 +180,43 @@ img[loading="lazy"].loaded {
         font-size: 16px; /* Prevent zoom on iOS */
         padding: 12px 16px;
     }
+    
+    /* Fix container padding for mobile */
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    /* Ensure hero content is properly sized */
+    .hero-content {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .hero-content h2 {
+        font-size: 2rem;
+        margin-bottom: 16px;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 24px;
+    }
+    
+    /* Fix button overflow */
+    .btn {
+        font-size: 0.9rem;
+        padding: 12px 24px;
+        white-space: nowrap;
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    /* Ensure images don't overflow */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 .mobile-only {
@@ -193,6 +230,137 @@ img[loading="lazy"].loaded {
     
     .mobile-only {
         display: block !important;
+    }
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 12px 0;
+    margin-bottom: 20px;
+    border-radius: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-nav a,
+.breadcrumb-nav span {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: var(--transition-fast);
+}
+
+.breadcrumb-nav a:hover {
+    background-color: var(--navy-light);
+    color: var(--navy);
+}
+
+.breadcrumb-nav .current {
+    color: var(--red);
+    font-weight: 600;
+}
+
+.breadcrumb-sep {
+    color: #666;
+    font-size: 0.8rem;
+    margin: 0 4px;
+}
+
+.breadcrumb-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.breadcrumb-search {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 6px 12px;
+    gap: 8px;
+    min-width: 200px;
+}
+
+.breadcrumb-search input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--navy);
+}
+
+.breadcrumb-search input::placeholder {
+    color: #666;
+}
+
+.breadcrumb-search i {
+    color: var(--navy);
+    font-size: 0.9rem;
+}
+
+.breadcrumb-icon {
+    color: var(--navy);
+    font-size: 1.1rem;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+    cursor: pointer;
+}
+
+.breadcrumb-icon:hover {
+    background-color: var(--navy-light);
+    color: var(--navy);
+}
+
+/* Mobile breadcrumb adjustments */
+@media (max-width: 768px) {
+    .breadcrumb-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 0 16px;
+    }
+    
+    .breadcrumb-search {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .breadcrumb-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .breadcrumb-nav {
+        font-size: 0.85rem;
     }
 }
 
@@ -296,6 +464,15 @@ img[loading="lazy"].loaded {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.logo-left a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
 }
 
 .logo-left .logo {
@@ -1746,7 +1923,11 @@ footer::before {
         position: absolute;
         right: 0;
         top: 50%;
+        transform: translateY(-50%);
         z-index: 1002; /* Higher z-index to stay above other elements */
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     
     .header-actions .search-icon {
@@ -1760,7 +1941,17 @@ footer::before {
         text-decoration: none !important;
     }
     
-    .mobile-nav-toggle { display: flex !important; }
+    .mobile-nav-toggle { 
+        display: flex !important; 
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        z-index: 1003;
+    }
     
     /* Logo positioning */
     .logo-left {
@@ -1866,6 +2057,8 @@ footer::before {
     
     .nav-container.mobile-active {
         display: flex;
+        right: 0;
+        z-index: 9999;
     }
     
     /* Enhanced Mobile menu container */
@@ -1885,7 +2078,7 @@ footer::before {
         box-shadow: -8px 0 25px rgba(0, 0, 0, 0.15);
         transition: right var(--transition);
         overflow-y: auto;
-        z-index: 1000;
+        z-index: 9999;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
@@ -1898,7 +2091,7 @@ footer::before {
         width: 100vw;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
+        z-index: 9998;
         opacity: 0;
         visibility: hidden;
         transition: var(--transition);
@@ -1922,6 +2115,13 @@ footer::before {
         width: 100% !important;
         position: relative !important;
         z-index: 10 !important;
+    }
+    
+    .mobile-menu-logo a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
     }
     
     .mobile-menu-logo .logo {
@@ -2150,6 +2350,27 @@ footer::before {
     .journey-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 25px;
+    }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 992px) and (min-width: 769px) {
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
     }
 }
 
