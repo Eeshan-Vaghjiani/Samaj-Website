@@ -231,11 +231,25 @@ ul.search__results { /* Only displayed when search bar is focused. */
 .members__description { /* Member profile description container. */
   flex-grow: 1; 
   font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  min-height: 80px;
 }
 
-.members__description h5 { font-size: var(--fs-300); }
+.members__description h5 { 
+  font-size: var(--fs-300);
+  margin-bottom: auto;
+}
 
-.members__description span { font-size: var(--fs-100); color: grey; }
+.members__description .position-info {
+  margin-top: 0.5rem;
+}
+
+.members__description span { 
+  font-size: var(--fs-100); 
+  color: grey;
+  display: block;
+}
 
 .board-directory__block .members__description h5,
 .overlay__avatar .members__description h5 { margin-top: .4rem; }
