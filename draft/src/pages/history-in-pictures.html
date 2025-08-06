@@ -269,6 +269,26 @@
   <!-- Header -->
   <div id="header-placeholder"></div>
 
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="breadcrumb-container">
+      <nav class="breadcrumb-nav">
+        <a href="index.html"><i class="fas fa-home"></i></a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="#our-samaj">Our Samaj</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="current">History in Pictures</span>
+      </nav>
+      <div class="breadcrumb-actions">
+        <div class="breadcrumb-search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search gallery..." />
+        </div>
+        <i class="fas fa-images breadcrumb-icon" title="Gallery View"></i>
+      </div>
+    </div>
+  </div>
+
   <!-- Hero Section - Updated to match index.html style -->
   <div class="hero-section" style="background: url('../assets/images/Timeline Related Photos/25-12-54 Inauguration of Ronald Ngala Samaj.jpg') center center / cover no-repeat;">
     <div class="hero-overlay"></div>
@@ -603,6 +623,13 @@
         
         // Replace underscores with spaces
         caption = caption.replace(/_/g, ' ');
+        
+        // Check if caption is only numeric (possibly with spaces/dashes)
+        // Hide titles that are just numbers like "1234", "01", "001", etc.
+        const numericOnlyPattern = /^[\d\s\-\.]+$/;
+        if (numericOnlyPattern.test(caption.trim())) {
+          return ''; // Return empty string to hide the title
+        }
         
         // Extract date if available (pattern like "25-12-54" at the beginning)
         const dateMatch = caption.match(/^(\d{1,2}-\d{1,2}-\d{2,4})/);
