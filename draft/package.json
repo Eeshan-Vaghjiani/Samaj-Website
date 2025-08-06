@@ -4,8 +4,8 @@
   "description": "Shree Cutchi Leva Patel Samaj Website",
   "main": "src/js/main.js",
   "scripts": {
-    "build:css": "postcss src/css/tailwind.css -o dist/tailwind.css",
-    "watch:css": "postcss src/css/tailwind.css -o dist/tailwind.css --watch",
+    "build:css": "postcss src/css/tailwind-input.css -o src/css/tailwind-compiled.css",
+    "watch:css": "postcss src/css/tailwind-input.css -o src/css/tailwind-compiled.css --watch",
     "dev": "npm run watch:css"
   },
   "keywords": [],
