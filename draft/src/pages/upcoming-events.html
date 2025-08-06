@@ -457,15 +457,15 @@
             <h2 class="section-title">Our Upcoming Events</h2>
             
             <div class="events-filters">
-                <button class="filter-btn active" data-category="all">All Events</button>
-                <button class="filter-btn" data-category="youth-league">Youth League</button>
-                <button class="filter-btn" data-category="cec">CEC</button>
-                <button class="filter-btn" data-category="krr">KRR</button>
-                <button class="filter-btn" data-category="mrs">MRS</button>
-                <button class="filter-btn" data-category="mahila-mandal">Mahila Mandal</button>
-                <button class="filter-btn" data-category="educational">Educational</button>
-                <button class="filter-btn" data-category="charity">Charity</button>
-                <button class="filter-btn" data-category="cultural">Cultural</button>
+                <button class="filter-btn active" data-category="ALL">All Events</button>
+                <button class="filter-btn" data-category="YOUTH-LEAGUE">Youth League</button>
+                <button class="filter-btn" data-category="CEC">CEC</button>
+                <button class="filter-btn" data-category="KRR">KRR</button>
+                <button class="filter-btn" data-category="MRS">MRS</button>
+                <button class="filter-btn" data-category="MAHILA-MANDAL">Mahila Mandal</button>
+                <button class="filter-btn" data-category="EDUCATIONAL">Educational</button>
+                <button class="filter-btn" data-category="CHARITY">Charity</button>
+                <button class="filter-btn" data-category="CULTURAL">Cultural</button>
             </div>
 
             <div id="events-grid" class="events-grid">
@@ -526,80 +526,80 @@
             initScrollToTop();
         });
 const categoryColors = {
-    'youth-league': 'var(--navy)',
-    'cec': 'var(--purple, #6B46C1)',
-    'krr': 'var(--orange, #ED8936)',
-    'mrs': 'var(--red)',
-    'mahila-mandal': 'var(--pink, #D53F8C)',
-    'educational': 'var(--green)',
-    'charity': 'var(--teal, #38B2AC)',
-    'cultural': 'var(--yellow)',
-    'meeting': 'var(--gray, #718096)',
-    'community': 'var(--blue, #4299E1)',
+    'YOUTH-LEAGUE': 'var(--navy)',
+    'CEC': 'var(--purple, #6B46C1)',
+    'KRR': 'var(--orange, #ED8936)',
+    'MRS': 'var(--red)',
+    'MAHILA-MANDAL': 'var(--pink, #D53F8C)',
+    'EDUCATIONAL': 'var(--green)',
+    'CHARITY': 'var(--teal, #38B2AC)',
+    'CULTURAL': 'var(--yellow)',
+    'MEETING': 'var(--gray, #718096)',
+    'COMMUNITY': 'var(--blue, #4299E1)',
 };       
         function styleFilterButtons() {
             const buttons = document.querySelectorAll('.filter-btn');
-                buttons.forEach(btn => {
-                const category = btn.getAttribute('data-category');
-                    if (categoryColors[category]) {
-                        btn.style.backgroundColor = categoryColors[category];
-                        btn.style.color = (category === 'cultural') ? 'var(--navy)' : 'white'; // Handle contrast
-                        } else {
-                        // Default for "All Events" or undefined categories
-                        btn.style.backgroundColor = 'var(--navy-light)';
-                        btn.style.color = 'var(--navy)';
-                    }
-                });
+    buttons.forEach(btn => {
+        const category = btn.getAttribute('data-category');
+        if (categoryColors[category]) {
+            btn.style.backgroundColor = categoryColors[category];
+            btn.style.color = (category === 'CULTURAL') ? 'var(--navy)' : 'white';
+        } else {
+            btn.style.backgroundColor = 'var(--navy-light)';
+            btn.style.color = 'var(--navy)';
         }
+    });
+}
 
-        function renderEvents(events) {
-            const eventsGrid = document.getElementById('events-grid');
-            eventsGrid.innerHTML = '';
-            
-            if (events.length === 0) {
-                document.querySelector('.no-events').style.display = 'block';
-                return;
-            }
-            
-            events.forEach(event => {
-                // Parse the date
-                const eventDate = new Date(event.date);
-                const day = eventDate.getDate();
-                const month = eventDate.toLocaleString('default', { month: 'short' }).toUpperCase();
-                
-                // Create category class (for styling)
-                const categoryClass = event.category.toLowerCase().replace(/\s+/g, '-');
-                
-                // Create the event card HTML
-                const eventCard = document.createElement('div');
-                eventCard.className = `event-card animate__animated animate__fadeInUp`;
-                eventCard.setAttribute('data-category', event.category);
-                
-                eventCard.innerHTML = `
-                    <div class="event-poster">
-                        <img src="../data/events/images/watermarked/${event.image}" alt="${event.title}" 
-                             onerror="this.onerror=null; this.src='../assets/images/Timeline Related Photos/samaj.jpg';">
-                        <div class="event-date">
-                            <span class="day">${day}</span>
-                            <span class="month">${month}</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <span class="event-category ${categoryClass}">${event.category}</span>
-                        <h3>${event.title}</h3>
-                        <p>${event.description}</p>
-                        <div class="event-details">
-                            <span><i class="fas fa-clock"></i> ${event.time}</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
-                            <span><i class="fas fa-user"></i> ${event.organizer}</span>
-                        </div>
-                        <a href="#" class="event-btn" onclick="showEventDetails(${event.id}); return false;">Learn More</a>
-                    </div>
-                `;
-                
-                eventsGrid.appendChild(eventCard);
-            });
-        }
+function renderEvents(events) {
+    const eventsGrid = document.getElementById('events-grid');
+    eventsGrid.innerHTML = '';
+
+    if (events.length === 0) {
+        document.querySelector('.no-events').style.display = 'block';
+        return;
+    }
+
+    events.forEach(event => {
+        // Parse the date
+        const eventDate = new Date(event.date);
+        const day = eventDate.getDate();
+        const month = eventDate.toLocaleString('default', { month: 'short' }).toUpperCase();
+
+        // Always use uppercase for color lookup, lowercase for class
+        const categoryKey = event.category ? event.category.toUpperCase() : '';
+        const categoryClass = event.category ? event.category.toLowerCase().replace(/\s+/g, '-') : '';
+
+        // Create the event card HTML
+        const eventCard = document.createElement('div');
+        eventCard.className = `event-card animate__animated animate__fadeInUp`;
+        eventCard.setAttribute('data-category', categoryKey);
+
+        eventCard.innerHTML = `
+            <div class="event-poster">
+                <img src="../data/events/images/watermarked/${event.image}" alt="${event.title}" 
+                     onerror="this.onerror=null; this.src='../assets/images/Timeline Related Photos/samaj.jpg';">
+                <div class="event-date">
+                    <span class="day">${day}</span>
+                    <span class="month">${month}</span>
+                </div>
+            </div>
+            <div class="event-content">
+                <span class="event-category ${categoryClass}" style="background-color: ${categoryColors[categoryKey] || 'var(--navy-light)'};${categoryKey === 'CULTURAL' ? 'color: var(--navy);' : ''}">${event.category}</span>
+                <h3>${event.title}</h3>
+                <p>${event.description}</p>
+                <div class="event-details">
+                    <span><i class="fas fa-clock"></i> ${event.time}</span>
+                    <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                    <span><i class="fas fa-user"></i> ${event.organizer}</span>
+                </div>
+                <a href="#" class="event-btn" onclick="showEventDetails(${event.id}); return false;">Learn More</a>
+            </div>
+        `;
+
+        eventsGrid.appendChild(eventCard);
+    });
+}
         
         function setupFilters(allEvents) {
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -614,10 +614,10 @@ const categoryColors = {
                     const category = this.getAttribute('data-category');
                     let filteredEvents = [];
                     
-                    if (category === 'all') {
+                    if (category === 'ALL') {
                         filteredEvents = allEvents;
                     } else {
-                        filteredEvents = allEvents.filter(event => event.category.toLowerCase() === category);
+                        filteredEvents = allEvents.filter(event => event.category.toUpperCase() === category);
                     }
                     
                     renderEvents(filteredEvents);
@@ -762,4 +762,4 @@ const categoryColors = {
         }
     </script>
 </body>
-</html> 
+</html>
