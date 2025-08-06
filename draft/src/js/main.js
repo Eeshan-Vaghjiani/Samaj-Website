@@ -99,10 +99,23 @@ function loadHeader() {
                 
                 // Execute header scripts manually after ensuring the DOM is fully loaded
                 setTimeout(() => {
-                    initMobileNav();
-                    initHeaderScrollBehavior();
-                    highlightActiveLink();
-                    console.log('Header scripts executed manually');
+                    // Make sure navigation elements exist before highlighting
+                    const navLinks = document.querySelectorAll('.nav-link');
+                    if (navLinks.length > 0) {
+                        initMobileNav();
+                        initHeaderScrollBehavior();
+                        highlightActiveLink();
+                        console.log('Header scripts executed manually');
+                    } else {
+                        console.warn('Navigation links not found, waiting...');
+                        // Try again after a short delay
+                        setTimeout(() => {
+                            initMobileNav();
+                            initHeaderScrollBehavior();
+                            highlightActiveLink();
+                            console.log('Header scripts executed after delay');
+                        }, 500);
+                    }
                     
                     // Add additional mobile nav setup after a brief delay to ensure stability
                     setTimeout(() => {

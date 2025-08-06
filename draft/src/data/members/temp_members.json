@@ -1,0 +1,24 @@
+ {
+    "id": 1,
+    "fName": "Amil",
+    "lName": "Dymick",
+    "mName": "",
+    "title": "Dr",
+    "department": "boardmembers",
+    "position": "CHAIRMAN",
+    "appointedOn": 2013,
+    "relievedOn": 2020,
+    "profilePic": "../assets/images/Board And Management/Not Members/not-member-15.png"
+  },
+  {
+    "id": 2,
+    "fName": "Lin",
+    "lName": "Lergan",
+    "mName": "",
+    "title": "Rev",
+    "department": "GaamPratinidhi",
+    "position": "BALADIA",
+    "appointedOn": 2012,
+    "relievedOn": 2018,
+    "profilePic": "../assets/images/Board And Management/Not Members/not-member-8.png"
+  }

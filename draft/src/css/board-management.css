@@ -241,15 +241,21 @@ ul.search__results { /* Only displayed when search bar is focused. */
 .overlay__avatar .members__description h5 { margin-top: .4rem; }
 
 
-.board-directory__block { margin-bottom: 3rem; }
+.board-directory__block { 
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+}
 
 .board-directory__block h1 {
   text-align: center;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
 }
 
 .board-directory__block ul {
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 /* 280 inside 230 */
@@ -399,9 +405,15 @@ body:has(.header-wrapper.scrolled) .board-directory__overlay { padding-top: 70px
 
   .search__results { padding: 1rem .4rem; }
 
-  .board-directory__block li { padding: 1rem .6rem; }
+  .board-directory__block li { 
+    padding: 0.25rem .4rem;
+    margin-bottom: 0.25rem;
+  }
 
-  .board-directory__block .members__description { padding: 1.6rem; padding-right: .4rem; }
+  .board-directory__block .members__description { 
+    padding: 0.5rem;
+    padding-right: .4rem;
+  }
 
   .board-directory__overlay button.close { padding: 0 .4rem; }
 

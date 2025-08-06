@@ -20,7 +20,7 @@
 */
 
 // DOM Elements variable declaration.
-const URL_MOCKAROO = 'https://my.api.mockaroo.com/sclp_samaj_fake_members.json?key=0a1387b0';
+const URL_CURRENT_MEMBERS = '../data/members/current_members.json';
 const URL_NOT_MEMBERS = "../data/members/not-members.json";
 const URL_NOT_MEMBERS_SEARCH = "../data/members/not-members-search-test.json";
 
@@ -33,15 +33,25 @@ const debounceTimers = {}; // Store all debounce timers by key.
 const searchControlsElm = document.getElementById('controls__search'); // Intire search-bar container.
 
 const MembersListElms = {
-  SCLP: document.getElementById('trustees'), // Container for displaying SCLP members list.
-  CHARITABLE: document.getElementById('trustees-charitable'), // Container for displaying Charitable members list.
-  SEARCH: document.getElementById('search__results') // Container for displaying available search results.
+  'BOARD MEMBERS': document.getElementById('board-members'),
+  'SAMAJ TRUSTEE': document.getElementById('trustees'),
+  'TRUST TRUSTEE': document.getElementById('trust-trustees'),
+  'BOARD OF GOVERNORS': document.getElementById('governors'),
+  'YOUTH LEAGUE': document.getElementById('youth-league'),
+  'SUB COMMITTEE': document.getElementById('committee-convenors'),
+  'GAAM REPRESENTATIVES': document.getElementById('gaam-representatives'),
+  'SEARCH': document.getElementById('search__results') // Container for displaying available search results.
 };
 
 // Manage listeners for every section.
 const SectionsListener = {
-  SCLP: [{ isActive: false, target: MembersListElms['SCLP'] , event: 'click', handler: openShowMoreOverlay }],
-  CHARITABLE: [{ isActive: false, target: MembersListElms['CHARITABLE'] , event: 'click', handler: openShowMoreOverlay }],
+  'BOARD MEMBERS': [{ isActive: false, target: MembersListElms['BOARD MEMBERS'], event: 'click', handler: openShowMoreOverlay }],
+  'SAMAJ TRUSTEE': [{ isActive: false, target: MembersListElms['SAMAJ TRUSTEE'], event: 'click', handler: openShowMoreOverlay }],
+  'TRUST TRUSTEE': [{ isActive: false, target: MembersListElms['TRUST TRUSTEE'], event: 'click', handler: openShowMoreOverlay }],
+  'BOARD OF GOVERNORS': [{ isActive: false, target: MembersListElms['BOARD OF GOVERNORS'], event: 'click', handler: openShowMoreOverlay }],
+  'YOUTH LEAGUE': [{ isActive: false, target: MembersListElms['YOUTH LEAGUE'], event: 'click', handler: openShowMoreOverlay }],
+  'SUB COMMITTEE': [{ isActive: false, target: MembersListElms['SUB COMMITTEE'], event: 'click', handler: openShowMoreOverlay }],
+  'GAAM REPRESENTATIVES': [{ isActive: false, target: MembersListElms['GAAM REPRESENTATIVES'], event: 'click', handler: openShowMoreOverlay }],
   SEARCH: [
     { isActive: false, target: MembersListElms['SEARCH'] , event: 'click', handler: filterBySelectedResultYear },
     { isActive: false, target: document.getElementById('search__here'), event: 'input', handler: SearchInputHandler },
@@ -130,13 +140,17 @@ const toggleListener = (section, index = 0, enable = true) => {
 const formatMemberInfo = (member) => {
 
   // Extract values from the member object.
-  const { id, appointedOn, relievedOn, department, profilePic, title, ...names } = member;
+  const { id, appointedOn, relievedOn, department, profilePic, title, position, ...names } = member;
+
+  // Check if profilePic is undefined, null, empty string, or doesn't exist
+  const validProfilePic = profilePic && profilePic.trim() !== "" ? profilePic : defaultProfilePic;
 
   return {
     id, department,
-    fullName: (title + " " + Object.values(names).join(" ")).trim(),
+    fullName: Object.values(names).join(" ").trim(),
+    position: position || title || "",
     yearRange: appointedOn == relievedOn ? appointedOn : `${appointedOn} - ${relievedOn}`,
-    imgSrc: profilePic || defaultProfilePic
+    imgSrc: validProfilePic
   };
 }
 
@@ -148,7 +162,20 @@ const formatMemberInfo = (member) => {
  * @param {HTMLImageElement} element - The image element to monitor for loading.
  */
 const handleLazyLoading = (element) => {
+  // If it's already the default profile pic, mark as loaded immediately
+  if (element.src === defaultProfilePic || element.src.endsWith('default-man-avatar.PNG')) {
+    element.parentElement.classList.add('loaded');
+    return;
+  }
+
   element.addEventListener('load', (event) => {
+    event.target.parentElement.classList.add('loaded');
+  }, { once: true });
+
+  // Add error handler to replace broken images with default profile picture
+  element.addEventListener('error', (event) => {
+    event.target.src = defaultProfilePic;
+    // Mark as loaded immediately since we know the default image exists
     event.target.parentElement.classList.add('loaded');
   }, { once: true });
 }
@@ -163,7 +190,7 @@ const handleLazyLoading = (element) => {
 
 const createMemberCardHTML = (member, isSearchResult = false) => {
 
-  const { id, department, fullName, yearRange, imgSrc } = formatMemberInfo(member);
+  const { id, fullName, position, yearRange, imgSrc } = formatMemberInfo(member);
 
   const imgAltText = isSearchResult ? 'search-' + fullName : fullName;
 
@@ -181,10 +208,11 @@ const createMemberCardHTML = (member, isSearchResult = false) => {
       </figure>
 
       <div class="members__description">
-        ${isSearchResult ?
-          `<h5>${fullName}</h5><span>${yearRange}</span><span> - ${department}</span>` :
-          `<span>${yearRange}</span><span> - ${department}</span><h5>${fullName}</h5>`
-        }
+        <h5>${fullName}</h5>
+        <div class="position-info">
+          <span>${position}</span>
+          <span>${yearRange}</span>
+        </div>
       </div>
     </article>
   `;
@@ -230,22 +258,30 @@ const renderSearchMembersList = (filteredList = []) => {
  * @param {Array<Object>} filteredList - An array of member objects to be rendered.
  */
 const renderMembersList = (filteredList = []) => {
-  // Clear old lists/messages from DOM.
-  MembersListElms['SCLP'].innerHTML = '';
-  MembersListElms['CHARITABLE'].innerHTML = '';
+  // First, remove all loading states
+  Object.keys(MembersListElms).forEach(key => {
+    if (key !== 'SEARCH') {
+      MembersListElms[key].classList.remove('load');
+      MembersListElms[key].innerHTML = '';
+    }
+  });
 
   // Show the filtered results.
-  filteredList.forEach(member => MembersListElms[member.department.toUpperCase()].appendChild(createMemberCardHTML(member)));
+  filteredList.forEach(member => {
+    const dept = member.department ? member.department.toUpperCase() : null;
+    if (dept && dept !== 'SEARCH' && MembersListElms[dept]) {
+      MembersListElms[dept].appendChild(createMemberCardHTML(member));
+    }
+  });
 
-  // Add listeners to select a member profile.
-  toggleListener('SCLP');
-  toggleListener('CHARITABLE');
-
-  toggleLoadingState('SCLP'); // Hide loading icon.
-  toggleLoadingState('CHARITABLE'); // Hide loading icon.
-
-  assertIsEmpty(filteredList, 'SCLP');
-  assertIsEmpty(filteredList, 'CHARITABLE');
+  // Add listeners to select a member profile for each section
+  Object.keys(MembersListElms).forEach(key => {
+    if (key !== 'SEARCH') {
+      toggleListener(key);
+      // Only show empty message if there are no members for this department
+      assertIsEmpty(filteredList.filter(m => m.department && m.department.toUpperCase() === key), key);
+    }
+  });
 
 }
 /**
@@ -278,10 +314,6 @@ const fetchDataFromSource = async (sourceURL) => {
  * @returns {Array<Object>} An array of member objects that match the filter, or an empty array if none match.
  */
 const filterByYear = (selectedYear) => { // NOT the best method to filter. CHANGE LATER.
-  // Show loading icon.
-  toggleLoadingState('SCLP');
-  toggleLoadingState('CHARITABLE');
-
   const results = [];
 
   for (const [id, member] of MembersListMap) {
@@ -292,7 +324,6 @@ const filterByYear = (selectedYear) => { // NOT the best method to filter. CHANG
   }
 
   return results;
-
 }
 
 
@@ -343,16 +374,23 @@ function openShowMoreOverlay(event) {
   // Traverse to get the <li> element and get the data 'id'.
   const memberID = parseInt(event.target.closest('li').dataset?.id ?? 0);
 
-  const {id, fullName, department, imgSrc, yearRange } = formatMemberInfo(MembersListMap.get(memberID));
+  const member = MembersListMap.get(memberID);
+  if (!member) return;
+
+  const {id, fullName, position, imgSrc, yearRange } = formatMemberInfo(member);
 
   const overlayElm = document.querySelector('.board-directory__overlay');
   const imgElm = overlayElm.querySelector('.overview__avatar img');
+  const descriptionElm = overlayElm.querySelector('.members__description');
   
   overlayElm.dataset['id'] = id;
   imgElm.src = imgSrc;
-  overlayElm.querySelector('.members__description h5').innerHTML = fullName;
-  overlayElm.querySelector('.members__description span').innerHTML = yearRange;
-  overlayElm.querySelector('.members__description span:nth-child(2)').innerHTML = ' - ' + department;
+  
+  // Update the member info in the overlay
+  descriptionElm.querySelector('h5').innerHTML = fullName;
+  const positionInfo = descriptionElm.querySelector('.position-info');
+  positionInfo.querySelector('span:first-child').innerHTML = position;
+  positionInfo.querySelector('span:last-child').innerHTML = yearRange;
 
   handleLazyLoading(imgElm); // Lazy loading logic.
  
@@ -474,7 +512,7 @@ const filterMembersByYear = (event) => { renderMembersList(filterByYear(event.ta
 document.addEventListener('DOMContentLoaded', async () => {
   // Fetch members data.
   try {
-    const response = await fetchDataFromSource(URL_NOT_MEMBERS);
+    const response = await fetchDataFromSource(URL_CURRENT_MEMBERS);
 
     // Copy the data to the map.
     response.members.forEach(member => MembersListMap.set(member.id, member));
@@ -489,8 +527,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     
   } catch (error) {
-    renderMessage('SCLP', error.message, true);
-    renderMessage('CHARITABLE', error.message, true);
+    // Show error message in all department sections
+    Object.keys(MembersListElms).forEach(key => {
+      if (key !== 'SEARCH') {
+        renderMessage(key, error.message, true);
+      }
+    });
   }
 
 })
