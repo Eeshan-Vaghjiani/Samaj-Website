@@ -1264,7 +1264,7 @@ footer::before {
 .footer-column ul li {
     margin-bottom: 0;
     transition: transform 0.2s ease;
-    padding: 4px 0;
+    padding: 1px 20px;
 }
 
 .footer-column ul li:hover {
@@ -1280,7 +1280,7 @@ footer::before {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 2px 0;
+    padding: 0px 0;
     line-height: 1.5;
 }
 
