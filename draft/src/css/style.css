@@ -1122,13 +1122,14 @@ section:not(.hero-section) {
 
 .journey-date {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 0px 16px;
     background-color: var(--yellow-light);
     color: var(--navy);
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.9rem;
-    margin-bottom: 15px;
+    margin-top: -10px;
+    margin-bottom: 0px;
 }
 
 .journey-card p {
