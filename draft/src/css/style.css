@@ -4261,8 +4261,8 @@ section.hero {
 
 /* Package card spacing and padding */
 .row.g-4 {
-  --bs-gutter-x: 2rem;
-  --bs-gutter-y: 2rem;
+  --bs-gutter-x: 0rem;
+  --bs-gutter-y: 0rem;
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(-1 * var(--bs-gutter-y));
