@@ -441,6 +441,91 @@
                 font-size: 0.9rem;
             }
         }
+
+        .breadcrumb {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    padding: 16px 0;
+    margin-bottom: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+/* Desktop layout for breadcrumb */
+.breadcrumb-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* Make sure nav and actions don't overlap */
+.breadcrumb-nav {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.breadcrumb-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Style search box for better fit */
+.breadcrumb-search {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 20px;
+    padding: 4px 10px;
+    margin-right: 10px;
+}
+.breadcrumb-search input {
+    border: none;
+    background: transparent;
+    outline: none;
+    margin-left: 6px;
+    font-size: 1rem;
+    width: 100px;
+    min-width: 0;
+}
+
+/* Responsive fix for mobile */
+@media (max-width: 600px) {
+    .breadcrumb-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .breadcrumb-nav {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+    .breadcrumb-actions {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    .breadcrumb-search input {
+        width: 80px;
+        font-size: 0.95rem;
+    }
+}
+
+.hero-section,
+.events-section {
+    margin-top: 20px; /* Add space below breadcrumb */
+}
+
+@media (max-width: 768px) {
+    .breadcrumb {
+        padding: 10px 0;
+    }
+    .hero-section,
+    .events-section {
+        margin-top: 10px;
+    }
+}
     </style>
 </head>
 <body>
@@ -457,13 +542,7 @@
                 <span class="breadcrumb-sep">›</span>
                 <span class="current">Upcoming Events</span>
             </nav>
-            <div class="breadcrumb-actions">
-                <div class="breadcrumb-search">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search events..." />
-                </div>
-                <i class="fas fa-calendar-plus breadcrumb-icon" title="Add Event"></i>
-            </div>
+            
         </div>
     </div>
 
@@ -494,13 +573,14 @@
                 <button class="filter-btn" data-category="CULTURAL">Cultural</button>
             </div>
 
+            <div id="no-events-message" class="no-events" style="display: none;">
+                <i class="fas fa-calendar-times fa-3x mb-3"></i>
+                <h3>No events found</h3>
+                <p>There are no upcoming events in this category.</p>
+            </div>
+
             <div id="events-grid" class="events-grid">
                 <!-- Events will be loaded from JSON -->
-                <div class="no-events" style="display: none;">
-                    <i class="fas fa-calendar-times fa-3x mb-3"></i>
-                    <h3>No events found</h3>
-                    <p>There are no upcoming events in this category.</p>
-                </div>
             </div>
         </div>
     </section>
@@ -579,11 +659,14 @@ const categoryColors = {
 
 function renderEvents(events) {
     const eventsGrid = document.getElementById('events-grid');
+    const noEventsMsg = document.getElementById('no-events-message');
     eventsGrid.innerHTML = '';
 
     if (events.length === 0) {
-        document.querySelector('.no-events').style.display = 'block';
+        noEventsMsg.style.display = 'block';
         return;
+    } else {
+        noEventsMsg.style.display = 'none';
     }
 
     events.forEach(event => {
@@ -786,6 +869,18 @@ function renderEvents(events) {
             // Hide on load
             scrollUpBtn.style.display = 'none';
         }
+
+        // Fix: Add click handler for calendar-plus button
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listener for calendar-plus icon
+            const calendarBtn = document.querySelector('.fa-calendar-plus');
+            if (calendarBtn) {
+                calendarBtn.addEventListener('click', function() {
+                    // Replace with your modal logic if you have one
+                    alert('Feature coming soon: Add Event');
+                });
+            }
+        });
     </script>
 </body>
 </html>
