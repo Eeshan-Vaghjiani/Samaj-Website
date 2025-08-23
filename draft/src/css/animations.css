@@ -18,31 +18,18 @@
     opacity: 0;
     transform: translateX(-50px);
   }
-  to  /* Header actions position - must stay on right side */
-  .header-actions {
-    position: absolute !important;
-    right: 16px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    z-index: 1005 !important;
-  }
-  
-  .mobile-nav-toggle,
-  .search-icon {
-    position: relative !important;
-    z-index: 1005 !important;
-    cursor: pointer !important;
-  }
-  
-  .nav-container {
-    z-index: 1000 !important;
-  }
-  
-  .nav-container.mobile-active {
-    z-index: 1000 !important;
-  }pacity: 1;
+  to {
+    opacity: 1;
     transform: translateX(0);
   }
+}
+
+/* Header actions position - must stay on right side */
+
+.mobile-nav-toggle {
+  position: relative !important;
+  z-index: 1005 !important;
+  cursor: pointer !important;
 }
 
 /* Slide in from right animation */
@@ -158,21 +145,6 @@
   opacity: 0;
 }
 
-.animate-slide-left {
-  animation: slideInLeft 0.4s ease-out forwards;
-  opacity: 0;
-}
-
-.animate-slide-right {
-  animation: slideInRight 0.4s ease-out forwards;
-  opacity: 0;
-}
-
-.animate-scale-up {
-  animation: scaleUp 0.6s ease-out forwards;
-  opacity: 0;
-}
-
 .animate-pulse {
   animation: pulse 2s infinite;
 }
@@ -184,40 +156,12 @@
   animation: shimmer 3s infinite;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradientShift 15s ease infinite;
-}
-
 .animate-wave {
   animation: wave 3s ease-in-out infinite;
   transform-origin: center bottom;
 }
 
 /* Animation delays */
-.delay-100 {
-  animation-delay: 100ms;
-}
-
-.delay-200 {
-  animation-delay: 200ms;
-}
-
-.delay-300 {
-  animation-delay: 300ms;
-}
-
-.delay-400 {
-  animation-delay: 400ms;
-}
-
-.delay-500 {
-  animation-delay: 500ms;
-}
 
 /* Animation for journey and committee cards */
 .journey-card, .committee-card {
@@ -247,10 +191,6 @@
 }
 
 /* Image zoom animation on hover */
-.committee-card:hover .committee-img img {
-  transform: scale(1.05);
-  transition: transform 0.5s ease;
-}
 
 /* Button hover animation */
 .read-more:hover {
@@ -269,19 +209,6 @@
   transition: all 0.3s ease;
 }
 
-.header-layout {
-  transition: min-height 0.3s ease;
-}
-
-.logo-left {
-  transition: all 0.3s ease;
-}
-
-.header-wrapper.scrolled .logo-left {
-  transition: all 0.3s ease;
-  /* Removed any positioning styles to avoid conflicts */
-}
-
 .nav-container {
   transition: all 0.3s ease, margin-left 0.3s ease;
 }
@@ -296,24 +223,6 @@
 
 .nav-menu li a {
   transition: all 0.3s;
-}
-
-.footer-column ul li a {
-  transition: var(--transition);
-}
-
-.footer-column ul li a:hover {
-  transition: var(--transition);
-}
-
-.social-icon {
-  /* Only handle transitions, not positioning */
-  transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-  /* Only handle transitions, not positioning */
-  transition: all 0.3s ease;
 }
 
 /* Smooth scrolling */
@@ -335,17 +244,8 @@ html {
     opacity: 1;
     z-index: 1000;
   }
-
-  .header-actions {
-    position: fixed;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1005;
-  }
   
-  .mobile-nav-toggle,
-  .search-icon {
+  .mobile-nav-toggle {
     position: relative;
     z-index: 1005;
     cursor: pointer;
@@ -367,13 +267,6 @@ html {
   }
 
   /* Fixed header actions position - must stay on right side */
-  .header-actions {
-    position: absolute !important;
-    right: 16px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    z-index: 1002 !important;
-  }
   
   /* Disable any animation that might affect the hamburger icon */
   .mobile-nav-toggle:hover {
@@ -382,22 +275,15 @@ html {
   }
 
   /* Remove rotation animation */
-  .mobile-nav-toggle.mobile-active,
+  
   .mobile-nav-toggle:hover {
     transform: none !important;
   }
   
   /* Ensure logo stays fixed */
-  .header-wrapper:not(.scrolled) .logo-left,
-  .header-wrapper:not(.scrolled) .logo-left .logo {
-    transform: none !important;
-    transition: none !important;
-    animation: none !important;
-  }
   
   /* Ensure header actions stay fixed */
-  .header-actions,
-  .header-actions .search-icon,
+  
   .mobile-nav-toggle {
     transition: none !important;
     animation: none !important;
@@ -417,7 +303,7 @@ html {
     opacity: 1 !important;
     visibility: visible !important;
   }
-}
+
 
 /* Committee page animations */
 .committee-col {

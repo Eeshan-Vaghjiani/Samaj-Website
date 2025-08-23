@@ -1257,11 +1257,11 @@ function loadGalleryImages() {
                 '25-12-54 Inauguration of Ronald Ngala Samaj.jpg',
                 '09-08-81 Visit by Indira Gandhi.jpg',
                 '21-10-91 Foundation Stone Laying of Devshi Dhanji Memorial Hall by Mr _ Mrs. Ramji Devshi Vekaria.jpg',
-                '15-08-10 Kay Pavilion Foundation.JPG',
+                '15-08-10 Kay Pavilion Foundation.jpeg',
                 '2.Ronald Ngala/1954 Opening Ceremony by Mr. Khimji Ramji Patel, Mr.Ramji Kurji Raghwani _ Mr. Lalji Harji Varsani.jpg',
                 '3 First 10 Years 1993-2002/Foundation Stone Laying of Samaj Flats Phase II on 14th February 1999.jpg',
-                '4. 5 Years (2003-2007)/Youth League Volleyball Tournament March 2006.JPG',
-                '6. Next 10 Years (2008 - 2018)/2016 Free Medical Camp - Eye Checkup.JPG'
+                '4. 5 Years (2003-2007)/Youth League Volleyball Tournament March 2006.jpeg',
+                '6. Next 10 Years (2008 - 2018)/2016 Free Medical Camp - Eye Checkup.jpeg'
             ];
             
             // Use manual images if necessary

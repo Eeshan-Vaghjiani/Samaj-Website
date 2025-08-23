@@ -251,8 +251,7 @@ ul.search__results { /* Only displayed when search bar is focused. */
   display: block;
 }
 
-.board-directory__block .members__description h5,
-.overlay__avatar .members__description h5 { margin-top: .4rem; }
+.board-directory__block .members__description h5 { margin-top: .4rem; }
 
 
 .board-directory__block { 

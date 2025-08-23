@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upcoming Events - Shree Cutchi Leva Patel Samaj, Nairobi</title>
-    <link rel="stylesheet" href="../css/tailwind.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -547,7 +546,7 @@
     </div>
 
     <!-- Hero Section -->
-    <div class="hero-section events-hero" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Six-A-Side Soccer 2016 (2).jpg') center center / cover no-repeat;">
+    <div class="hero-section events-hero" style="background: url('../assets/images/Timeline Related Photos/6. Next 10 Years (2008 - 2018)/Six-A-Side Soccer 2016 (2).jpeg') center center / cover no-repeat;">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2>Upcoming Events</h2>
@@ -687,7 +686,7 @@ function renderEvents(events) {
         eventCard.innerHTML = `
             <div class="event-poster">
                 <img src="../data/events/images/watermarked/${event.image}" alt="${event.title}" 
-                     onerror="this.onerror=null; this.src='../assets/images/Timeline Related Photos/samaj.jpg';">
+                     onerror="this.onerror=null; this.src='../assets/images/Timeline Related Photos/samaj.jpeg';">
                 <div class="event-date">
                     <span class="day">${day}</span>
                     <span class="month">${month}</span>
@@ -779,7 +778,7 @@ function renderEvents(events) {
             modalImage.src = `../data/events/images/watermarked/${event.image}`;
             modalImage.alt = event.title;
             modalImage.onerror = function() {
-                this.src = '../assets/images/Timeline Related Photos/samaj.jpg';
+                this.src = '../assets/images/Timeline Related Photos/samaj.jpeg';
             };
 
             // Show modal

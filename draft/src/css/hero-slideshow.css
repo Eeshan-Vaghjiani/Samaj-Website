@@ -292,13 +292,6 @@
     height: 100%;
     z-index: 5;
   }
-  
-  .slideshow__slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
 }
 
 /* Enhanced pagination styling */
