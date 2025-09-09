@@ -1239,8 +1239,8 @@ function loadGalleryImages() {
     loadingIndicator.style.display = 'block';
     galleryGrid.innerHTML = ''; // Clear any existing content
     
-    // Specify the photos path - updated to use correct relative path
-    const basePath = '../assets/photos/';
+    // Images now use full relative path from JSON
+    const basePath = '';
     
     // Files to exclude
     const excludeFiles = ['samaj logo.png', 'samaj.jpg', 'school.jpg'];
@@ -1308,7 +1308,7 @@ function loadGalleryImages() {
             
             // Create gallery items for each image
             filteredImages.forEach((imagePath, index) => {
-                const relativePath = basePath + imagePath;
+                const relativePath = imagePath.startsWith('src/assets/images/photos/') ? '../' + imagePath : basePath + imagePath;
                 const filename = imagePath.split('/').pop();
                 
                 console.log(`Processing image ${index + 1}/${filteredImages.length}: ${relativePath}`);
