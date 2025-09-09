@@ -344,7 +344,7 @@ function ensureMobileLogo(navContainer) {
         
         // Create the logo image
         const logoImg = document.createElement('img');
-        logoImg.src = '../assets/images/Timeline Related Photos/samaj logo.png';
+        logoImg.src = '../assets/images/samaj logo.png';
         logoImg.alt = 'Samaj Logo';
         logoImg.className = 'logo';
         logoImg.style.width = '80px';
@@ -1219,9 +1219,18 @@ function loadGalleryImages() {
     const galleryGrid = document.getElementById('gallery-grid');
     const loadingIndicator = document.getElementById('gallery-loading');
     
-    if (!galleryGrid || !loadingIndicator) {
-        console.error('Gallery elements not found');
+    if (!galleryGrid) {
+        console.log('Gallery elements not found - probably not on history page');
         return;
+    }
+    
+    if (!loadingIndicator) {
+        console.log('Loading indicator not found');
+        // Create a simple loading message if the indicator doesn't exist
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'gallery-loading';
+        loadingDiv.textContent = 'Loading gallery...';
+        galleryGrid.parentNode.insertBefore(loadingDiv, galleryGrid);
     }
     
     console.log('Starting to load gallery images');
@@ -1230,8 +1239,8 @@ function loadGalleryImages() {
     loadingIndicator.style.display = 'block';
     galleryGrid.innerHTML = ''; // Clear any existing content
     
-    // Specify the timeline photos path - updated to use correct relative path
-    const basePath = '../assets/images/Timeline Related Photos/';
+    // Specify the photos path - updated to use correct relative path
+    const basePath = '../assets/photos/';
     
     // Files to exclude
     const excludeFiles = ['samaj logo.png', 'samaj.jpg', 'school.jpg'];
@@ -1506,7 +1515,10 @@ function highlightActiveLink() {
     const navLinks = document.querySelectorAll('.nav-link');
 
     navLinks.forEach(link => {
-        const linkPage = link.getAttribute('href').split('/').pop();
+        const href = link.getAttribute('href');
+        if (!href) return; // Skip if no href attribute
+        
+        const linkPage = href.split('/').pop();
 
         if (linkPage === currentPage) {
             link.classList.add('active');
